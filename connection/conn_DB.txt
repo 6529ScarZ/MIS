@@ -3,3 +3,4 @@ root
 
 misdb
 3306
+utf8

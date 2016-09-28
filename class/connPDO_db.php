@@ -18,8 +18,9 @@ class connPDO_db extends read_conn{
         $this->dbconfig["password"]= trim($conn_db[2]) ;
         $this->dbconfig["database"]= trim($conn_db[3]) ;
         $this->dbconfig["port"]= trim($conn_db[4]) ;
+        $this->dbconfig["charector_set"]= trim($conn_db[5]);
         $this->dbconfig["collation_connection"]= "utf8_unicode_ci";
-        $this->dbconfig["charector_set"]= "utf8";
+
         
         $host=$this->dbconfig["hostname"];
         $user=$this->dbconfig["username"];
@@ -29,8 +30,10 @@ class connPDO_db extends read_conn{
         $char=$this->dbconfig["charector_set"];
         
         try {  
-            $this->db = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$database.';charset=utf8',$user,$pass);
-            $this->db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );  
+            $this->db = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$database.';',$user,$pass);
+            $this->db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            //$this->db->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES '.$char.'');
+            //$this->db->exec("set names ".$char."");
 
         return $this->db;
     }
