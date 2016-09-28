@@ -30,27 +30,26 @@ $read="../connection/conn_DB.txt";
 $dbh->para_read($read);
 $dbh->conn_PDO();
 $db=$dbh->getDb();
-$sql = "select m1.Name as id,concat(e1.firstname,' ',e1.lastname) as fullname,e1.depid as dep,m1.Status as Status from member m1 
-           inner join emppersonal e1 on m1.Name=e1.empno
-           inner join department d1 on e1.depid=d1.depId
-           inner join posid p1 on e1.posid=p1.posId
-           where m1.Username = :user_account AND m1.Password = :user_pwd";
+$sql = "select u.user_id as id,concat(u.user_fname,' ',u.user_lname) as fullname,u.user_status as Status 
+    from user u
+           where u.user_account = :user_account AND u.user_pwd = :user_pwd";
 $execute=array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
 $dbh->imp_sql($sql);
-$result=$dbh->select($execute);
+$result=$dbh->select_a($execute);
 
 if ($result) {
-    $_SESSION['user'] = $result[0]['id'];
-    $_SESSION['fullname'] = $result[0]['fullname'];
-    $_SESSION['Status'] = $result[0]['Status'];
+    $_SESSION['user_mis'] = $result['id'];
+    $_SESSION['fullname_mis'] = $result['fullname'];
+    $_SESSION['Status_mis'] = $result['Status'];
+    
 $date = new DateTime(null, new DateTimeZone('Asia/Bangkok'));//กำหนด Time zone
-$date_login=$date->format('Y-m-d');
-$time_login=$date->format('H:m:s');
+$date_login = $date->format('Y-m-d H:m:s');
+$time_login = time();
 
-                $table = "member";
+                $table = "user";
                 $data = array($date_login,$time_login);
                 $field = array("date_login","time_login");
-                $where = "Username= :user_account && Password= :user_pwd";
+                $where = "user_account= :user_account && user_pwd= :user_pwd";
                 $execute = array(':user_account' => $user_account, ':user_pwd' => $user_pwd);
                 $edit_address = $dbh->update($table, $data, $where, $field, $execute);
 }else{

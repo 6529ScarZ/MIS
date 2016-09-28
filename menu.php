@@ -21,7 +21,7 @@
           
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <?php if(empty($_SESSION['user'])){?>
+                <?php if(empty($_SESSION['user_mis'])){?>
                 <li class="dropdown messages-menu">
                     
                         <a href="#" onClick="return popup('login_page.php', popup, 300, 330);" title="เข้าสู่ระบบบุคลากร">
@@ -31,7 +31,7 @@
                 </li>
                 <?php }else{
                     
-                    $user_id = $_SESSION['user'];
+                    $user_id = $_SESSION['user_mis'];
                                     if (!empty($user_id)) {
                                         
                                         $sql = "select em.photo,po.posname ,d1.depName from emppersonal em 
@@ -60,7 +60,7 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="<?= $fold.$photo?>" class="user-image" alt="User Image">
-                  <span class="hidden-xs"><?= $_SESSION['fullname']?></span>
+                  <span class="hidden-xs"><?= $_SESSION['fullname_mis']?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
@@ -111,7 +111,7 @@
             <li class=""><a href="index.php">
                     <img src="images/gohome.ico" width="20"> <span>หน้าหลัก</span></a>
             </li>
-            <?php if(isset($_SESSION['user'])){ ?>
+            <?php if(isset($_SESSION['user_mis'])){ ?>
             <li class="treeview">
               <a href="#">
                   <img src="images/kuser.ico" width="20">
