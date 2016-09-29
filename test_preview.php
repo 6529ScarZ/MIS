@@ -5,10 +5,10 @@ include 'class/convers_encode.php';?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="tis620">
+        <meta charset="utf8">
         <meta name="description" content="">
         <meta name="author" content="">
-        <meta http-equiv="Content-Type" content="text/html; charset=tis620" /> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf8" /> 
          </head>
 
          <body>
@@ -119,16 +119,8 @@ for($i=0;$i<count($query2);$i++){
 $conn_DB2->insert_update($table, $data, $chk);    
 }
 ?>
-             <form class="" role="form" action='process/prcbill_transfer.php' enctype="multipart/form-data" method='post'>
-                 <?php foreach($query1 as $key=>$val){ //นำค่าไปใส่ form element
-     //foreach ($val as $value) {?>
-                 <input type="hidden" name="billdisp[]" value="<?=$val?>">
-                 <?php }//}?>
-                 <input type="hidden" name="billdisp_item" value="<?php print_r($query2);?>">
-                 <input type="submit" name="submit" value="import">
-             </form> 
+             <a href="test_export.php" class="btn btn-primary"><i class="fa fa-print"></i> Export TXT</a> 
              <?php 
-             echo $query1[0]['providerID'];
              echo "<pre>".print_r($query2,TRUE)."</pre>";?>
          </body>
 </html>

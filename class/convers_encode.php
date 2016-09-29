@@ -3,8 +3,10 @@
 class convers_encode {
     public $string;
     
-                function tis620_to_utf8($string) {
-                    $this->string=$string;
+    function tis620_to_utf8($string) {
+        $this->string=$string;
+        $s='';
+        $utf8='';
         for ($i = 0; $i < strlen($this->string); $i++) {
             $s = substr($this->string, $i, 1);
             $val = ord($s);
