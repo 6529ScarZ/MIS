@@ -1,6 +1,7 @@
 <?php session_start(); 
 include 'class/TablePDO.php';
-include 'class/Export.php';?>
+include 'class/Export.php';
+include 'class/convers_encode.php';?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -97,7 +98,9 @@ $conn_DB2= new EnDeCode();
 $read="connection/conn_DB.txt";
 $conn_DB2->para_read($read);
 $conn_DB2->conn_PDO();
+$conv=new convers_encode();
 for($i=0;$i<count($query1);$i++){
+    
     $data=array($query1[$i]['providerID'],$query1[$i]['dispenseID'],$query1[$i]['invoice_no'],$query1[$i]['hn'],$query1[$i]['PID'],$query1[$i]['prescription_date'],$query1[$i]['dispensed_date'],
         $query1[$i]['prescriber'],$query1[$i]['item_count'],$query1[$i]['charg_amount'],$query1[$i]['claim_amount'],
             $query1[$i]['paid_amount'],$query1[$i]['other_amount'],$query1[$i]['reimbuser'],$query1[$i]['benefit_plan'],$query1[$i]['dispense_status'],0);
@@ -106,8 +109,10 @@ for($i=0;$i<count($query1);$i++){
 $conn_DB2->insert_update($table, $data, $chk);    
 }
 for($i=0;$i<count($query2);$i++){
-    $data=array($query2[$i]['hos_guid'],$query2[$i]['dispenseID'],$query2[$i]['productCategory'],$query2[$i]['HospitalDrugID'],$query2[$i]['drugID'],$query2[$i]['dfsCode'],$query2[$i]['dfstext'],$query2[$i]['PackSize'],
-            $query2[$i]['singcode'],$query2[$i]['sigText'],$query2[$i]['quantity'],$query2[$i]['UnitPrice'],$query2[$i]['Chargeamount'],$query2[$i]['ReimbPrice'],$query2[$i]['ReimbAmount']
+    $PackSize=$conv->tis620_to_utf8($query2[$i]['PackSize']);
+    $sigText=$conv->tis620_to_utf8($query2[$i]['sigText']);
+    $data=array($query2[$i]['hos_guid'],$query2[$i]['dispenseID'],$query2[$i]['productCategory'],$query2[$i]['HospitalDrugID'],$query2[$i]['drugID'],$query2[$i]['dfsCode'],$query2[$i]['dfstext'],$PackSize,
+            $query2[$i]['singcode'],$sigText,$query2[$i]['quantity'],$query2[$i]['UnitPrice'],$query2[$i]['Chargeamount'],$query2[$i]['ReimbPrice'],$query2[$i]['ReimbAmount']
             ,$query2[$i]['ProDuctselectionCode'],$query2[$i]['refill'],$query2[$i]['claimControl'],$query2[$i]['ClaimCategory'],$query2[$i]['prescription_date'],0);
     $table="billdisp_item";
     $chk="chk";
