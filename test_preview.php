@@ -54,6 +54,7 @@ ORDER BY ov.vstdate, ov.vsttime";
 $conn_DB->imp_sql($sql);
 $query1=$conn_DB->select();
 $sql2="SELECT 
+  op.hos_guid,   
   CONCAT(ov.vn,RIGHT(CONCAT('000',ov.doctor),3))AS dispenseID,
   '1' as productCategory ,op.icode as HospitalDrugID ,
   t1.tpu_code as drugID,
@@ -70,7 +71,8 @@ $sql2="SELECT
 '' as ProDuctselectionCode,
 '' as refill,
 '' as claimControl,
-'' as ClaimCategory
+'' as ClaimCategory,
+CONCAT( ov.vstdate,' ',ov.vsttime) AS prescription_date
  
   
 FROM
@@ -98,16 +100,18 @@ $conn_DB2->conn_PDO();
 for($i=0;$i<count($query1);$i++){
     $data=array($query1[$i]['providerID'],$query1[$i]['dispenseID'],$query1[$i]['invoice_no'],$query1[$i]['hn'],$query1[$i]['PID'],$query1[$i]['prescription_date'],$query1[$i]['dispensed_date'],
         $query1[$i]['prescriber'],$query1[$i]['item_count'],$query1[$i]['charg_amount'],$query1[$i]['claim_amount'],
-            $query1[$i]['paid_amount'],$query1[$i]['other_amount'],$query1[$i]['reimbuser'],$query1[$i]['benefit_plan'],$query1[$i]['dispense_status']);
+            $query1[$i]['paid_amount'],$query1[$i]['other_amount'],$query1[$i]['reimbuser'],$query1[$i]['benefit_plan'],$query1[$i]['dispense_status'],0);
     $table="billdisp";
-$conn_DB2->insert($table, $data);    
+    $chk="chk";
+$conn_DB2->insert_update($table, $data, $chk);    
 }
 for($i=0;$i<count($query2);$i++){
-    $data=array($query2[$i]['dispenseID'],$query2[$i]['productCategory'],$query2[$i]['HospitalDrugID'],$query2[$i]['drugID'],$query2[$i]['dfsCode'],$query2[$i]['dfstext'],$query2[$i]['PackSize'],
+    $data=array($query2[$i]['hos_guid'],$query2[$i]['dispenseID'],$query2[$i]['productCategory'],$query2[$i]['HospitalDrugID'],$query2[$i]['drugID'],$query2[$i]['dfsCode'],$query2[$i]['dfstext'],$query2[$i]['PackSize'],
             $query2[$i]['singcode'],$query2[$i]['sigText'],$query2[$i]['quantity'],$query2[$i]['UnitPrice'],$query2[$i]['Chargeamount'],$query2[$i]['ReimbPrice'],$query2[$i]['ReimbAmount']
-            ,$query2[$i]['ProDuctselectionCode'],$query2[$i]['refill'],$query2[$i]['claimControl'],$query2[$i]['ClaimCategory']);
+            ,$query2[$i]['ProDuctselectionCode'],$query2[$i]['refill'],$query2[$i]['claimControl'],$query2[$i]['ClaimCategory'],$query2[$i]['prescription_date'],0);
     $table="billdisp_item";
-$conn_DB2->insert($table, $data);    
+    $chk="chk";
+$conn_DB2->insert_update($table, $data, $chk);    
 }
 ?>
              <form class="" role="form" action='process/prcbill_transfer.php' enctype="multipart/form-data" method='post'>

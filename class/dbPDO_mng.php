@@ -102,6 +102,38 @@ class dbPDO_mng extends ConnPDO_db{
 			return false;
 		}
     }
+    //    ฟังก์ชันสำหรับการ insert ข้อมูลหากซ้ำจะ update
+    function insert_update($table, $data, $field_chk) {
+        $this->table = $table;
+        $this->data = $data;
+        $this->field_chk = $field_chk;
+        $this->db=$this->conn_PDO();
+        $fields = "";
+        $values = "";
+        $var = $this->listfield($this->table); //การใช้งาน function ใน class เดียวกัน
+        $i = 0;
+        array_shift($var); //เอาค่าของ array ตัวแรกออก
+        foreach ($this->data as $key => $val) {
+            if ($i != 0) {
+                $fields.=", ";
+                $values.=", ";
+            }
+            $fields.="$var[$key]";
+            $values.="'$val'";
+            $i++;
+        }
+        $this->sql = "INSERT INTO $this->table ($fields) VALUES ($values) ON DUPLICATE KEY UPDATE $this->field_chk=$this->field_chk+1";
+        try
+		{
+        $data = $this->db->prepare($this->sql);
+        $data->execute(); 
+        return $this->db->lastInsertId();
+                } catch(PDOException $e)
+		{
+			echo $e->getMessage();	
+			return false;
+		}
+    }
 
 //    ฟังก์ชันสำหรับการ update ข้อมูล
     function update($table, $data, $where, $field, $execute) {
