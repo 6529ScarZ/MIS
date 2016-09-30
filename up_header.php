@@ -21,5 +21,8 @@ if($db != FALSE){
                                     $pic = 'agency.ico';
                                     $fol = "images/";
                                 }
-}
+}else {
+                                    $pic = 'agency.ico';
+                                    $fol = "images/";
+                                }
                     ?>

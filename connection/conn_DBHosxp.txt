@@ -1,5 +1,5 @@
 10.0.0.254
-admintoy    
+admintoy
 gotoytoynoy
 hosxp
 3306

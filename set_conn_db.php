@@ -17,26 +17,32 @@ include 'header.php';
                   <div class="panel-body">
                       <div class="form-group"> 
                 <label>HOST Name &nbsp;</label>
-                <input type="text" class="form-control" name="host_name" id="host_name" placeholder="host name" required>
+                <input type="text" class="form-control" name="val_conn[]" id="host_name" placeholder="host name" required>
              	</div>
                       <div class="form-group"> 
                 <label>Username &nbsp;</label>
-                <input type="text" class="form-control" name="username" id="username" placeholder="username" required>
+                <input type="text" class="form-control" name="val_conn[]" id="username" placeholder="username" required>
              	</div>
                       <div class="form-group"> 
                 <label>Password &nbsp;</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="password">
+                <input type="password" class="form-control" name="val_conn[]" id="password" placeholder="password">
              	</div>
                       <div class="form-group"> 
                 <label>Database name &nbsp;</label>
-                <input type="text" class="form-control" name="db_name" id="db_name" placeholder="database name" required>
+                <input type="text" class="form-control" name="val_conn[]" id="db_name" placeholder="database name" required>
                       </div>
                       <div class="form-group"> 
                 <label>Port &nbsp;</label>
-                <input type="text" class="form-control" name="port" id="port" placeholder="MySql Port" required>
+                <input type="text" class="form-control" name="val_conn[]" id="port" placeholder="MySql Port" required>
+                      </div>
+                      <div class="form-group"> 
+                <label>charset &nbsp;</label>
+                <input type="text" class="form-control" name="val_conn[]" id="char" placeholder="Charset" required>
                       </div>
                     <div class="form-group"> 
                         <center>
+                            <?php $host= filter_input(INPUT_GET, 'host');?>
+                            <input type="hidden" name="host" value="<?=$host?>">
                         <input type="submit" class="btn btn-success" name="submit" value="ตกลง">
                         </center>
                     </div>

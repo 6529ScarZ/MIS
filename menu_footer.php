@@ -7,8 +7,7 @@
       </footer>
 
       <!-- Control Sidebar -->
-      <?php if(!empty($_SESSION['Status'])){
-          if($_SESSION['Status']=='ADMIN'){?>
+      <?php if(!empty($_SESSION['user_mis'])) {?>
       <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -114,6 +113,19 @@
           <div class="tab-pane" id="control-sidebar-settings-tab">
             <form method="post">
               <h3 class="control-sidebar-heading">General Settings</h3>
+              <?php $check = md5(trim('check'));?>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                    <a href="#" onClick="return popup('set_conn_db.php?method=<?= $check ?>&host=main', popup, 400, 600);" title="Config Database">
+                        <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; Connect Database Main </a>
+                </label>
+              </div><!-- /.form-group -->
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                    <a href="#" onClick="return popup('set_conn_db.php?method=<?= $check ?>&host=hos', popup, 400, 600);" title="Config Database Hos">
+                        <img src="images/icon_set2/gear.ico" width="25">&nbsp;&nbsp; Connect Database Hos </a>
+                </label>
+              </div><!-- /.form-group -->
               <div class="form-group">
                 <label class="control-sidebar-subheading">
                     <a href="index.php?page=content/add_User">
@@ -142,7 +154,7 @@
           </div><!-- /.tab-pane -->
         </div>
       </aside><!-- /.control-sidebar -->
-      <?php }}?>
+      <?php }?>
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>

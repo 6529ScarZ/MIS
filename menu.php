@@ -1,13 +1,13 @@
-  <body class="hold-transition skin-green fixed sidebar-collapse sidebar-mini">
+  <body class="hold-transition skin-blue-light fixed sidebar-collapse sidebar-mini">
     <div class="wrapper">
 
       <header class="main-header">
         <!-- Logo -->
         <a href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>H</b>RD</span>
+          <span class="logo-mini"><b>M</b>IS</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>HRD-</b>System v.2.0</span>
+          <span class="logo-lg"><b>MIS-</b>HOS v.1.0</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -34,17 +34,15 @@
                     $user_id = $_SESSION['user_mis'];
                                     if (!empty($user_id)) {
                                         
-                                        $sql = "select em.photo,po.posname ,d1.depName from emppersonal em 
-                                                        INNER JOIN posid po on em.posid=po.posId
-                                                        INNER JOIN department d1 on em.depid=d1.depId
-                                                        WHERE empno='$user_id'";
-                                        $conn_DB->imp_sql($sql);
-                                      $result=$conn_DB->select_a();
+                                        $sql = "select concat(user_fname,' ',user_lname)as fullname,photo
+                                            from user
+                                                        WHERE user_id=:user_id";
+                                         $execute=array(':user_id' => $user_id);
+                                         $conn_DB->imp_sql($sql);
+                                      $result=$conn_DB->select_a($execute);
                                       //$conn_DB->close_PDO();
                                       
                                       $empno_photo=$result['photo'];
-                                      $posname=$result['posname'];
-                                      $depname=$result['depName'];
                                         if (empty($empno_photo)) {
                                     $photo = 'person.png';
                                     $fold = "images/";
@@ -67,8 +65,8 @@
                   <li class="user-header">
                     <img src="<?= $fold.$photo?>" class="img-circle" alt="User Image">
                     <p>
-                      <?= $posname?>
-                      <small><?= $depname?></small>
+                      <?= $result['fullname']?>
+                      <!--<small><?= $depname?></small>-->
                     </p>
                   </li>
                   <!-- Menu Footer-->
@@ -102,7 +100,7 @@
             </div>
             <div class="pull-left info">
               <p>โรงพยาบาลจิตเวชเลยฯ</p>
-              <a href="#"><i class="fa fa-circle text-success"></i> ระบบข้อมูลบุคลากร</a>
+              <a href="#"><i class="fa fa-circle text-success"></i> ระบบสารสนเทศโรงพยาบาล</a>
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->

@@ -2,7 +2,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-          <a href="../index.php"><b>HRD-S</b>ystem</a>
+          <a href="../index.php"><b style="color: blue">MIS-HOS</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">เข้าสู่ระบบเพื่อเริ่มใช้งาน</p>
@@ -17,7 +17,7 @@
           </div>
           <div class="row">
             <div class="col-xs-12">
-             <button type="submit" class="btn btn-warning btn-block btn-flat">เข้าสู่ระบบ</button>
+             <button type="submit" class="btn btn-primary btn-block btn-flat">เข้าสู่ระบบ</button>
             </div><!-- /.col -->
           </div>
         </form>
