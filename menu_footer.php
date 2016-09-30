@@ -7,7 +7,7 @@
       </footer>
 
       <!-- Control Sidebar -->
-      <?php if(!empty($_SESSION['user_mis'])) {?>
+      <?php if(!empty($_SESSION['user_mis'] and $_SESSION['user_mis']==1)) {?>
       <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
