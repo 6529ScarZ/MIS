@@ -6,7 +6,8 @@ class write_conn {
         $this->fconn = $conn_file;
         $this->vconn=$conn_value;
         $objFopen = fopen($this->fconn, 'w');
-        for($i=0;$i<count($this->vconn);$i++){
+        $count_vconn=count($this->vconn);
+        for($i=0;$i<$count_vconn;$i++){
             
         $data[$i]=$this->vconn[$i];
         $write[$i] = "$data[$i]\r\n";

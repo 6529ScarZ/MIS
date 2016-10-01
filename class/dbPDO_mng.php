@@ -227,7 +227,7 @@ class dbPDO_mng extends ConnPDO_db{
             }
         
     }
-    
+//////นับcolumm    
     function count_field(){
         $this->db=$this->conn_PDO();
         try{
@@ -241,7 +241,7 @@ class dbPDO_mng extends ConnPDO_db{
         $num_fields = $data->columnCount();
         return $num_fields;
     }
-    
+/////ตรวจสอบว่าค่านั้นเป็นประเภทวันที่หรือไม่    
     function validateDate($date, $format = 'Y-m-d H:i:s')//หาค่าว่าเป็นชนิด date หรือไม่
 {
     $d = DateTime::createFromFormat($format, $date);

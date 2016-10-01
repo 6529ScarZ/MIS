@@ -1,6 +1,6 @@
 <?php
 require 'conn_db.php';
-class Db_mng extends Conn_DB{
+class db_mng extends Conn_DB{
 
     public $sql;
 

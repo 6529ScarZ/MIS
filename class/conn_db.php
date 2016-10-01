@@ -1,7 +1,7 @@
 <?php
 //require 'read_conn.php';
 //class Conn_DB extends Read_DB{
-class Conn_DB{
+class conn_db{
     public $dbconfig=array(
         "hostname"=>NULL,
         "username"=>NULL,

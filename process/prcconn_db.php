@@ -11,7 +11,10 @@
             self.focus();
             window.opener.location.reload();">
         <?php
-        include '../class/write_conn.php';
+        //include '../class/write_conn.php';
+function __autoload($class_name) {
+    include '../class/'.strtolower($class_name).'.php';
+}
         if (null !== (filter_input(INPUT_POST, 'host'))) {
         $host= filter_input(INPUT_POST, 'host');
         if($host=='main'){

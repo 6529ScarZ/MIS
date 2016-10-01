@@ -105,7 +105,8 @@ public function create_Detial_photo($title,$fol) {
                 $c = 0;
                 $C = 1;
                 $ii=0;
-                for ($I = 0; $I < count($query); $I++) {
+                $count_qr=count($query);
+                for ($I = 0; $I < $count_qr; $I++) {
                     $num_field = $this->count_field();
                     if($ii>=5){
                         $ii=0;

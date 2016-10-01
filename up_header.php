@@ -1,8 +1,8 @@
 <?php session_start(); 
-require_once 'class/TablePDO.php';
-//function __autoload($class_name) {
-    //include 'class/'.$class_name.'.php';
-//}
+//require_once 'class/TablePDO.php';
+function __autoload($class_name) {
+    include 'class/'.strtolower($class_name).'.php';
+}
 set_time_limit(0);
 $conn_DB= new EnDeCode();
 $read="connection/conn_DB.txt";

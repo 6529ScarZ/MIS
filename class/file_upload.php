@@ -1,6 +1,6 @@
 <?php
 
-class File_Upload {
+class file_upload {
 
     public $folder;
     public $file;

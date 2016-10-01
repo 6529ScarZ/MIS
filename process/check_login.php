@@ -10,7 +10,10 @@ setTimeout("self.close()",StayAlive * 1000);
   <body class="hold-transition skin-green fixed sidebar-mini" onLoad="KillMe();self.focus();window.opener.location.reload();">
       <section class="content">
 <?php
- require '../class/dbPDO_mng.php';
+ //require '../class/dbPDO_mng.php';
+function __autoload($class_name) {
+    include '../class/'.strtolower($class_name).'.php';
+}
 $user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_ENCODED)));
 $user_pwd = md5(trim(filter_input(INPUT_POST, 'user_pwd',FILTER_SANITIZE_ENCODED)));
 // using PDO
