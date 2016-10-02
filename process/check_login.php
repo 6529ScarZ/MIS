@@ -43,7 +43,7 @@ $result=$dbh->select_a($execute);
 if ($result) {
     $_SESSION['user_mis'] = $result['id'];
     $_SESSION['fullname_mis'] = $result['fullname'];
-    $_SESSION['Status_mis'] = $result['Status'];
+    $_SESSION['status_mis'] = $result['Status'];
     
 $date = new DateTime(null, new DateTimeZone('Asia/Bangkok'));//กำหนด Time zone
 $date_login = $date->format('Y-m-d H:m:s');

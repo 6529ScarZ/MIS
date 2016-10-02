@@ -30,7 +30,6 @@ if (isset($_SESSION['user_mis'])) {
             $conn_DB1->imp_sql($sql);
             $comm = $conn_DB1->select('');
             $conn_DB1->close_PDO();
-            echo $_SESSION['Status_mis'];
             ?>
             <!--<a href="#" class="btn btn-success" onclick="window.open('content/detial_comm.php?id=<?php echo $conn_DB1->sslEnc($comm[0]['comm_id']);?>', '', 'width=800,height=650');
                     return false;">

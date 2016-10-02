@@ -106,7 +106,7 @@ function nextbox(e, id) {
 
                      function insert_date($take_date_conv,$take_date)
                     {
-                        $take_date=explode("/",$take_date_conv);
+                        $take_date=explode("-",$take_date_conv);
 			 $take_date_year=$take_date[2]-543;
 			 $take_date="$take_date_year-$take_date[1]-$take_date[0]";
                          return $take_date;

@@ -7,7 +7,7 @@
         //buttonImage: 'images/calendar.gif',
         //buttonImageOnly: true,
         yearOffSet: 543,
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd-mm-yy',
         dayNames: ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'],
         dayNamesMin: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
         monthNames: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],

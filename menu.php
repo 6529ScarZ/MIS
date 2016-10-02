@@ -40,7 +40,6 @@
                                          $execute=array(':user_id' => $user_id);
                                          $conn_DB->imp_sql($sql);
                                       $result=$conn_DB->select_a($execute);
-                                      //$conn_DB->close_PDO();
                                       
                                       $empno_photo=$result['photo'];
                                         if (empty($empno_photo)) {
@@ -50,7 +49,6 @@
                                     $photo = $empno_photo;
                                     $fold = "photo/";
                                 }
-                                        //$db->close();
                                     }
                     
                     ?>
@@ -113,14 +111,11 @@
             <li class="treeview">
               <a href="#">
                   <img src="images/kuser.ico" width="20">
-                <span>ระบบบุคลากร</span>
+                <span>ระบบนำเข้าข้อมูล</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="index.php?page=personal/add_person"><i class="fa fa-circle-o text-green"></i> เพิ่มข้อมูลบุคลากร</a></li>
-                <li><a href="index.php?page=personal/pre_person"><i class="fa fa-circle-o text-green"></i> ข้อมูลบุคลากร</a></li>
-                <li><a href="index.php?page=personal/pre_educate"><i class="fa fa-circle-o text-green"></i> ประวัตฺการศึกษา</a></li>
-                <li><a href="index.php?page=personal/resign_person"><i class="fa fa-circle-o text-green"></i> ข้อมูลบุคลากรย้าย/ลาออก</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billimp.php','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILL</a></li>
                 <li>
                   <a href="#"><i class="fa fa-circle-o text-blue"></i> รายงาน <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">

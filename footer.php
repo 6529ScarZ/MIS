@@ -50,6 +50,6 @@
     <script src="dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
-<?php $conn_DB->close_PDO();?>
+<?php //$conn_DB->close_PDO();?>
   </body>
 </html>

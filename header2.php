@@ -48,5 +48,42 @@
     <script src="../plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.js"></script>
     <link rel="stylesheet" href="../plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.css" />
     <link rel="stylesheet" href="../plugins/jquery-ui-1.11.4.custom/SpecialDateSheet.css" />
-<?php  include 'plugins/jquery-ui-1.11.4.custom/DatepickerThai4.php';?>
+<?php  include 'plugins/jquery-ui-1.11.4.custom/DatepickerThai4.php';
+function insert_date($take_date_conv)
+                    {   $take_date='';
+                        $take_date=explode("-",$take_date_conv);
+			 $take_date_year=$take_date[2]-543;
+			 $take_date="$take_date_year-$take_date[1]-$take_date[0]";
+                         return $take_date;
+                    }
+?>
+    <script type="text/javascript">
+		function popup(url,name,windowWidth,windowHeight){    
+				myleft=(screen.width)?(screen.width-windowWidth)/2:100;	
+				mytop=(screen.height)?(screen.height-windowHeight)/2:100;	
+				properties = "width="+windowWidth+",height="+windowHeight;
+				properties +=",scrollbars=yes, top="+mytop+",left="+myleft;   
+				window.open(url,name,properties);
+	}
+</script>
+<script type="text/javascript">
+                    function inputDigits(sensor) {
+                        var regExp = /[0-9.-/]$/;
+                        if (!regExp.test(sensor.value)) {
+                            alert("กรอกตัวเลขเท่านั้นครับ");
+                            sensor.value = sensor.value.substring(0, sensor.value.length - 1);
+                        }
+                    }
+                </script>
+                <!--scrip check ตัวอักษร-->
+                <script type="text/javascript">
+                    function inputString(sensor) {
+                        var regExp = /[A-Za-zก-ฮะ-็่-๋์/]$/;
+                        if (!regExp.test(sensor.value)) {
+                            alert("กรอกตัวอักษรเท่านั้นครับ");
+                            sensor.value = sensor.value.substring(0, sensor.value.length - 1);
+                        }
+                    }
+
+                </script>
   </head>
