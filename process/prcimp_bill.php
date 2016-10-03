@@ -1,5 +1,6 @@
 <?php include '../header2.php';
-set_time_limit(0);?>
+ignore_user_abort(1); // run script in background
+set_time_limit(180);?>
 <script language="JavaScript" type="text/javascript">
             var StayAlive = 1; // เวลาเป็นวินาทีที่ต้องการให้ WIndows เปิดออก 
             function KillMe()
@@ -8,6 +9,7 @@ set_time_limit(0);?>
             }
         </script>
         <body onLoad="KillMe();self.focus();window.opener.location.reload();">
+            <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='45'></div>
 <?php
 function __autoload($class_name) {
     include '../class/'.strtolower($class_name).'.php';

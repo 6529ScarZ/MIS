@@ -4,7 +4,7 @@
           <div class="col-lg-12">
                 <div class="box box-success box-solid">
                 <div class="box-header with-border">
-                  <h3 class="box-title"><img src='images/phonebook.ico' width='25'> ข้อมูลทั่วไป</h3>
+                  <h3 class="box-title"><img src='images/phonebook.ico' width='25'> นำเข้าข้อมูล BILL</h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                   </div><!-- /.box-tools -->
