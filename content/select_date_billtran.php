@@ -4,9 +4,9 @@ if(null !== (filter_input(INPUT_GET, 'method'))){
 }
 if (isset($method) and $method == 'imp') {
 ?>
-<form class="" role="form" action='../process/prcimp_bill.php' enctype="multipart/form-data" method='post'>
+<form class="" role="form" action='../process/prcimp_billtran.php' enctype="multipart/form-data" method='post'>
 <?php }elseif ($method == 'exp') {?>
-<form class="" role="form" action='../process/prcexp_bill.php' enctype="multipart/form-data" method='post'>   
+<form class="" role="form" action='../process/prcexp_billtran.php' enctype="multipart/form-data" method='post'>   
     <input type="hidden" name="method" value="exp">
 <?php }?>
 <div class="row">
@@ -14,7 +14,7 @@ if (isset($method) and $method == 'imp') {
                 <div class="box box-success box-solid">
                 <div class="box-header with-border">
                   <h3 class="box-title"><img src='images/phonebook.ico' width='25'> 
-                     <?php if (isset($method) and $method == 'imp') {?>นำเข้าข้อมูล BILL<?php }else{?>ส่งออกข้อมูล BILL<?php }?></h3>
+                     <?php if (isset($method) and $method == 'imp') {?>นำเข้าข้อมูล BILLTRAN<?php }else{?>ส่งออกข้อมูล BILLTRAN<?php }?></h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                   </div><!-- /.box-tools -->

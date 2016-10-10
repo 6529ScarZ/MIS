@@ -24,27 +24,21 @@ $read="../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_DB->conn_PDO();
 
-$sql="SELECT providerID,dispenseID,invoice_no,hn,PID,
-CONCAT(SUBSTR(prescription_date,1,10),'T',SUBSTR(prescription_date,12,18))prescription_date,
-CONCAT(SUBSTR(dispensed_date,1,10),'T',SUBSTR(dispensed_date,12,18))dispensed_date,
-prescriber,item_count,charg_amount,claim_amount,paid_amount,other_amount,reimbuser,
-benefit_plan,dispense_status
-FROM billdisp
-WHERE SUBSTR(prescription_date,1,10) BETWEEN '$st_date' AND '$en_date' order by prescription_date asc";
+$sql="SELECT Station,AuthCode,DTTran,HCode,InvNo,BillNo,HN,MemberNo,Amount,Paid,VerCode,Tflag
+FROM billtran
+WHERE SUBSTR(DTTran,1,10) BETWEEN '$st_date' AND '$en_date' order by DTTran asc";
 $query1=$conn_DB->query($sql);
-$sql2="SELECT dispenseID,productCategory,HospitalDrugID,drugID,dfsCode,dfstext,PackSize,singcode,
-sigText,quantity,UnitPrice,Chargeamount,ReimbPrice,ReimbAmount,ProDuctselectionCode,refill,
-claimControl,ClaimCategory
-FROM billdisp_item
-WHERE SUBSTR(prescription_date,1,10) BETWEEN '$st_date' AND '$en_date' ORDER BY prescription_date ASC";
+$sql2="SELECT InvNo,BillMuad,Amount,Paid
+FROM billtran_item
+WHERE SUBSTR(DTTran,1,10) BETWEEN '$st_date' AND '$en_date' ORDER BY DTTran ASC";
 
 $query2=$conn_DB->query($sql2);
-$name="BILLDISP".date("ymd");
+$name="BILLTRAN".date("ymd");
 $path="../file_export/";
 $filName=$path.$name;
 $symbol="|";
 $export= new Export($filName, $symbol, $query1, $query2);
-$export->Export_TXT_billdisp();
+$export->Export_TXT_billtran();
 if($export==FALSE){
    echo "<script>alert('การส่งออกข้อมูลไม่สำเร็จจ้า!')</script>";  
 } else {  

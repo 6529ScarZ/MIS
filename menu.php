@@ -115,13 +115,14 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILL</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILLDISP</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILLTRAN</a></li>
                 <li>
                   <a href="#"><i class="fa fa-circle-o text-blue"></i> รายงาน <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
-                    <li><a href="index.php?page=personal/statistics_person"><i class="fa fa-circle-o text-aqua"></i> สถิติบุคลากร</a></li>
-                    <li><a href="#" onClick="window.open('personal/detial_type.php','','width=400,height=350'); return false;" title="สถิติประเภทพนักงาน"><i class="fa fa-circle-o text-aqua"></i> สถิติประเภทพนักงาน</a></li>
-                    <li><a href="#" onClick="window.open('personal/detial_position.php','','width=600,height=680'); return false;" title="สถิติตำแหน่งพนักงาน"><i class="fa fa-circle-o text-aqua"></i> สถิติตำแหน่งพนักงาน</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> #</a></li>
+                    <li><a href="#" onClick="window.open('#.php','','width=400,height=350'); return false;" title="สถิติประเภทพนักงาน"><i class="fa fa-circle-o text-aqua"></i> #</a></li>
+                    <li><a href="#" onClick="window.open('#.php','','width=600,height=680'); return false;" title="สถิติตำแหน่งพนักงาน"><i class="fa fa-circle-o text-aqua"></i> #</a></li>
                     </ul>
             </li>
               </ul>
@@ -133,60 +134,21 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=exp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> ส่งออก BILL</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=exp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLDISP</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=exp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLTRAN</a></li>
                 <li>
                   <a href="#"><i class="fa fa-circle-o text-orange"></i> รายงาน <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> สถิติการลาแยกหน่วยงาน</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> สถิติการลา</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> #</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> #</a></li>
                     </ul>
                 </li>
               </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                  <img src="images/training.ico" width="20">
-                <span>ระบบอบรมภายนอก</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o text-maroon"></i> บันทึกโครงการฝึกอบรมภายนอก</a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o text-maroon"></i> บันทึกการฝึกอบรมภายนอก</a></li>
-                <li>
-                  <a href="#"><i class="fa fa-circle-o text-fuchsia"></i> รายงาน <i class="fa fa-angle-left pull-right"></i></a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-fuchsia"></i> สถิติการฝึกอบรมภายนอก</a></li>
-                    </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                  <img src="images/trainin.ico" width="20">
-                <span>ระบบอบรมภายใน</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o text-purple"></i> บันทึกโครงการฝึกอบรมภายใน</a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o text-purple"></i> บันทึกการฝึกอบรมภายใน</a></li>
-                <li>
-                  <a href="#"><i class="fa fa-circle-o text-maroon"></i> รายงาน <i class="fa fa-angle-left pull-right"></i></a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-fuchsia"></i> สถิติการฝึกอบรมภายใน</a></li>
-                    </ul>
-                </li>
-              </ul>
-            </li>
-                        <li>
-                <a href="plugins/fullcalendar/fullcalendar1.php">
-                    <img src="images/notes.ico" width="20"> <span>ประชาสัมพันธ์</span>
-                <small class="label pull-right bg-red">3</small>
-              </a>
             </li>
             <?php }?>
             <li>
-                <a href="#" onClick="return popup('plugins/fullcalendar/fullcalendar1.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
-                    <img src="images/Calendar.ico" width="20"> <span>ปฏิทินการลา</span>
+                <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
+                    <img src="images/Calendar.ico" width="20"> <span>#</span>
               </a>
             </li>
           </ul>
