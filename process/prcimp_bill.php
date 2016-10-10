@@ -1,6 +1,7 @@
 <?php include '../header2.php';
 ignore_user_abort(1); // run script in background
-set_time_limit(180);?>
+set_time_limit(180);
+ini_set('max_execution_time', 0);?>
 <script language="JavaScript" type="text/javascript">
             var StayAlive = 1; // เวลาเป็นวินาทีที่ต้องการให้ WIndows เปิดออก 
             function KillMe()
