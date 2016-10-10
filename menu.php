@@ -115,7 +115,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#" onClick="window.open('content/select_date_billimp.php','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILL</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILL</a></li>
                 <li>
                   <a href="#"><i class="fa fa-circle-o text-blue"></i> รายงาน <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
@@ -129,14 +129,11 @@
             <li class="treeview">
               <a href="#">
                   <img src="images/Letter.png" width="20">
-                <span>ระบบการลา</span>
+                <span>ระบบส่งออก TXT</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="index.php?page=leave/receive_leave"><i class="fa fa-circle-o text-red"></i> บันทึกทะเบียนรับใบลา</a></li>
-                <li><a href="index.php?page=leave/pre_leave"><i class="fa fa-circle-o text-red"></i> บันทึกการลาบุคลากร</a></li>
-                <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o text-red"></i> ยกเลิกใบลา</a></li>
-                <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o text-red"></i> การลาชั่วโมง</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=exp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> ส่งออก BILL</a></li>
                 <li>
                   <a href="#"><i class="fa fa-circle-o text-orange"></i> รายงาน <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">

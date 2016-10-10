@@ -1,5 +1,14 @@
-<?php include '../header2.php';?>
+<?php include '../header2.php';
+if(null !== (filter_input(INPUT_GET, 'method'))){
+    $method=filter_input(INPUT_GET, 'method');
+}
+if (isset($method) and $method == 'imp') {
+?>
 <form class="" role="form" action='../process/prcimp_bill.php' enctype="multipart/form-data" method='post'>
+<?php }elseif ($method == 'exp') {?>
+<form class="" role="form" action='../process/prcexp_bill.php' enctype="multipart/form-data" method='post'>   
+    <input type="hidden" name="method" value="exp">
+<?php }?>
 <div class="row">
           <div class="col-lg-12">
                 <div class="box box-success box-solid">

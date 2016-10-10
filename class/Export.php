@@ -29,7 +29,8 @@ fclose($objWrite);
 }
 public function Export_TXT_billdisp(){
 $objWrite = fopen("$this->filName.txt", "w");
-
+try {
+    
 fwrite($objWrite,"<?xml version=\"1.0\" encoding=\"windows-874\"?>\r\n");
 fwrite($objWrite,"<ClaimRec System=\"OP\" PayPlan=\"CS\" Version=\"0.91\">\r\n");
 fwrite($objWrite,"<Header>\r\n");
@@ -70,5 +71,10 @@ fwrite($objWrite,"\r\n");
 fwrite($objWrite,"</DispensedItems>\r\n");
 fwrite($objWrite,"</ClaimRec>\r\n");
 fclose($objWrite);
+} catch (Exception $e) {
+     echo 'ERROR: ' . $e->getMessage();
+     return FALSE;
+}
+
 }
 }
