@@ -110,7 +110,7 @@
             <?php if(isset($_SESSION['user_mis'])){ ?>
             <li class="treeview">
               <a href="#">
-                  <img src="images/kuser.ico" width="20">
+                  <img src="images/Import.ico" width="20">
                 <span>ระบบนำเข้าข้อมูล</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -129,7 +129,7 @@
             </li>
             <li class="treeview">
               <a href="#">
-                  <img src="images/Letter.png" width="20">
+                  <img src="images/Document_Upload.ico" width="20">
                 <span>ระบบส่งออก TXT</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>

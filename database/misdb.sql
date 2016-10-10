@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-09-28 14:57:58
+Date: 2016-10-10 16:10:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,10 +22,10 @@ DROP TABLE IF EXISTS `billdisp`;
 CREATE TABLE `billdisp` (
   `billdisp_id` int(10) NOT NULL AUTO_INCREMENT,
   `providerID` int(5) NOT NULL,
-  `dispenseID` int(15) DEFAULT NULL,
-  `invoice_no` int(12) DEFAULT NULL,
-  `hn` int(10) NOT NULL,
-  `PID` int(13) NOT NULL,
+  `dispenseID` varchar(15) DEFAULT NULL,
+  `invoice_no` varchar(12) DEFAULT NULL,
+  `hn` varchar(10) NOT NULL,
+  `PID` varchar(13) NOT NULL,
   `prescription_date` datetime DEFAULT NULL,
   `dispensed_date` datetime DEFAULT NULL,
   `prescriber` varchar(6) DEFAULT NULL,
@@ -37,7 +37,9 @@ CREATE TABLE `billdisp` (
   `reimbuser` varchar(6) DEFAULT NULL,
   `benefit_plan` varchar(6) DEFAULT NULL,
   `dispense_status` int(2) DEFAULT NULL,
-  PRIMARY KEY (`billdisp_id`)
+  `chk` int(3) DEFAULT '0',
+  PRIMARY KEY (`billdisp_id`),
+  UNIQUE KEY `hn` (`hn`,`prescription_date`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -50,7 +52,8 @@ CREATE TABLE `billdisp` (
 DROP TABLE IF EXISTS `billdisp_item`;
 CREATE TABLE `billdisp_item` (
   `billdispitem_id` int(10) NOT NULL AUTO_INCREMENT,
-  `dispenseID` int(15) DEFAULT NULL,
+  `hos_guid` varchar(38) NOT NULL,
+  `dispenseID` varchar(15) DEFAULT NULL,
   `productCategory` int(2) DEFAULT NULL,
   `HospitalDrugID` int(7) DEFAULT NULL,
   `drugID` int(6) DEFAULT NULL,
@@ -68,7 +71,10 @@ CREATE TABLE `billdisp_item` (
   `refill` varchar(5) DEFAULT NULL,
   `claimControl` varchar(5) DEFAULT NULL,
   `ClaimCategory` varchar(5) DEFAULT NULL,
-  PRIMARY KEY (`billdispitem_id`)
+  `prescription_date` datetime DEFAULT NULL,
+  `chk` int(3) DEFAULT '0',
+  PRIMARY KEY (`billdispitem_id`),
+  UNIQUE KEY `dispenseID` (`dispenseID`,`hos_guid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -85,7 +91,7 @@ CREATE TABLE `billtran` (
   `AuthCode` int(10) DEFAULT NULL,
   `DTTran` datetime DEFAULT NULL,
   `HCode` int(5) DEFAULT NULL,
-  `InvNo` int(12) DEFAULT NULL,
+  `InvNo` varchar(12) DEFAULT NULL,
   `BillNo` varchar(10) DEFAULT NULL,
   `HN` int(10) DEFAULT NULL,
   `MemberNo` varchar(10) DEFAULT NULL,
@@ -93,7 +99,9 @@ CREATE TABLE `billtran` (
   `Paid` int(3) DEFAULT NULL,
   `VerCode` varchar(10) DEFAULT NULL,
   `Tflag` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`billtran_id`)
+  `chk` int(3) DEFAULT NULL,
+  PRIMARY KEY (`billtran_id`),
+  UNIQUE KEY `DTTran` (`DTTran`,`HN`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -106,16 +114,39 @@ CREATE TABLE `billtran` (
 DROP TABLE IF EXISTS `billtran_item`;
 CREATE TABLE `billtran_item` (
   `billtranitem_id` int(10) NOT NULL AUTO_INCREMENT,
-  `InvNo` int(12) DEFAULT NULL,
+  `hos_guid` varchar(38) NOT NULL,
+  `InvNo` varchar(12) DEFAULT NULL,
   `BillMuad` varchar(2) DEFAULT NULL,
   `Amount` int(6) DEFAULT NULL,
   `Paid` int(3) DEFAULT NULL,
-  PRIMARY KEY (`billtranitem_id`)
+  `DTTran` datetime DEFAULT NULL,
+  `chk` int(3) DEFAULT NULL,
+  PRIMARY KEY (`billtranitem_id`),
+  UNIQUE KEY `InvNo` (`hos_guid`,`InvNo`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of billtran_item
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for hospital
+-- ----------------------------
+DROP TABLE IF EXISTS `hospital`;
+CREATE TABLE `hospital` (
+  `hospital` int(11) NOT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `manager` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name2` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`hospital`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of hospital
+-- ----------------------------
+INSERT INTO `hospital` VALUES ('1', 'โรงพยาบาลจิตเวชเลยราชนครินทร์', '0133', '09-07-20151logo.png', 'http://localhost:89/', 'โรงพยาบาลจิตเวชเลยฯ');
 
 -- ----------------------------
 -- Table structure for user
@@ -129,12 +160,14 @@ CREATE TABLE `user` (
   `user_account` varchar(200) NOT NULL,
   `user_pwd` varchar(200) NOT NULL,
   `user_status` int(1) NOT NULL,
+  `photo` varchar(255) DEFAULT NULL,
   `date_login` datetime DEFAULT NULL,
   `time_login` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'ฐานปนพงศ์', 'ดีอุดมจันทร์', 'scarz', 'a182e991eb5396de1e18f430dbc49a37', 'ac10ec1ace51b2d973cd87973a98d3ab', '0', '2016-09-28 14:09:34', '1475046454');
+INSERT INTO `user` VALUES ('1', 'ฐานปนพงศ์', 'ดีอุดมจันทร์', 'scarz', 'a182e991eb5396de1e18f430dbc49a37', 'ac10ec1ace51b2d973cd87973a98d3ab', '0', null, '2016-10-10 16:10:18', '1476090558');
+INSERT INTO `user` VALUES ('2', 'ขัตติยา', 'วัฒนา', 'ae', 'b6bb43df4525b928a105fb5741bddbea', '81dc9bdb52d04dc20036dbd8313ed055', '1', null, '2016-10-10 16:10:13', '1476090493');
