@@ -8,13 +8,21 @@ if (isset($method) and $method == 'imp') {
 <?php }elseif ($method == 'exp') {?>
 <form class="" role="form" action='../process/prcexp_bill.php' enctype="multipart/form-data" method='post'>   
     <input type="hidden" name="method" value="exp">
+<?php }elseif ($method == 'upd') {?>
+    <form class="" role="form" action='../process/prcimp_bill.php' enctype="multipart/form-data" method='post'>
+        <input type="hidden" name="method" value="upd">
 <?php }?>
 <div class="row">
           <div class="col-lg-12">
                 <div class="box box-success box-solid">
                 <div class="box-header with-border">
-                  <h3 class="box-title"><img src='images/phonebook.ico' width='25'> 
-                     <?php if (isset($method) and $method == 'imp') {?>นำเข้าข้อมูล BILL<?php }else{?>ส่งออกข้อมูล BILL<?php }?></h3>
+                  <h3 class="box-title">
+                      <?php if (isset($method) and $method == 'exp'){?>
+                      <img src='../images/Document_Upload.ico' width='25'> 
+                      <?php }else{?>
+                      <img src='../images/Import.ico' width='25'> 
+                      <?php }?>
+                     <?php if (isset($method) and $method == 'imp') {?>นำเข้าข้อมูล BILLDISP<?php }elseif($method =='upd'){?>Update ข้อมูล BILLDISP<?php }else{?>ส่งออกข้อมูล BILLDISP<?php }?></h3>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                   </div><!-- /.box-tools -->
@@ -29,7 +37,7 @@ if (isset($method) and $method == 'imp') {
                 <p><input name="en_date" type="text" id="datepicker2"  placeholder='รูปแบบ 22/07/2557' class="form-control" required></p>
                 </div>
 <div class="col-lg-2 col-xs-12" align="center">
-    <?php if (isset($method) and $method == 'imp') {$val='นำเข้า';}else{$val='ส่งออก';}?>
+    <?php if (isset($method) and $method == 'imp') {$val='นำเข้า';}elseif($method =='upd'){$val='Update';}else{$val='ส่งออก';}?>
     <input type="submit" class="btn btn-success" value="<?= $val?>">
 </div>
                 </div>

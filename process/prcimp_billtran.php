@@ -10,10 +10,13 @@ ini_set('max_execution_time', 0);?>
             }
         </script>
         <body onLoad="KillMe();self.focus();window.opener.location.reload();">
-            <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='45'></div>
+            <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='200'></div>
 <?php
 function __autoload($class_name) {
     include '../class/'.strtolower($class_name).'.php';
+}
+if (null !== (filter_input(INPUT_POST, 'method'))) {  
+    $method=filter_input(INPUT_POST, 'method');
 }
 $take_date_conv = $_POST['st_date'];
 $st_date=insert_date($take_date_conv);
@@ -79,7 +82,12 @@ for($i=0;$i<$count_qr1;$i++){
             $query1[$i]['Tflag'],0);
     $table="billtran";
     $chk="chk";
-$inert_tran=$conn_DBMAIN->insert_update($table, $data, $chk);    
+if(isset($method) and $method='upd'){
+     $where="InvNo= :InvNo && HN= :HN";
+     $execute=array(':InvNo' => $query1[$i]['InvNo'], ':HN' => $query1[$i]['HN']);
+  $inert_tran=$conn_DBMAIN->update($table, $data, $where, '', $execute);   
+ }else{     
+ $inert_tran=$conn_DBMAIN->insert_update($table, $data, $chk); }   
 }
 $count_qr2=count($query2);
 for($i=0;$i<$count_qr2;$i++){
@@ -88,7 +96,12 @@ for($i=0;$i<$count_qr2;$i++){
     $data=array($query2[$i]['hos_guid'],$query2[$i]['InvNo'],$query2[$i]['BillMuad'],$query2[$i]['Amount'],$query2[$i]['Paid'],$query2[$i]['DTTran'],0);
     $table="billtran_item";
     $chk="chk";
-$inert_tranitem=$conn_DBMAIN->insert_update($table, $data, $chk);  }
+    if(isset($method) and $method='upd'){
+     $where="hos_guid= :hos_guid";
+     $execute=array(':hos_guid' => $query2[$i]['hos_guid']);
+     $inert_tranitem=$conn_DBMAIN->update($table, $data, $where,  '', $execute);
+    }else{
+$inert_tranitem=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
 
 if(($inert_tran and $inert_tranitem)==FALSE){
     echo "<script>alert('การนำเข้าข้อมูลไม่สำเร็จจ้า!')</script>";

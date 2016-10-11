@@ -115,14 +115,13 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILLDISP</a></li>
-                <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILLTRAN</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILLDISP จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILLDISP</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILLTRAN จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILLTRAN</a></li>
                 <li>
-                  <a href="#"><i class="fa fa-circle-o text-blue"></i> รายงาน <i class="fa fa-angle-left pull-right"></i></a>
+                  <a href="#"><i class="fa fa-circle-o text-blue"></i> update ข้อมูล <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> #</a></li>
-                    <li><a href="#" onClick="window.open('#.php','','width=400,height=350'); return false;" title="สถิติประเภทพนักงาน"><i class="fa fa-circle-o text-aqua"></i> #</a></li>
-                    <li><a href="#" onClick="window.open('#.php','','width=600,height=680'); return false;" title="สถิติตำแหน่งพนักงาน"><i class="fa fa-circle-o text-aqua"></i> #</a></li>
+                    <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=upd','','width=400,height=250'); return false;" title="Update ข้อมูล BILLDISP จาก HOS"><i class="fa fa-circle-o text-aqua"></i> update BILLDISP</a></li>
+                    <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=upd','','width=400,height=250'); return false;" title="Update ข้อมูล BILLTRAN จาก HOS"><i class="fa fa-circle-o text-aqua"></i> update BILLTRAN</a></li>
                     </ul>
             </li>
               </ul>

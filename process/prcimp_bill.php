@@ -10,10 +10,13 @@ ini_set('max_execution_time', 0);?>
             }
         </script>
         <body onLoad="KillMe();self.focus();window.opener.location.reload();">
-            <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='45'></div>
+            <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='200'></div>
 <?php
 function __autoload($class_name) {
     include '../class/'.strtolower($class_name).'.php';
+}
+if (null !== (filter_input(INPUT_POST, 'method'))) {  
+    $method=filter_input(INPUT_POST, 'method');
 }
 $take_date_conv = $_POST['st_date'];
 $st_date=insert_date($take_date_conv);
@@ -109,7 +112,12 @@ for($i=0;$i<$count_qr1;$i++){
             $query1[$i]['paid_amount'],$query1[$i]['other_amount'],$query1[$i]['reimbuser'],$query1[$i]['benefit_plan'],$query1[$i]['dispense_status'],0);
     $table="billdisp";
     $chk="chk";
-$inert_disp=$conn_DBMAIN->insert_update($table, $data, $chk);    
+ if(isset($method) and $method='upd'){
+     $where="dispenseID= :dispenseID && invoice_no= :invoice_no && hn= :hn";
+     $execute=array(':dispenseID' => $query1[$i]['dispenseID'], ':invoice_no' => $query1[$i]['invoice_no'], ':hn' =>$query1[$i]['hn']);
+  $inert_disp=$conn_DBMAIN->update($table, $data, $where, '', $execute);   
+ }else{ 
+ $inert_disp=$conn_DBMAIN->insert_update($table, $data, $chk);  }  
 }
 $count_qr2=count($query2);
 for($i=0;$i<$count_qr2;$i++){
@@ -120,7 +128,12 @@ for($i=0;$i<$count_qr2;$i++){
             ,$query2[$i]['ProDuctselectionCode'],$query2[$i]['refill'],$query2[$i]['claimControl'],$query2[$i]['ClaimCategory'],$query2[$i]['prescription_date'],0);
     $table="billdisp_item";
     $chk="chk";
-$inert_dispitem=$conn_DBMAIN->insert_update($table, $data, $chk);  }
+    if(isset($method) and $method='upd'){
+     $where="hos_guid= :hos_guid";
+     $execute=array(':hos_guid' => $query2[$i]['hos_guid']);
+     $inert_dispitem=$conn_DBMAIN->update($table, $data, $where,  '', $execute);
+    }else{
+    $inert_dispitem=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
 
 if(($inert_disp and $inert_dispitem)==FALSE){
     echo "<script>alert('การนำเข้าข้อมูลไม่สำเร็จจ้า!')</script>";

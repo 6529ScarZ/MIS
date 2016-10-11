@@ -136,7 +136,7 @@ class dbPDO_mng extends ConnPDO_db{
     }
 
 //    ฟังก์ชันสำหรับการ update ข้อมูล
-    function update($table, $data, $where, $field, $execute) {
+    function update($table, $data, $where, $field=null, $execute) {
         
         $this->execute=$execute;
         $this->table = $table;
