@@ -4,7 +4,7 @@ function __autoload($class_name) {
     include 'class/'.strtolower($class_name).'.php';
 }
 set_time_limit(0);
-$conn_DB= new EnDeCode();
+$conn_DB= new TablePDO();
 $read="connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $db=$conn_DB->conn_PDO();

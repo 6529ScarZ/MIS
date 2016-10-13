@@ -6,7 +6,7 @@ class TablePDO extends EnDeCode {
 
     public $column;
 
-    public function __construct($column) {
+    public function __construct($column=null) {
         $this->column = $column;
     }
 

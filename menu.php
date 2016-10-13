@@ -70,7 +70,7 @@
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
+                        <a href="index.php?page=content/add_user&id=<?= $conn_DB->sslEnc($user_id)?>" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
                     </div>
                     <div class="pull-right">
                         <a href="index.php?page=process/logout" class="btn btn-default btn-flat">ออกจากระบบ</a>

@@ -22,7 +22,7 @@ if (isset($_SESSION['user_mis'])) {
         <section class="content">
             <?php
             $sql = "select hospital from hospital order by hospital desc limit 1";
-            $conn_DB1 = new EnDeCode();
+            $conn_DB1 = new TablePDO();
             $read = "connection/conn_DB.txt";
             $conn_DB1->para_read($read);
             $db=$conn_DB1->conn_PDO();
