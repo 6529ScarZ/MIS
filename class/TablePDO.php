@@ -642,7 +642,7 @@ class TablePDO extends EnDeCode {
                                            echo "<td align='center'>" . DateThai1($query[$c][$field[$i]]) . "</td>";
                                        } else {
                                            echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
-                                           echo "<input type='hidden' name='$field[$i][]' value='".$query[$c][$field[$i]]."'>";
+                                           echo "<input type='hidden' name='$field[$i][]' value='".$query[$c][$field[$i]]."'>";//ทุกค่าที่selectมาจะสามารถส่งไปได้ผ่าน<input type='hidden'>ยกเว้นที่เป็นวันที่
                                        }
                                    } else {
                                        if ($i = ($num_field - 1)) {
