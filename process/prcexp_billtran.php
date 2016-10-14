@@ -15,22 +15,35 @@ set_time_limit(180);
 function __autoload($class_name) {
     include '../class/'.strtolower($class_name).'.php';
 }
-$take_date_conv = $_POST['st_date'];
-$st_date=insert_date($take_date_conv);
-$take_date_conv = $_POST['en_date'];
-$en_date=insert_date($take_date_conv);
 $conn_DB= new EnDeCode();
 $read="../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_DB->conn_PDO();
 
+$check_ps=$_POST['check_ps'];
+$values='';
+$values2='';
+$id='';
+$InvNo='';
+$i=0;
+foreach ($check_ps as $key => $value) {
+        $id[$value] = $conn_DB->sslDec($_POST['id'][$value]);
+        $InvNo[$value]=$_POST['InvNo'][$value];
+        if ($i != 0) {
+                $values.=", ";
+                $values2.=", ";
+            }
+            $values.="$id[$value]";
+            $values2.="'$InvNo[$value]'";
+            $i++;
+        }
 $sql="SELECT Station,AuthCode,DTTran,HCode,InvNo,BillNo,HN,MemberNo,Amount,Paid,VerCode,Tflag
 FROM billtran
-WHERE SUBSTR(DTTran,1,10) BETWEEN '$st_date' AND '$en_date' order by DTTran asc";
+WHERE billtran_id in($values) order by DTTran asc";
 $query1=$conn_DB->query($sql);
 $sql2="SELECT InvNo,BillMuad,Amount,Paid
 FROM billtran_item
-WHERE SUBSTR(DTTran,1,10) BETWEEN '$st_date' AND '$en_date' ORDER BY DTTran ASC";
+WHERE InvNo in($values2) ORDER BY DTTran ASC";
 
 $query2=$conn_DB->query($sql2);
 $name="BILLTRAN".date("ymd");

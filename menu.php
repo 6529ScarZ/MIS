@@ -133,8 +133,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=exp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLDISP</a></li>
-                <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=exp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLTRAN</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=exp','','width=900,height=700'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLDISP</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=exp','','width=900,height=700'); return false;" title="นำเข้าข้อมูล BILL จาก HOS"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLTRAN</a></li>
                 <li>
                   <a href="#"><i class="fa fa-circle-o text-orange"></i> รายงาน <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">

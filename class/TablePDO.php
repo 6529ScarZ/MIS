@@ -1,12 +1,11 @@
 <?php
 require 'EnDeCode.php';
-include 'plugins/funcDateThai.php';
 
 class TablePDO extends EnDeCode {
 
     public $column;
 
-    public function __construct($column=null) {
+    public function imp_columm($column) {
         $this->column = $column;
     }
 
@@ -522,7 +521,7 @@ class TablePDO extends EnDeCode {
                                                 echo "</tr></tfoot></table></div>";
                                             }
 
-                                            //9. ตารางแบบจัดการกับข้อมูลและแสดงสถานะได้             
+//9. ตารางแบบจัดการกับข้อมูลและแสดงสถานะได้             
                                             public function createPDO_TB_mngSTATUS($process, $par1, $par2, $par3) {
                                                 $this->process = $process;
                                                 $this->par1 = $par1;
@@ -613,5 +612,61 @@ class TablePDO extends EnDeCode {
         }
         echo "</tr></tfoot></table></div>";
     }
+//////////10. ตารางที่มี check box
+    public function createPDO_TB_Check() {
+                           $query = $this->select('');
+                           $field = $this->listfield('');
+                           $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");
+                           echo "<div class='table-responsive'>";
+                           echo "<table id='example1' class='table table-bordered table-hover'>";
+                           echo "<thead><tr align='center' bgcolor='#898888'>";
+                           echo "<th align='center' width='5%'>ลำดับ</th>";
+                           foreach ($this->column as $key => $value) {
+                               echo "<th align='center'>$value</th>";
+                           }
+                           echo "</tr></thead><tbody>";
+                           $c = 0;
+                           $C = 1;
+                           $ii = 0;
+                           $countqr = count($query);
+                           for ($I = 0; $I < $countqr; $I++) {
+                               $num_field = $this->count_field();
+                               if ($ii >= 5) {
+                                   $ii = 0;
+                               }
+                               echo "<tr class='" . $code_color[$ii] . "'>";
+                               echo "<td align='center'>" . $C . "</td>";
+                               for ($i = 0; $i < ($num_field); $i++) {
+                                   if ($i < ($num_field - 1)) {
+                                       if ($this->validateDate($query[$c][$field[$i]], 'Y-m-d')) {
+                                           echo "<td align='center'>" . DateThai1($query[$c][$field[$i]]) . "</td>";
+                                       } else {
+                                           echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
+                                           echo "<input type='hidden' name='$field[$i][]' value='".$query[$c][$field[$i]]."'>";
+                                       }
+                                   } else {
+                                       if ($i = ($num_field - 1)) {
+                                           echo "<td align='center'>";
+                                           ?>
+                                        <input type="checkbox" name="check_ps[]" id="check_ps[]" value="<?=$c?>" />
+                                        <input type="hidden" name="id[]" id="id[]" value="<?=$this->sslEnc($query[$c][$field[$i]])?>"    
+                                               <?php
+                                               echo "</td>";
+                                           }
+                                       }
+                                   }
+                                   $c++;
+                                   $C++;
+                                   $ii++;
+                                   echo "</tr>";
+                               }
+                               echo "</tbody>";
+                               echo "<tfoot><tr align='center' bgcolor='#898888'>";
+                               echo "<th align='center' width='5%'>ลำดับ</th>";
+                               foreach ($this->column as $key => $value) {
+                                   echo "<th align='center'>$value</th>";
+                               }
+                               echo "</tr></tfoot></table></div>";
+                           }
 
 }

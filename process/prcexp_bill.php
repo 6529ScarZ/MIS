@@ -9,34 +9,49 @@ set_time_limit(180);
                 setTimeout("self.close()", StayAlive * 1000);
             }
         </script>
-        <body onLoad="KillMe();self.focus();window.opener.location.reload();">
+        <!--<body onLoad="KillMe();self.focus();window.opener.location.reload();">--><body>
             <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='200'></div>
 <?php
 function __autoload($class_name) {
     include '../class/'.strtolower($class_name).'.php';
 }
-$take_date_conv = $_POST['st_date'];
-$st_date=insert_date($take_date_conv);
-$take_date_conv = $_POST['en_date'];
-$en_date=insert_date($take_date_conv);
+
 $conn_DB= new EnDeCode();
 $read="../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_DB->conn_PDO();
 
+$check_ps=$_POST['check_ps'];
+$values='';
+$values2='';
+$id='';
+$dispenseID='';
+$i=0;
+foreach ($check_ps as $key => $value) {
+        $id[$value] = $conn_DB->sslDec($_POST['id'][$value]);
+        $dispenseID[$value]=$_POST['dispenseID'][$value];
+        if ($i != 0) {
+                $values.=", ";
+                $values2.=", ";
+            }
+            $values.="$id[$value]";
+            $values2.="'$dispenseID[$value]'";
+            $i++;
+        }
 $sql="SELECT providerID,dispenseID,invoice_no,hn,PID,
 CONCAT(SUBSTR(prescription_date,1,10),'T',SUBSTR(prescription_date,12,18))prescription_date,
 CONCAT(SUBSTR(dispensed_date,1,10),'T',SUBSTR(dispensed_date,12,18))dispensed_date,
 prescriber,item_count,charg_amount,claim_amount,paid_amount,other_amount,reimbuser,
 benefit_plan,dispense_status
 FROM billdisp
-WHERE SUBSTR(prescription_date,1,10) BETWEEN '$st_date' AND '$en_date' order by prescription_date asc";
+WHERE billdisp_id in($values) order by prescription_date asc";
 $query1=$conn_DB->query($sql);
+
 $sql2="SELECT dispenseID,productCategory,HospitalDrugID,drugID,dfsCode,dfstext,PackSize,singcode,
 sigText,quantity,UnitPrice,Chargeamount,ReimbPrice,ReimbAmount,ProDuctselectionCode,refill,
 claimControl,ClaimCategory
 FROM billdisp_item
-WHERE SUBSTR(prescription_date,1,10) BETWEEN '$st_date' AND '$en_date' ORDER BY prescription_date ASC";
+WHERE dispenseID in($values2) ORDER BY prescription_date ASC";
 
 $query2=$conn_DB->query($sql2);
 $name="BILLDISP".date("ymd");
