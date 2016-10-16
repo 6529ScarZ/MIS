@@ -19,7 +19,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
+    <!--<link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="../plugins/iCheck/all.css">
     <!-- DataTables -->

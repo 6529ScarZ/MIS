@@ -39,6 +39,9 @@ if (isset($method) and $method == 'imp') {
                 <label>วันสิ้นสุด &nbsp;</label>
                 <p><input name="en_date" type="text" id="datepicker2"  placeholder='รูปแบบ 22/07/2557' class="form-control" required></p>
                 </div>
+<div class="col-lg-2 col-xs-12">
+    <input type="checkbox" name="check" class="icheckbox_flat-green" value="checked" checked> ส่งออกทั้งหมด
+</div>
 <div class="col-lg-2 col-xs-12" align="center">
     <?php if (isset($method) and $method == 'imp') {$val='นำเข้า';}elseif($method =='upd'){$val='Update';}else{$val='แสดง';}?>
     <input type="submit" class="btn btn-success" value="<?= $val?>">
@@ -60,6 +63,7 @@ $take_date_conv = $_POST['st_date'];
 $st_date=insert_date($take_date_conv);
 $take_date_conv = $_POST['en_date'];
 $en_date=insert_date($take_date_conv);
+if(isset($_POST['check'])){$check=$_POST['check'];}else{$check=null;}
 $conn_DB= new TablePDO();
 $read="../connection/conn_DB.txt";
 $conn_DB->para_read($read);
@@ -72,7 +76,7 @@ WHERE prescription_date BETWEEN '$st_date' AND '$en_date'";
         $conn_DB->select();
 $column=array("dispenseID","invoice_no","hn","prescription_date","charg_amount","claim_amount","check");
 $conn_DB->imp_columm($column);  
-$conn_DB->createPDO_TB_Check();
+$conn_DB->createPDO_TB_Check($check);
 
         ?>
         <div align="center"><input class="btn btn-success" type="submit" value="ส่งออก"></div>

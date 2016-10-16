@@ -613,12 +613,13 @@ class TablePDO extends EnDeCode {
         echo "</tr></tfoot></table></div>";
     }
 //////////10. ตารางที่มี check box
-    public function createPDO_TB_Check() {
+    public function createPDO_TB_Check($check=null) {
+        $this->check=$check;
                            $query = $this->select('');
                            $field = $this->listfield('');
                            $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");
                            echo "<div class='table-responsive'>";
-                           echo "<table id='example1' class='table table-bordered table-hover'>";
+                           echo "<table id='example2' class='table table-bordered table-hover'>";
                            echo "<thead><tr align='center' bgcolor='#898888'>";
                            echo "<th align='center' width='5%'>ลำดับ</th>";
                            foreach ($this->column as $key => $value) {
@@ -648,7 +649,7 @@ class TablePDO extends EnDeCode {
                                        if ($i = ($num_field - 1)) {
                                            echo "<td align='center'>";
                                            ?>
-                                        <input type="checkbox" name="check_ps[]" id="check_ps[]" value="<?=$c?>" />
+                                                                        <input type="checkbox" name="check_ps[]" id="check_ps[]" value="<?=$c?>" <?= $this->check?> />
                                         <input type="hidden" name="id[]" id="id[]" value="<?=$this->sslEnc($query[$c][$field[$i]])?>"    
                                                <?php
                                                echo "</td>";
