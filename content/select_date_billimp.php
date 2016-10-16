@@ -39,9 +39,10 @@ if (isset($method) and $method == 'imp') {
                 <label>วันสิ้นสุด &nbsp;</label>
                 <p><input name="en_date" type="text" id="datepicker2"  placeholder='รูปแบบ 22/07/2557' class="form-control" required></p>
                 </div>
+                    <?php if (isset($method) and $method == 'exp') {?>
 <div class="col-lg-2 col-xs-12">
     <input type="checkbox" name="check" class="icheckbox_flat-green" value="checked" checked> ส่งออกทั้งหมด
-</div>
+                    </div><?php }?>
 <div class="col-lg-2 col-xs-12" align="center">
     <?php if (isset($method) and $method == 'imp') {$val='นำเข้า';}elseif($method =='upd'){$val='Update';}else{$val='แสดง';}?>
     <input type="submit" class="btn btn-success" value="<?= $val?>">
