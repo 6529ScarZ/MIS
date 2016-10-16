@@ -9,7 +9,7 @@ set_time_limit(180);
                 setTimeout("self.close()", StayAlive * 1000);
             }
         </script>
-        <!--<body onLoad="KillMe();self.focus();window.opener.location.reload();">--><body>
+        <body onLoad="KillMe();self.focus();window.opener.location.reload();">
             <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='200'></div>
 <?php
 function __autoload($class_name) {
