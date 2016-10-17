@@ -36,7 +36,7 @@ fwrite($objWrite,"<ClaimRec System=\"OP\" PayPlan=\"CS\" Version=\"0.91\">\r\n")
 fwrite($objWrite,"<Header>\r\n");
 fwrite($objWrite,"<HCODE>14644</HCODE>\r\n");
 fwrite($objWrite,"<HNAME>โรงพยาบาล จิตเวชเลยราชนครินทร์</HNAME>\r\n");
-fwrite($objWrite,"<DATETIME>".date("Y-m-d")."T".date("H:m:s")."</DATETIME>\r\n");
+fwrite($objWrite,"<DATETIME>".date("Y-m-d H:m:s")."</DATETIME>\r\n");
 fwrite($objWrite,"<SESSNO>0028</SESSNO>\r\n");
 $num_row=$this->query1->rowCount();
 fwrite($objWrite,"<RECCOUNT>$num_row</RECCOUNT>\r\n");
@@ -103,7 +103,7 @@ fwrite($objWrite,"\r\n");
 }
 fwrite($objWrite,"</BILLTRAN>\r\n");
 $num_row2=$this->query2->rowCount();
-fwrite($objWrite,"<OPBills invcount=\"$num_row2\" lines=\"1\">\r\n");
+fwrite($objWrite,"<OPBills invcount=\"$num_row\" lines=\"$num_row2\">\r\n");
 while($objResult2 = $this->query2->fetch(PDO::FETCH_NUM))
 {
     $count_field= $this->query2->columnCount();

@@ -14,6 +14,9 @@ if (isset($method) and $method == 'imp') {
 <?php }elseif ($method == 'upd') {?>
     <form class="" role="form" action='../process/prcimp_bill.php' enctype="multipart/form-data" method='post'>
         <input type="hidden" name="method" value="upd">
+<?php }elseif ($method == 'exp_total') {?>
+    <form class="" role="form" action='../process/prcexp_bill.php' enctype="multipart/form-data" method='post'>   
+    <input type="hidden" name="method" value="exp_total">
 <?php }?>
 <div class="row">
           <div class="col-lg-12">
@@ -44,7 +47,7 @@ if (isset($method) and $method == 'imp') {
     <input type="checkbox" name="check" class="icheckbox_flat-green" value="checked" checked> ส่งออกทั้งหมด
                     </div><?php }?>
 <div class="col-lg-2 col-xs-12" align="center">
-    <?php if (isset($method) and $method == 'imp') {$val='นำเข้า';}elseif($method =='upd'){$val='Update';}else{$val='แสดง';}?>
+    <?php if (isset($method) and $method == 'imp') {$val='นำเข้า';}elseif($method =='upd'){$val='Update';}elseif($method =='exp_total'){$val='ส่งออก';}{$val='แสดง';}?>
     <input type="submit" class="btn btn-success" value="<?= $val?>">
 </div>
                 </div>
@@ -72,7 +75,7 @@ $conn_DB->conn_PDO();
 echo "<div align='center'><h4>".DateThai2($st_date)." ถึง ".DateThai2($en_date)."</h4></div>";
         $sql="SELECT dispenseID,invoice_no,hn,prescription_date,charg_amount,claim_amount,billdisp_id
 FROM billdisp
-WHERE prescription_date BETWEEN '$st_date' AND '$en_date'";
+WHERE SUBSTR(prescription_date,1,10) BETWEEN '$st_date' AND '$en_date'";
         $conn_DB->imp_sql($sql);
         $conn_DB->select();
 $column=array("dispenseID","invoice_no","hn","prescription_date","charg_amount","claim_amount","check");

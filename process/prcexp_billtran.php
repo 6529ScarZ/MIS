@@ -9,7 +9,7 @@ set_time_limit(180);
                 setTimeout("self.close()", StayAlive * 1000);
             }
         </script>
-        <body onLoad="KillMe();self.focus();window.opener.location.reload();">
+        <!--<body onLoad="KillMe();self.focus();window.opener.location.reload();">--><body>
             <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='200'></div>
 <?php
 function __autoload($class_name) {
@@ -20,30 +20,65 @@ $read="../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_DB->conn_PDO();
 
+if(!empty($_POST['method']) and $_POST['method']=='exp_total'){
+    $take_date_conv = $_POST['st_date'];
+    $st_date=insert_date($take_date_conv);
+    $take_date_conv = $_POST['en_date']; 
+    $en_date=insert_date($take_date_conv);
+    $code_where1="SUBSTR(DTTran,1,10) BETWEEN '$st_date' AND '$en_date'";
+    $code_where2="SUBSTR(DTTran,1,10) BETWEEN '$st_date' AND '$en_date'";
+}
+if(!empty($_POST['check_ps'])){
 $check_ps=$_POST['check_ps'];
+print_r($check_ps);
 $values='';
 $values2='';
+$values3='';
+$values4='';
 $id='';
-$InvNo='';
+$dispenseID='';
 $i=0;
 foreach ($check_ps as $key => $value) {
         $id[$value] = $conn_DB->sslDec($_POST['id'][$value]);
-        $InvNo[$value]=$_POST['InvNo'][$value];
+        $dispenseID[$value]=$_POST['InvNo'][$value];
         if ($i != 0) {
                 $values.=", ";
-                $values2.=", ";
             }
             $values.="$id[$value]";
-            $values2.="'$InvNo[$value]'";
+        if(strlen($values2)<980){
+        if ($i != 0) {
+                $values2.=", ";
+            }
+            $values2.="'$dispenseID[$value]'";
+        }elseif(strlen($values2)>=980 and strlen($values3)<980){
+        if ($i != 0) {
+                $values3.=", ";
+            }
+            $values3.="'$dispenseID[$value]'";    
+        }elseif (strlen($values3)>=980 and strlen($values4)<980) {
+        if ($i != 0) {
+                $values4.=", ";
+            }
+            $values4.="'$dispenseID[$value]'";  
+    }
             $i++;
         }
+            echo strlen($values)."<br>";
+            echo strlen($values2)."<br>";
+            echo strlen($values3)."<br>";
+            echo strlen($values4)."<br>";
+            echo $values."<br>";
+            echo $values2.$values3.$values4."<br>";
+    $code_where1="billtran_id in($values)";
+    $code_where2="InvNo in($values2$values3$values4)";
+}
 $sql="SELECT Station,AuthCode,DTTran,HCode,InvNo,BillNo,HN,MemberNo,Amount,Paid,VerCode,Tflag
 FROM billtran
-WHERE billtran_id in($values) order by DTTran asc";
+WHERE $code_where1 order by DTTran asc";
 $query1=$conn_DB->query($sql);
 $sql2="SELECT InvNo,BillMuad,Amount,Paid
 FROM billtran_item
-WHERE InvNo in($values2) ORDER BY DTTran ASC";
+WHERE $code_where2 ORDER BY DTTran ASC";
 
 $query2=$conn_DB->query($sql2);
 $name="BILLTRAN".date("ymd");
