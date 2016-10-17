@@ -47,7 +47,7 @@ if (isset($method) and $method == 'imp') {
     <input type="checkbox" name="check" class="icheckbox_flat-green" value="checked" checked> ส่งออกทั้งหมด
                     </div><?php }?>
 <div class="col-lg-2 col-xs-12" align="center">
-    <?php if (isset($method) and $method == 'imp') {$val='นำเข้า';}elseif($method =='upd'){$val='Update';}elseif($method =='exp_total'){$val='ส่งออก';}{$val='แสดง';}?>
+    <?php if (isset($method) and $method == 'imp') {$val='นำเข้า';}elseif($method =='upd'){$val='Update';}elseif($method =='exp_total'){$val='ส่งออก';}else{$val='แสดง';}?>
     <input type="submit" class="btn btn-success" value="<?= $val?>">
 </div>
                 </div>
@@ -56,9 +56,10 @@ if (isset($method) and $method == 'imp') {
 </div></form>
 <?php  }elseif (isset($method) and $method == 'show') {
 ?>
-    
+      
     <form name="form2" class="" role="form" action='../process/prcexp_bill.php' enctype="multipart/form-data" method='post'>
         <input type="hidden" name="method" value="show">
+        &nbsp;&nbsp;&nbsp;&nbsp;<a href="select_date_billimp.php?method=exp"><img src="../images/icon_set1/direction_left.ico" width="25"><img src="../images/icon_set1/direction_left.ico" width="25"><img src="../images/icon_set1/direction_left.ico" width="25"></a>
         <?php
 function __autoload($class_name) {
     include '../class/'.strtolower($class_name).'.php';
