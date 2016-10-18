@@ -642,16 +642,32 @@ class TablePDO extends EnDeCode {
                                        if ($this->validateDate($query[$c][$field[$i]], 'Y-m-d')) {
                                            echo "<td align='center'>" . DateThai1($query[$c][$field[$i]]) . "</td>";
                                        } else {
+                                           
+                                           if($c<=123){
                                            echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
-                                           echo "<input type='hidden' name='$field[$i][]' value='".$query[$c][$field[$i]]."'>";//ทุกค่าที่selectมาจะสามารถส่งไปได้ผ่าน<input type='hidden'>ยกเว้นที่เป็นวันที่
+                                           echo "<input type='hidden' name='1$field[$i][$c]' value='".$query[$c][$field[$i]]."'>";//ทุกค่าที่selectมาจะสามารถส่งไปได้ผ่าน<input type='hidden'>ยกเว้นที่เป็นวันที่
+                                       }elseif ($c>=124 and $c<=246) {
+                                           echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
+                                           echo "<input type='hidden' name='2$field[$i][$c]' value='".$query[$c][$field[$i]]."'>";
+                                       }elseif ($c>=247 and $c<=370) {
+                                           echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
+                                           echo "<input type='hidden' name='3$field[$i][$c]' value='".$query[$c][$field[$i]]."'>";
                                        }
+                                           }
                                    } else {
                                        if ($i = ($num_field - 1)) {
                                            echo "<td align='center'>";
+                                           if($c<=123){
                                            ?>
-                                                                        <input type="checkbox" name="check_ps[]" id="check_ps[]" value="<?=$c?>" <?= $this->check?> />
-                                        <input type="hidden" name="id[]" id="id[]" value="<?=$this->sslEnc($query[$c][$field[$i]])?>"    
-                                               <?php
+                                        <input type="checkbox" name="check_ps[<?=$c?>]" id="check_ps[<?=$c?>]" value="<?=$c?>" <?= $this->check?>>
+                                        <input type="hidden" name="id[<?=$c?>]" id="id[<?=$c?>]" value="<?=$this->sslEnc($query[$c][$field[$i]])?>">    
+                                           <?php }elseif ($c>=124 and $c<=246) {?>
+                                        <input type="checkbox" name="check_ps2[<?=$c?>]" id="check_ps2[<?=$c?>]" value="<?=$c?>" <?= $this->check?>>
+                                        <input type="hidden" name="id2[<?=$c?>]" id="id2[<?=$c?>]" value="<?=$this->sslEnc($query[$c][$field[$i]])?>">                                 
+                                            <?php }elseif ($c>=247 and $c<=370) {?>
+                                        <input type="checkbox" name="check_ps3[<?=$c?>]" id="check_ps3[<?=$c?>]" value="<?=$c?>" <?= $this->check?>>
+                                        <input type="hidden" name="id3[<?=$c?>]" id="id3[<?=$c?>]" value="<?=$this->sslEnc($query[$c][$field[$i]])?>">                                   
+                                            <?php }
                                                echo "</td>";
                                            }
                                        }

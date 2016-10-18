@@ -1,7 +1,6 @@
 <?php include '../header2.php';
 ignore_user_abort(1); // run script in background
 set_time_limit(180);
-@ini_set( 'max_input_vars', 10000 );
 ?>
 <script language="JavaScript" type="text/javascript">
             var StayAlive = 9; // เวลาเป็นวินาทีที่ต้องการให้ WIndows เปิดออก 
@@ -10,13 +9,12 @@ set_time_limit(180);
                 setTimeout("self.close()", StayAlive * 1000);
             }
         </script>
-        <!--<body onLoad="KillMe();self.focus();window.opener.location.reload();">--><body>
+        <body onLoad="KillMe();self.focus();window.opener.location.reload();">
             <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='200'></div>
 <?php
 function __autoload($class_name) {
     include '../class/'.strtolower($class_name).'.php';
 }
-
 $conn_DB= new EnDeCode();
 $read="../connection/conn_DB.txt";
 $conn_DB->para_read($read);
@@ -31,7 +29,15 @@ if(!empty($_POST['method']) and $_POST['method']=='exp_total'){
 }
 if(!empty($_POST['check_ps'])){
 $check_ps=$_POST['check_ps'];
-print_r($check_ps);
+if(!empty($_POST['check_ps2'])){
+$check_ps2=$_POST['check_ps2']; 
+$values1='';
+$values5='';
+$values6='';
+$values7='';
+$id2='';
+$dispenseID2='';
+}
 $values='';
 $values2='';
 $values3='';
@@ -39,10 +45,11 @@ $values4='';
 $id='';
 $dispenseID='';
 $i=0;
+$check=count($check_ps);
 foreach ($check_ps as $key => $value) {
         $id[$value] = $conn_DB->sslDec($_POST['id'][$value]);
-        $dispenseID[$value]=$_POST['dispenseID'][$value];
-        if ($i != 0) {
+        $dispenseID[$value]=$_POST['1dispenseID'][$value];
+        if ($i > 0 and $value<=($check)) {
                 $values.=", ";
             }
             $values.="$id[$value]";
@@ -64,14 +71,37 @@ foreach ($check_ps as $key => $value) {
     }
             $i++;
         }
-            echo strlen($values)."<br>";
-            echo strlen($values2)."<br>";
-            echo strlen($values3)."<br>";
-            echo strlen($values4)."<br>";
-            echo $values."<br>";
-            echo $values2.$values3.$values4."<br>";
-    $code_where1="billdisp_id in($values)";
-    $code_where2="dispenseID in($values2$values3$values4)";
+if(!empty($_POST['check_ps2'])){  
+        foreach ($check_ps2 as $key => $value) {
+        $id2[$value] = $conn_DB->sslDec($_POST['id2'][$value]);
+        $dispenseID2[$value]=$_POST['2dispenseID'][$value];
+        if ($i > 0 and $value<=($check-1)) {
+                $values1.=", ";
+            }
+            $values1.="$id2[$value]";
+        if(strlen($values5)<980){
+        if ($i != 0) {
+                $values5.=", ";
+            }
+            $values5.="'$dispenseID2[$value]'";
+        }elseif(strlen($values5)>=980 and strlen($values6)<980){
+        if ($i != 0) {
+                $values6.=", ";
+            }
+            $values6.="'$dispenseID2[$value]'";    
+        }elseif (strlen($values6)>=980 and strlen($values7)<980) {
+        if ($i != 0) {
+                $values7.=", ";
+            }
+            $values7.="'$dispenseID2[$value]'";  
+    }
+            $i++;
+        }
+        $code_where1="billdisp_id in($values$values1)";
+        $code_where2="dispenseID in($values2$values3$values4$values5$values6$values7)";    
+}else{  $code_where1="billdisp_id in($values)";
+        $code_where2="dispenseID in($values2$values3$values4)";
+}
 }
 $sql="SELECT providerID,dispenseID,invoice_no,hn,PID,
 CONCAT(SUBSTR(prescription_date,1,10),'T',SUBSTR(prescription_date,12,18))prescription_date,

@@ -9,7 +9,7 @@ set_time_limit(180);
                 setTimeout("self.close()", StayAlive * 1000);
             }
         </script>
-        <!--<body onLoad="KillMe();self.focus();window.opener.location.reload();">--><body>
+        <body onLoad="KillMe();self.focus();window.opener.location.reload();">
             <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='200'></div>
 <?php
 function __autoload($class_name) {
@@ -19,7 +19,6 @@ $conn_DB= new EnDeCode();
 $read="../connection/conn_DB.txt";
 $conn_DB->para_read($read);
 $conn_DB->conn_PDO();
-
 if(!empty($_POST['method']) and $_POST['method']=='exp_total'){
     $take_date_conv = $_POST['st_date'];
     $st_date=insert_date($take_date_conv);
@@ -30,18 +29,27 @@ if(!empty($_POST['method']) and $_POST['method']=='exp_total'){
 }
 if(!empty($_POST['check_ps'])){
 $check_ps=$_POST['check_ps'];
-print_r($check_ps);
+if(!empty($_POST['check_ps2'])){
+$check_ps2=$_POST['check_ps2']; 
+$values1='';
+$values5='';
+$values6='';
+$values7='';
+$id2='';
+$InvNo2='';
+}
 $values='';
 $values2='';
 $values3='';
 $values4='';
 $id='';
-$dispenseID='';
+$InvNo='';
 $i=0;
+$check=count($check_ps);
 foreach ($check_ps as $key => $value) {
         $id[$value] = $conn_DB->sslDec($_POST['id'][$value]);
-        $dispenseID[$value]=$_POST['InvNo'][$value];
-        if ($i != 0) {
+        $InvNo[$value]=$_POST['1InvNo'][$value];
+        if ($i > 0 and $value<=($check)) {
                 $values.=", ";
             }
             $values.="$id[$value]";
@@ -49,28 +57,51 @@ foreach ($check_ps as $key => $value) {
         if ($i != 0) {
                 $values2.=", ";
             }
-            $values2.="'$dispenseID[$value]'";
+            $values2.="'$InvNo[$value]'";
         }elseif(strlen($values2)>=980 and strlen($values3)<980){
         if ($i != 0) {
                 $values3.=", ";
             }
-            $values3.="'$dispenseID[$value]'";    
+            $values3.="'$InvNo[$value]'";    
         }elseif (strlen($values3)>=980 and strlen($values4)<980) {
         if ($i != 0) {
                 $values4.=", ";
             }
-            $values4.="'$dispenseID[$value]'";  
+            $values4.="'$InvNo[$value]'";  
     }
             $i++;
         }
-            echo strlen($values)."<br>";
-            echo strlen($values2)."<br>";
-            echo strlen($values3)."<br>";
-            echo strlen($values4)."<br>";
-            echo $values."<br>";
-            echo $values2.$values3.$values4."<br>";
-    $code_where1="billtran_id in($values)";
+if(!empty($_POST['check_ps2'])){  
+        foreach ($check_ps2 as $key => $value) {
+        $id2[$value] = $conn_DB->sslDec($_POST['id2'][$value]);
+        $InvNo2[$value]=$_POST['2InvNo'][$value];
+        if ($i > 0) {
+                $values1.=", ";
+            }
+            $values1.="$id2[$value]";
+        if(strlen($values5)<980){
+        if ($i != 0) {
+                $values5.=", ";
+            }
+            $values5.="'$InvNo2[$value]'";
+        }elseif(strlen($values5)>=980 and strlen($values6)<980){
+        if ($i != 0) {
+                $values6.=", ";
+            }
+            $values6.="'$InvNo2[$value]'";    
+        }elseif (strlen($values6)>=980 and strlen($values7)<980) {
+        if ($i != 0) {
+                $values7.=", ";
+            }
+            $values7.="'$InvNo2[$value]'";  
+    }
+            $i++;
+        }
+    $code_where1="billtran_id in($values$values1)";
+    $code_where2="InvNo in($values2$values3$values4$values5$values6$values7)";   
+} else{  $code_where1="billtran_id in($values)";
     $code_where2="InvNo in($values2$values3$values4)";
+}
 }
 $sql="SELECT Station,AuthCode,DTTran,HCode,InvNo,BillNo,HN,MemberNo,Amount,Paid,VerCode,Tflag
 FROM billtran
