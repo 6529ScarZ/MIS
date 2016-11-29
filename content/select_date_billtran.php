@@ -44,7 +44,7 @@ if (isset($method) and $method == 'imp') {
                 </div>
                     <?php if (isset($method) and $method == 'exp') {?>
                     <div class="col-lg-2 col-xs-12">
-    <input type="checkbox" name="check" class="icheckbox_flat-green" value="checked" checked> ส่งออกทั้งหมด
+    <input type="checkbox" name="check" class="icheckbox_flat-green" value="checked"> ส่งออกทั้งหมด
 </div><?php }?>
 <div class="col-lg-2 col-xs-12" align="center">
     <?php if (isset($method) and $method == 'imp') {$val='นำเข้า';}elseif($method =='upd'){$val='Update';}elseif($method =='exp_total'){$val='ส่งออก';}else{$val='แสดง';}?>

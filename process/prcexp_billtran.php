@@ -49,7 +49,7 @@ $check=count($check_ps);
 foreach ($check_ps as $key => $value) {
         $id[$value] = $conn_DB->sslDec($_POST['id'][$value]);
         $InvNo[$value]=$_POST['1InvNo'][$value];
-        if ($i > 0 and $value<=($check)) {
+        if (($i > 0 and $i<=($check-1)) and strlen($values)<=980) {
                 $values.=", ";
             }
             $values.="$id[$value]";
@@ -75,7 +75,7 @@ if(!empty($_POST['check_ps2'])){
         foreach ($check_ps2 as $key => $value) {
         $id2[$value] = $conn_DB->sslDec($_POST['id2'][$value]);
         $InvNo2[$value]=$_POST['2InvNo'][$value];
-        if ($i > 0) {
+        if (($i > 0 and $i<=($check-1)) and strlen($values1)<=980) {
                 $values1.=", ";
             }
             $values1.="$id2[$value]";
@@ -112,7 +112,7 @@ FROM billtran_item
 WHERE $code_where2 ORDER BY DTTran ASC";
 
 $query2=$conn_DB->query($sql2);
-$name="BILLTRAN".date("ymd");
+$name="BILLTRAN".date("Ymd");
 $path="../file_export/";
 $filName=$path.$name;
 $symbol="|";
