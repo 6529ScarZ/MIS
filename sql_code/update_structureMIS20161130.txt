@@ -1,0 +1,3 @@
+ALTER TABLE `billdisp_item`
+MODIFY COLUMN `UnitPrice`  decimal(8,2) NULL DEFAULT NULL AFTER `quantity`,
+MODIFY COLUMN `ReimbPrice`  decimal(8,2) NULL DEFAULT NULL AFTER `Chargeamount`;

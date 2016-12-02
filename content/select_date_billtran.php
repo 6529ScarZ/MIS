@@ -57,7 +57,7 @@ if (isset($method) and $method == 'imp') {
 <?php  }elseif (isset($method) and $method == 'show') {
 ?>
     
-    <form name="form2" class="" role="form" action='../process/prcexp_billtran.php' enctype="multipart/form-data" method='post'>
+    <form name="form2" class="" role="form" action='../process/prcexp_billtran2.php' enctype="multipart/form-data" method='post'>
         <input type="hidden" name="method" value="show">
         &nbsp;&nbsp;&nbsp;&nbsp;<a href="select_date_billtran.php?method=exp"><img src="../images/icon_set1/direction_left.ico" width="25"><img src="../images/icon_set1/direction_left.ico" width="25"><img src="../images/icon_set1/direction_left.ico" width="25"></a>
         <?php
@@ -81,7 +81,7 @@ WHERE SUBSTR(DTTran,1,10) BETWEEN '$st_date' AND '$en_date'";
         $conn_DB->select();
 $column=array("HN","invoice_no","DTTran","Amount","check");
 $conn_DB->imp_columm($column);  
-$conn_DB->createPDO_TB_Check($check);
+$conn_DB->createPDO_TB_Check2($check);
 
         ?>
         <div align="center"><input class="btn btn-success" type="submit" value="ส่งออก"></div>

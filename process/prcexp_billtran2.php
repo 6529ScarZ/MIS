@@ -29,15 +29,6 @@ if(!empty($_POST['method']) and $_POST['method']=='exp_total'){
 }
 if(!empty($_POST['check_ps'])){
 $check_ps=$_POST['check_ps'];
-if(!empty($_POST['check_ps2'])){
-$check_ps2=$_POST['check_ps2']; 
-$values1='';
-$values5='';
-$values6='';
-$values7='';
-$id2='';
-$InvNo2='';
-}
 $values='';
 $values2='';
 $values3='';
@@ -47,10 +38,14 @@ $InvNo='';
 $i=0;
 $check=count($check_ps);
 print_r($check_ps);
+echo '<br>';
+print_r($_POST['id']);
 foreach ($check_ps as $key => $value) {
-        $id[$value] = $conn_DB->sslDec($_POST['id'][$value]);
+        $id[$value] = $_POST['id'][$value];
         $InvNo[$value]=$_POST['1InvNo'][$value];
         if (($i > 0 and $i<($check)) and strlen($values)<=980) {
+                $values.=", ";
+            }elseif (($i > 0 and $i<($check)) and strlen($values)>=980) {
                 $values.=", ";
             }
             $values.="$id[$value]";
@@ -69,40 +64,12 @@ foreach ($check_ps as $key => $value) {
                 $values4.=", ";
             }
             $values4.="'$InvNo[$value]'";  
-    }   echo $i;
+    }   echo '<p>'.$i.'</p>';
             $i++;
         }
-if(!empty($_POST['check_ps2'])){  
-        foreach ($check_ps2 as $key => $value) {
-        $id2[$value] = $conn_DB->sslDec($_POST['id2'][$value]);
-        $InvNo2[$value]=$_POST['2InvNo'][$value];
-        if (($i > 0 and $i<=($check-1)) and strlen($values1)<=980) {
-                $values1.=", ";
-            }
-            $values1.="$id2[$value]";
-        if(strlen($values5)<980){
-        if ($i != 0) {
-                $values5.=", ";
-            }
-            $values5.="'$InvNo2[$value]'";
-        }elseif(strlen($values5)>=980 and strlen($values6)<980){
-        if ($i != 0) {
-                $values6.=", ";
-            }
-            $values6.="'$InvNo2[$value]'";    
-        }elseif (strlen($values6)>=980 and strlen($values7)<980) {
-        if ($i != 0) {
-                $values7.=", ";
-            }
-            $values7.="'$InvNo2[$value]'";  
-    }
-            $i++;
-        }
-    $code_where1="billtran_id in($values$values1)";
-    $code_where2="InvNo in($values2$values3$values4$values5$values6$values7)";   
-} else{  $code_where1="billtran_id in($values)";
+  $code_where1="billtran_id in($values)";
     $code_where2="InvNo in($values2$values3$values4)";
-}
+
 }echo $values.'<br>'.$values2.$values3.'<br>';
 $sql="SELECT Station,AuthCode,DTTran,HCode,InvNo,BillNo,HN,MemberNo,Amount,Paid,VerCode,Tflag
 FROM billtran
@@ -129,4 +96,4 @@ if($export==FALSE){
 }
 ?>
 </body>
-<?phpinclude '../footer2.php';?>
+<?php include '../footer2.php';?>
