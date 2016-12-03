@@ -47,7 +47,7 @@ $dispenseID='';
 $i=0;
 $check=count($check_ps);
 foreach ($check_ps as $key => $value) {
-        $id[$value] = $conn_DB->sslDec($_POST['id'][$value]);
+        $id[$value] = $_POST['id'][$value];
         $dispenseID[$value]=$_POST['1dispenseID'][$value];
         if (($i > 0 and $i<=($check-1)) and strlen($values)<=980) {
                 $values.=", ";

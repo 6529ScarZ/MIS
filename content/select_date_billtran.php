@@ -34,6 +34,7 @@ if (isset($method) and $method == 'imp') {
                   </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                    <div class="col-lg-12" style="color: red"><b>** ไม่ควรเลือกช่วงเวลาเกิน15วัน</b></div>
 <div class="col-lg-2 col-xs-6"> 
                 <label>วันเริ่มต้น &nbsp;</label>
                 <p><input name="st_date" type="text" id="datepicker"  placeholder='รูปแบบ 22/07/2557' class="form-control" required></p>

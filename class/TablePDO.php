@@ -703,28 +703,28 @@ class TablePDO extends EnDeCode {
                            $C = 1;
                            $ii = 0;
                            $countqr = count($query);
-                           for ($I = 0; $I < $countqr; $I++) {
-                           //foreach ($query as $value) {
+                           //for ($I = 0; $I < $countqr; $I++) {
+                           foreach ($query as $key => $value) {
                                $num_field = $this->count_field();
                                if ($ii >= 5) {
                                    $ii = 0;
                                }
                                echo "<tr class='" . $code_color[$ii] . "'>";
-                               echo "<td align='center'>" . $C . " </td>";
+                               echo "<td align='center'>" . $C . "</td>";
                                for ($i = 0; $i < ($num_field); $i++) {
                                    if ($i < ($num_field - 1)) {
-                                       if ($this->validateDate($query[$c][$field[$i]], 'Y-m-d')) {
-                                           echo "<td align='center'>" . DateThai1($query[$c][$field[$i]]) . "</td>";
+                                       if ($this->validateDate($query[$key][$field[$i]], 'Y-m-d')) {
+                                           echo "<td align='center'>" . DateThai1($query[$key][$field[$i]]) . "</td>";
                                        } else {
-                                           echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
-                                           echo "<input type='hidden' name='1$field[$i][$c]' value='".$query[$c][$field[$i]]."'>";//ทุกค่าที่selectมาจะสามารถส่งไปได้ผ่าน<input type='hidden'>ยกเว้นที่เป็นวันที่
+                                           echo "<td align='center'>" . $query[$key][$field[$i]] . "</td>";
+                                           echo "<input type='hidden' name='1$field[$i][$key]' value='".$query[$key][$field[$i]]."'>";//ทุกค่าที่selectมาจะสามารถส่งไปได้ผ่าน<input type='hidden'>ยกเว้นที่เป็นวันที่
                                            }
                                    } else {
                                        if ($i = ($num_field - 1)) {
                                            echo "<td align='center'>";
                                            ?>
-                                        <input type="checkbox" name="check_ps[]" id="check_ps[]" value="<?=$c?>" <?= $this->check?>>
-                                        <input type="hidden" name="id[]" id="id[]" value="<?=$query[$c][$field[$i]]?>">    
+                                        <input type="checkbox" name="check_ps[]" id="check_ps[]" value="<?=$key?>" <?= $this->check?>>
+                                        <input type="hidden" name="id[]" id="id[]" value="<?=$query[$key][$field[$i]]?>">    
                                             <?php 
                                                echo "</td>";
                                            }
