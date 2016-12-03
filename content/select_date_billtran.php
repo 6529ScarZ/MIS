@@ -1,9 +1,12 @@
-<?php include '../header2.php';include '../plugins/funcDateThai.php';
+<?php session_start();  
+include '../header2.php';include '../plugins/funcDateThai.php';
 if(null !== (filter_input(INPUT_GET, 'method'))){
     $method=filter_input(INPUT_GET, 'method');
 }elseif(null !== (filter_input(INPUT_POST, 'method'))){
     $method=filter_input(INPUT_POST, 'method');
 }
+
+
 if (isset($method) and $method != 'show') {
 if (isset($method) and $method == 'imp') {
 ?>
@@ -55,13 +58,34 @@ if (isset($method) and $method == 'imp') {
                 </div>
           </div>
 </div></form>
-<?php  }elseif (isset($method) and $method == 'show') {
+<?php  }elseif (isset($method) and $method == 'show') {?>
+          &nbsp;&nbsp;&nbsp;&nbsp;<a href="select_date_billtran.php?method=exp"><img src="../images/icon_set1/direction_left.ico" width="25"><img src="../images/icon_set1/direction_left.ico" width="25"><img src="../images/icon_set1/direction_left.ico" width="25"></a>
+          <br>  
+ <?php   if(!empty($_POST['check_ps'])){
+$check_ps=$_POST['check_ps'];
+
+foreach ($check_ps as $key => $value) {
+        $id[$key] = $_POST['id'][$value];
+        $InvNo[$value] = $_POST['1InvNo'][$value];
+        $_SESSION['id'][] = $id[$key];
+        $_SESSION['InvNo'][] = "'$InvNo[$value]'";
+}
+}
+
+    
 ?>
     
-    <form name="form2" class="" role="form" action='../process/prcexp_billtran2.php' enctype="multipart/form-data" method='post'>
+    <!--<form name="form2" class="" role="form" action='../process/prcexp_billtran2.php' enctype="multipart/form-data" method='post'>-->
+        <form name="form2" class="" role="form" action='' enctype="multipart/form-data" method='post'>
         <input type="hidden" name="method" value="show">
-        &nbsp;&nbsp;&nbsp;&nbsp;<a href="select_date_billtran.php?method=exp"><img src="../images/icon_set1/direction_left.ico" width="25"><img src="../images/icon_set1/direction_left.ico" width="25"><img src="../images/icon_set1/direction_left.ico" width="25"></a>
-        <?php
+        <input type="hidden" name="st_date" value="<?= $_POST['st_date']?>">
+        <input type="hidden" name="en_date" value="<?= $_POST['en_date']?>">
+        <div align="center"><input class="btn btn-primary" type="submit" value="เลือกข้อมูล"></div>
+            <?php
+            if(!empty($_POST['check_ps']) or !empty($_SESSION['InvNo'])){
+            echo 'InvNo : ';
+            foreach ($_SESSION['InvNo'] as $key => $value) {    
+            echo $value." ,";}}
 function __autoload($class_name) {
     include '../class/'.strtolower($class_name).'.php';
 }
@@ -69,6 +93,7 @@ $take_date_conv = $_POST['st_date'];
 $st_date=insert_date($take_date_conv);
 $take_date_conv = $_POST['en_date'];
 $en_date=insert_date($take_date_conv);
+$limit="limit 0,165";
 if(isset($_POST['check'])){$check=$_POST['check'];}else{$check=null;}
 $conn_DB= new TablePDO();
 $read="../connection/conn_DB.txt";
@@ -77,7 +102,7 @@ $conn_DB->conn_PDO();
 echo "<div align='center'><h4>".DateThai2($st_date)." ถึง ".DateThai2($en_date)."</h4></div>";
         $sql="SELECT HN,InvNo,DTTran,Amount,billtran_id
 FROM billtran
-WHERE SUBSTR(DTTran,1,10) BETWEEN '$st_date' AND '$en_date'";
+WHERE SUBSTR(DTTran,1,10) BETWEEN '$st_date' AND '$en_date' $limit";
         $conn_DB->imp_sql($sql);
         $conn_DB->select();
 $column=array("HN","invoice_no","DTTran","Amount","check");
@@ -85,6 +110,10 @@ $conn_DB->imp_columm($column);
 $conn_DB->createPDO_TB_Check2($check);
 
         ?>
-        <div align="center"><input class="btn btn-success" type="submit" value="ส่งออก"></div>
+
+    </form>
+    <form name="form-" class="" role="form" action='../process/prcexp_billtran2.php' enctype="multipart/form-data" method='post'>
+        <input type="hidden" name="method" value="exp_select">
+        <div align="center"><input class="btn btn-success" type="submit" value="ส่งออก"></div> 
     </form>
  <?php } include '../footer2.php';?>

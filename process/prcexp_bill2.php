@@ -1,4 +1,4 @@
-<?php include '../header2.php';
+<?php session_start(); include '../header2.php';
 ignore_user_abort(1); // run script in background
 set_time_limit(180);
 ?>
@@ -9,7 +9,7 @@ set_time_limit(180);
                 setTimeout("self.close()", StayAlive * 1000);
             }
         </script>
-        <!--<body onLoad="KillMe();self.focus();window.opener.location.reload();">--><body>
+        <body onLoad="KillMe();self.focus();window.opener.location.reload();">
             <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='200'></div>
 <?php
 function __autoload($class_name) {
@@ -26,47 +26,26 @@ if(!empty($_POST['method']) and $_POST['method']=='exp_total'){
     $en_date=insert_date($take_date_conv);
     $code_where1="SUBSTR(prescription_date,1,10) BETWEEN '$st_date' AND '$en_date'";
     $code_where2="SUBSTR(prescription_date,1,10) BETWEEN '$st_date' AND '$en_date'";
-}
-if(!empty($_POST['check_ps'])){
-$check_ps=$_POST['check_ps'];
+} else if(!empty($_POST['method']) and $_POST['method']=='exp_select'){
 $values='';
 $values2='';
-$values3='';
-$values4='';
 $id='';
 $dispenseID='';
-$i=0;
-$check=count($check_ps);
-foreach ($check_ps as $key => $value) {
-        $id[$key] = $_POST['id'][$value];
-        $dispenseID[$value]=$_POST['1dispenseID'][$value];
-        if (($i > 0 and $i<($check)) and strlen($values)<=980) {
-                $values.=", ";
-            }elseif (($i > 0 and $i<($check)) and strlen($values)>=980) {
+$check=count($_SESSION['id']);
+foreach ($_SESSION['id'] as $key => $value) {
+        if (($key > 0 and $key<($check))) {
                 $values.=", ";
             }
-            $values.="$id[$key]";
-        if(strlen($values2)<980){
-        if ($i != 0) {
+            $values.="$value";
+}
+foreach ($_SESSION['dispenseID'] as $key => $value) {
+        if (($key > 0 and $key<($check))) {
                 $values2.=", ";
             }
-            $values2.="'$dispenseID[$value]'";
-        }elseif(strlen($values2)>=980 and strlen($values3)<980){
-        if ($i != 0) {
-                $values3.=", ";
-            }
-            $values3.="'$dispenseID[$value]'";    
-        }elseif (strlen($values3)>=980 and strlen($values4)<980) {
-        if ($i != 0) {
-                $values4.=", ";
-            }
-            $values4.="'$dispenseID[$value]'";  
-    }   
-            $i++;
-        }
-  
-  $code_where1="billdisp_id in($values)";
-        $code_where2="dispenseID in($values2$values3$values4)";
+            $values2.="$value";
+       
+        }  $code_where1="billdisp_id in($values)";
+        $code_where2="dispenseID in($values2)";
 
 }
 $sql="SELECT providerID,dispenseID,invoice_no,hn,PID,
@@ -76,7 +55,7 @@ prescriber,item_count,charg_amount,claim_amount,paid_amount,other_amount,reimbus
 benefit_plan,dispense_status
 FROM billdisp
 WHERE $code_where1 order by prescription_date asc";
-echo $sql.'<br>';
+//echo $sql.'<br>';
 $query1=$conn_DB->query($sql);
 
 $sql2="SELECT dispenseID,productCategory,HospitalDrugID,drugID,dfsCode,dfstext,PackSize,singcode,
@@ -84,7 +63,7 @@ sigText,quantity,UnitPrice,Chargeamount,ReimbPrice,ReimbAmount,ProDuctselectionC
 claimControl,ClaimCategory
 FROM billdisp_item
 WHERE $code_where2 ORDER BY prescription_date ASC";
-echo $sql2.'<br>';
+//echo $sql2.'<br>';
 $query2=$conn_DB->query($sql2);
 $name="BILLDISP".date("Ymd");
 $path="../file_export/";
@@ -97,6 +76,8 @@ if($export==FALSE){
 } else {  
     echo "<script>alert('การส่งออกข้อมูลสำเร็จแล้วจ้า!')</script>";
     echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=file_download.php?name=$name&path=$path'>";
+    unset($_SESSION['id']);
+    unset($_SESSION['dispenseID']);
     exit();
 }
 ?>
