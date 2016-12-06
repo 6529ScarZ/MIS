@@ -8,8 +8,9 @@ class dbPDO_mng extends ConnPDO_db{
         $this->sql=$sql;
     }
 	//	  ฟังก์ชันสำหรับคิวรี่คำสั่ง sql
-    function query($sql) {
-        $this->sql=$sql;
+    function query($sql2=null) {
+        if(!empty($sql2)){
+        $this->sql=$sql2;}
         $this->db=$this->conn_PDO();
         $query=array();
        // $this->db=$db;

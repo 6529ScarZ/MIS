@@ -686,8 +686,10 @@ class TablePDO extends EnDeCode {
                                echo "</tr></tfoot></table></div>";
                            }
 //////////11. ตารางที่มี check box(test)
-    public function createPDO_TB_Check2($check=null) {
+    public function createPDO_TB_Check2($check=null,$chk_page=null,$e_page=null) {
         $this->check=$check;
+        $this->chk_page=$chk_page;
+        $this->e_page=$e_page;
                            $query = $this->select('');
                            $field = $this->listfield('');
                            $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");
@@ -703,14 +705,16 @@ class TablePDO extends EnDeCode {
                            $C = 1;
                            $ii = 0;
                            $countqr = count($query);
+                           $page=$this->chk_page * $this->e_page;
                            //for ($I = 0; $I < $countqr; $I++) {
                            foreach ($query as $key => $value) {
                                $num_field = $this->count_field();
                                if ($ii >= 5) {
                                    $ii = 0;
                                }
+                               $pages=$page+$C;
                                echo "<tr class='" . $code_color[$ii] . "'>";
-                               echo "<td align='center'>" . $C . "</td>";
+                               echo "<td align='center'>" .$pages. "</td>";
                                for ($i = 0; $i < ($num_field); $i++) {
                                    if ($i < ($num_field - 1)) {
                                        if ($this->validateDate($query[$key][$field[$i]], 'Y-m-d')) {
