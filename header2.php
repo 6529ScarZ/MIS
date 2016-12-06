@@ -9,6 +9,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/stylelist.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../plugins/font-awesome-4.6.3/css/font-awesome.min.css">
     <!-- Ionicons -->
