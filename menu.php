@@ -115,6 +115,13 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
+                  <li>
+                  <a href="#"><i class="fa fa-circle-o text-blue"></i> ข้อมูลที่นำเข้าแล้ว <i class="fa fa-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu">
+                    <li><a href="#" onClick="window.open('content/pre_data_billimp.php?method=upd','','width=600,height=700'); return false;" title="Update ข้อมูล BILLDISP จาก HOS"><i class="fa fa-circle-o text-aqua"></i> ข้อมูล BILLDISP ที่นำเข้าแล้ว </a></li>
+                    <li><a href="#" onClick="window.open('content/pre_data_billtran.php?method=upd','','width=600,height=700'); return false;" title="Update ข้อมูล BILLTRAN จาก HOS"><i class="fa fa-circle-o text-aqua"></i> ข้อมูล BILLTRAN ที่นำเข้าแล้ว </a></li>
+                    </ul>
+            </li>
                 <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILLDISP จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILLDISP</a></li>
                 <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล BILLTRAN จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า BILLTRAN</a></li>
                 <li>
