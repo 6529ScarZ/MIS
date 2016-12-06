@@ -159,8 +159,16 @@
             <?php }?>
             <li>
                 <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
-                    <img src="images/Calendar.ico" width="20"> <span>#</span>
+                    <img src="images/opd.png" width="20"> <span>OPD</span>
               </a>
+                <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
+                    <img src="images/ipd.ico" width="20"> <span>IPD</span>
+              </a>
+                <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
+                    <img src="images/er.ico" width="20"> <span>ER</span>
+              </a>
+                
+                
             </li>
           </ul>
         </section>

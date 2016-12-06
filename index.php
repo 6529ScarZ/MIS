@@ -52,6 +52,50 @@ if (isset($_SESSION['user_mis'])) {
             </center> 
     <?php } ?>
         <center><h2><b>M I S</b></h2><p><h3>( Management Information System )</h3></center>
+        <div class="row">
+          <div class="col-lg-12">
+                <div class="box box-success box-solid">
+                <div class="box-header with-border">
+                  <h3 class="box-title">
+                      <img src="images/opd.png" width="30"> OPD</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                  </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    #
+                </div>
+                </div>
+          </div>
+            <div class="col-lg-12">
+                <div class="box box-warning box-solid">
+                <div class="box-header with-border">
+                  <h3 class="box-title">
+                      <img src="images/ipd.ico" width="30"> IPD</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                  </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    #
+                </div>
+                </div>
+          </div>
+            <div class="col-lg-12">
+                <div class="box box-danger box-solid">
+                <div class="box-header with-border">
+                  <h3 class="box-title">
+                      <img src="images/er.ico" width="30"> ER</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                  </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    #
+                </div>
+                </div>
+          </div>
+        </div>
         NO LOGIN.           
 
     </section>
