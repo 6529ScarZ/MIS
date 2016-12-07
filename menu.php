@@ -111,7 +111,29 @@
             <li class="treeview">
               <a href="#">
                   <img src="images/Import.ico" width="20">
-                <span>ระบบนำเข้าข้อมูล</span>
+                <span>ระบบนำเข้าข้อมูล OPD</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                  <li>
+                  <a href="#"><i class="fa fa-circle-o text-blue"></i> ข้อมูลที่นำเข้าแล้ว <i class="fa fa-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu">
+                    <li><a href="#" onClick="window.open('content/#.php?method=upd','','width=600,height=700'); return false;" title="Update ข้อมูล OPD จาก HOS"><i class="fa fa-circle-o text-aqua"></i> ข้อมูล OPD ที่นำเข้าแล้ว </a></li>
+                    </ul>
+            </li>
+                <li><a href="#" onClick="window.open('content/select_date_opd.php?method=imp','','width=400,height=250'); return false;" title="นำเข้าข้อมูล OPD จาก HOS"><i class="fa fa-circle-o text-green"></i> นำเข้า OPD</a></li>
+                <li>
+                  <a href="#"><i class="fa fa-circle-o text-blue"></i> update ข้อมูล <i class="fa fa-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu">
+                    <li><a href="#" onClick="window.open('content/select_date_opd.php?method=upd','','width=400,height=250'); return false;" title="Update ข้อมูล OPD จาก HOS"><i class="fa fa-circle-o text-aqua"></i> update OPD</a></li>
+                    </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                  <img src="images/Import.ico" width="20">
+                <span>ระบบนำเข้าข้อมูล BILL</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">

@@ -96,7 +96,7 @@ for($i=0;$i<$count_qr2;$i++){
     $data=array($query2[$i]['hos_guid'],$query2[$i]['InvNo'],$query2[$i]['BillMuad'],$query2[$i]['Amount'],$query2[$i]['Paid'],$query2[$i]['DTTran'],0);
     $table="billtran_item";
     $chk="chk";
-    if(isset($method) and $method='upd'){
+    if(isset($method) and $method=='upd'){
      $where="hos_guid= :hos_guid";
      $execute=array(':hos_guid' => $query2[$i]['hos_guid']);
      $inert_tranitem=$conn_DBMAIN->update($table, $data, $where,  '', $execute);

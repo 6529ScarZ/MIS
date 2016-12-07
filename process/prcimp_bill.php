@@ -75,7 +75,7 @@ $sql2="SELECT
  op.sum_price as ReimbAmount,
 '' as ProDuctselectionCode,
 '' as refill,
-'' as claimControl,
+opn.presc_reason as claimControl,
 '' as ClaimCategory,
 CONCAT( ov.vstdate,' ',ov.vsttime) AS prescription_date
  
@@ -92,6 +92,7 @@ FROM
   LEFT OUTER JOIN drugitems d on op.icode = d.icode
   left outer join tmt_tpu_code t1 on d.tpu_code_list = t1.tpu_code
   left outer join drugusage d1 on op.drugusage = d1.drugusage
+  LEFT OUTER JOIN ovst_presc_ned opn ON opn.vn=ov.vn
    WHERE ov.vstdate BETWEEN '$st_date' and '$en_date' and ov.pttype = '23' and isnull (ov.an) and i2.cscd_group IN(3,4,5) 
 ORDER BY ov.vstdate, ov.vsttime
 ";
@@ -128,7 +129,7 @@ for($i=0;$i<$count_qr2;$i++){
             ,$query2[$i]['ProDuctselectionCode'],$query2[$i]['refill'],$query2[$i]['claimControl'],$query2[$i]['ClaimCategory'],$query2[$i]['prescription_date'],0);
     $table="billdisp_item";
     $chk="chk";
-    if(isset($method) and $method='upd'){
+    if(isset($method) and $method=='upd'){
      $where="hos_guid= :hos_guid";
      $execute=array(':hos_guid' => $query2[$i]['hos_guid']);
      $inert_dispitem=$conn_DBMAIN->update($table, $data, $where,  '', $execute);

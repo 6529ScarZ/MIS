@@ -1,0 +1,31 @@
+CREATE TABLE `opd_report` (
+`opd_id`  int(7) NOT NULL AUTO_INCREMENT ,
+`vstmonth`  varchar(7) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`man`  int(7) NOT NULL ,
+`woman`  int(7) NOT NULL ,
+`import_date`  datetime NULL ,
+`update_date`  datetime NULL ,
+`chk`  int(3) NULL ,
+PRIMARY KEY (`opd_id`),
+UNIQUE INDEX `vstmonth` (`opd_id`, `vstmonth`) USING BTREE ;
+
+CREATE TABLE `month` (
+  `month_id` int(2) NOT NULL AUTO_INCREMENT,
+  `month_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `month_short` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `m_id` int(2) DEFAULT NULL,
+  PRIMARY KEY (`month_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO month VALUES("1","มกราคม","ม.ค.","1");
+INSERT INTO month VALUES("2","กุมภาพันธ์","ก.พ.","2");
+INSERT INTO month VALUES("3","มีนาคม","มี.ค.","3");
+INSERT INTO month VALUES("4","เมษายน","เม.ย.","4");
+INSERT INTO month VALUES("5","พฤษภาคม","พ.ค.","5");
+INSERT INTO month VALUES("6","มิถุนายน","มิ.ย.","6");
+INSERT INTO month VALUES("7","กรกฎาคม","ก.ค.","7");
+INSERT INTO month VALUES("8","สิงหาคม","ส.ค.","8");
+INSERT INTO month VALUES("9","กันยายน","ก.ย.","9");
+INSERT INTO month VALUES("10","ตุลาคม","ต.ค.","-2");
+INSERT INTO month VALUES("11","พฤศจิกายน","พ.ย.","-1");
+INSERT INTO month VALUES("12","ธันวาคม","ธ.ค.","0");

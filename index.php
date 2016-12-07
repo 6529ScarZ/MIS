@@ -20,20 +20,7 @@ if (isset($_SESSION['user_mis'])) {
             </div>
         </section>
         <section class="content">
-            <?php
-            $sql = "select hospital from hospital order by hospital desc limit 1";
-            $conn_DB1 = new TablePDO();
-            $read = "connection/conn_DB.txt";
-            $conn_DB1->para_read($read);
-            $db=$conn_DB1->conn_PDO();
-            $conn_DB1->getDb();
-            $conn_DB1->imp_sql($sql);
-            $comm = $conn_DB1->select('');
-            $conn_DB1->close_PDO();
-            ?>
-            <!--<a href="#" class="btn btn-success" onclick="window.open('content/detial_comm.php?id=<?php echo $conn_DB1->sslEnc($comm[0]['comm_id']);?>', '', 'width=800,height=650');
-                    return false;">
-                รายละเอียดกลุ่มออมทรัพย์</a>--> 
+            <?php include 'information(index).php';?>
         </section>
     <?php }
 } else { ?>
@@ -52,50 +39,7 @@ if (isset($_SESSION['user_mis'])) {
             </center> 
     <?php } ?>
         <center><h2><b>M I S</b></h2><p><h3>( Management Information System )</h3></center>
-        <div class="row">
-          <div class="col-lg-12">
-                <div class="box box-success box-solid">
-                <div class="box-header with-border">
-                  <h3 class="box-title">
-                      <img src="images/opd.png" width="30"> OPD</h3>
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                  </div><!-- /.box-tools -->
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    #
-                </div>
-                </div>
-          </div>
-            <div class="col-lg-12">
-                <div class="box box-warning box-solid">
-                <div class="box-header with-border">
-                  <h3 class="box-title">
-                      <img src="images/ipd.ico" width="30"> IPD</h3>
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                  </div><!-- /.box-tools -->
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    #
-                </div>
-                </div>
-          </div>
-            <div class="col-lg-12">
-                <div class="box box-danger box-solid">
-                <div class="box-header with-border">
-                  <h3 class="box-title">
-                      <img src="images/er.ico" width="30"> ER</h3>
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                  </div><!-- /.box-tools -->
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    #
-                </div>
-                </div>
-          </div>
-        </div>
+        <?php include 'information(index).php';?>
         NO LOGIN.           
 
     </section>
