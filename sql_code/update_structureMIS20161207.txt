@@ -7,7 +7,8 @@ CREATE TABLE `opd_report` (
 `update_date`  datetime NULL ,
 `chk`  int(3) NULL ,
 PRIMARY KEY (`opd_id`),
-UNIQUE INDEX `vstmonth` (`opd_id`, `vstmonth`) USING BTREE ;
+UNIQUE INDEX `vstmonth` (`vstmonth`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `month` (
   `month_id` int(2) NOT NULL AUTO_INCREMENT,
@@ -15,7 +16,7 @@ CREATE TABLE `month` (
   `month_short` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_id` int(2) DEFAULT NULL,
   PRIMARY KEY (`month_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO month VALUES("1","มกราคม","ม.ค.","1");
 INSERT INTO month VALUES("2","กุมภาพันธ์","ก.พ.","2");

@@ -19,8 +19,8 @@ if (null !== (filter_input(INPUT_POST, 'method'))) {
     $method=filter_input(INPUT_POST, 'method');
 }
 if (isset($_POST['txt_year']) and isset($_POST['txt_month'])) {
-$year = isset($_POST['txt_year']) ? mysql_real_escape_string($_POST['txt_year']) : '';
-$month = isset($_POST['txt_month']) ? mysql_real_escape_string($_POST['txt_month']) : '';
+$year = isset($_POST['txt_year']) ? filter_input(INPUT_POST,'txt_year') : '';
+$month = isset($_POST['txt_month']) ? filter_input(INPUT_POST,'txt_month') : '';
 
 
 $conn_DBHOS= new EnDeCode();
