@@ -39,7 +39,8 @@ if (isset($_SESSION['user_mis'])) {
             </center> 
     <?php } ?>
         <center><h2><b>M I S</b></h2><p><h3>( Management Information System )</h3></center>
-        <?php include 'information(index).php';?>
+<?php include 'information(index).php';?>
+
         NO LOGIN.           
 
     </section>

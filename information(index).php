@@ -1,8 +1,7 @@
-        <div class="row">
+                <div class="row">
              <?php
                         include_once ('plugins/funcDateThai.php');
                         include 'plugins/function_date.php';
-                        
                         ?>	
                     <div class="col-lg-12 col-xs-12">
                     <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
@@ -37,9 +36,9 @@
                         }
                         $date_start = "$Y-10-01";
                         $date_end = "$y-09-30";
-                        echo $date_start = DateThai2($date_start); //-----แปลงวันที่เป็นภาษาไทย
+                        echo '<center>'.$date_start = DateThai2($date_start); //-----แปลงวันที่เป็นภาษาไทย
                         echo " ถึง ";
-                        echo $date_end = DateThai2($date_end); //-----แปลงวันที่เป็นภาษาไทย
+                        echo $date_end = DateThai2($date_end).'</center>'; //-----แปลงวันที่เป็นภาษาไทย
                         ?>
           <div class="col-lg-12">
                 <div class="box box-success box-solid">
@@ -77,115 +76,100 @@
 
                     $month_start = "$Y-10-01";
                     $month_end = "$y-09-30";
-                    
-                    $num_license = mysqli_query($db,"select count(license_id) as count_cl from ss_carlicense");
-                        $count_license = mysqli_fetch_assoc($num_license);
-                        $count_cl = $count_license['count_cl'];
-                    
-                    for ($c = 1; $c <= $count_cl; $c++) {
-                    $sql2 = mysqli_query($db, "select license_name from ss_carlicense where license_id='$c'");
-                    $rs2 = mysqli_fetch_assoc($sql2);
-                    $name_license[$c].=$rs2['license_name'] . ',';
-                    }
+                    $sex = '';                  
+                    $sex[].='ชาย,';
+                    $sex[].='หญิง,';
                     $I = 10;
+                    $countnum[]='';
+                    $rs[]='';
+                    $rs2[]='';
+                    $name='';
                     for ($i = -2; $i <= 9; $i++) {
-
-                        $sqlMonth = mysqli_query($db,"select * from month where m_id='$i'");
-                        $month = mysqli_fetch_assoc($sqlMonth);
-
-                        if ($i <= 0) {
-                            $month_start = "$Y-$I-01";
-                            $month_end = "$Y-$I-31";
-                            /* if(date("Y-m-d")=="$y-$I-$d"){
-                              $month_start = "$y-$I-01";
-                              $month_end = "$y-$I-31";
-                              } */
-                        } elseif ($i >= 1 and $i <= 9) {
-                            $month_start = "$year-0$i-01";
-                            $month_end = "$year-0$i-31";
+                        
+                        $sql="select * from month where m_id='$i'";
+                        $conn_DB->imp_sql($sql);
+                        $month = $conn_DB->select();
+//////////////////////////เตรียมเดือน
+                       if ($i <= 0) {
+                            $month_sel  = "$Y-$I";
+                       } elseif ($i >= 1 and $i <= 9) {
+                            $month_sel  = "$year-0$i";
                         } else {
-                            $month_start = "$year-$i-01";
-                            $month_end = "$year-$i-31";
+                            $month_sel  = "$year-$i";
                         }
-
-                        $month_start;
+/////////////////////////////                   /
                         echo "&nbsp;&nbsp;";
-                        $month_end;
-                        
-                        for ($c = 1; $c <= $count_cl; $c++) {
-                        $sql  = mysqli_query($db,"select if(ISNULL(sum(bath)),0,sum(bath)) as sum_oil from ss_detial_oil   
-						 where  license_id='$c' and reg_date between '$month_start' and '$month_end' order by license_id");
-                        
-                        $rs = mysqli_fetch_assoc($sql);
+                        $ii=1;
+                        for ($c = 0; $c <= 1; $c++) {
+                            
+                        $sql  = "select man from opd_report   
+						 where  vstmonth like '$month_sel%' order by opd_id";
+                        $conn_DB->imp_sql($sql);
+                        $rs = $conn_DB->select();
+                       $countnum[$c].= isset($rs[$c]['man']) ? $rs[$c]['man']. ',' :'';
                        
-                        $countnum[$c].= $rs['sum_oil'] . ',';
+                        $sql2  = "select woman as woman from opd_report   
+						 where  vstmonth like '$month_sel%' order by opd_id";
+                        $conn_DB->imp_sql($sql2);
+                        $rs2 = $conn_DB->select();
+                       @$countnum[$ii].= isset($rs2[$c]['woman']) ? $rs2[$c]['woman']. ',' :'';
+                        $ii+2;
                         }
-                        $name.="'".$month['month_short']."'" . ',';
+                        $name.=isset($month[0]['month_short']) ? "'".$month[0]['month_short']."'" . ',':'';
                         $I++;
                     }
-                    echo mysql_error();?>
+                    ?>
                     <script src="plugins/Highcharts/js/highcharts.js"></script>
                     <script src="plugins/Highcharts/js/modules/exporting.js"></script>
-                    <script type="text/javascript" src="plugins/Highcharts/api/js/j"></script>
                     <script type="text/javascript">
-                        $(function () {
-                            var chart;
-                            $(document).ready(function () {
-                                chart = new Highcharts.Chart({
-                                    chart: {
-                                        renderTo: 'container',
-                                        type: 'line'
-                                    },
-                                    title: {
-                                        text: 'จำนวนการใช้น้ำมันในแต่ละเดือน'
-                                    },
-                                    subtitle: {
-                                        text: ''
-                                    },
-                                    xAxis: {
-                                        categories: [<?= $name; ?>
-                                        ]
-                                    },
-                                    yAxis: {
-                                        title: {
-                                            text: 'จำนวนเงิน (บาท)'
-                                        }
-                                    },
-                                    tooltip: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return '<b>' + this.series.name + '</b><br/>' +
-                                                    this.x + ': ' + this.y + ' บาท';
-                                        }
-                                    },
-                                    plotOptions: {
-                                        line: {
-                                            dataLabels: {
-                                                enabled: true
-                                            },
-                                            enableMouseTracking: true
-                                        }
-                                    },
-                                    series: [
-                                    <?php for ($c = 1; $c <= $count_cl; $c++) {?>
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'รายงานผู้ป่วย OPD แยกชาย/หญิง'
+        },
+        subtitle: {
+            text: 'แยกรายเดือน'
+        },
+        xAxis: {
+            categories: [<?= $name?>
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'ราย'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} ราย</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [<?php for ($c = 0; $c <= 1; $c++) {?>
                                     {
-                                        
-                                            name: '<?= $name_license[$c]?>',
+                                            name: '<?= $sex[$c]?>',
                                             data: [<?= $countnum[$c]?>]
-                                        
                                         },
-                                                <?php }   ?>
-                                    ]
-                                });
-                            });
-
-                        });
-
-
-                    </script>
+                                                <?php }   ?>]
+    });
+});
+		</script>
                 <div class="row">    
-                    <div class="col-lg-12 col-xs-12">
-                    <div class="col-lg-12" id="container" style="margin: 0 auto"></div>
+                    <div class="col-lg-6 col-xs-12">
+                    <div id="container" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     </div>
                     <br><br>
