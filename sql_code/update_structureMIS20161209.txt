@@ -1,0 +1,13 @@
+CREATE TABLE `opd_report_10dxg` (
+`10dxg_id`  int(7) NOT NULL AUTO_INCREMENT ,
+`vstmonth`  varchar(7) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`10dxg_code`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`dx_count`  int(10) NOT NULL ,
+`icdname`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`import_date`  datetime NULL ,
+`update_date`  datetime NULL ,
+`chk`  int(3) NULL ,
+PRIMARY KEY (`10dxg_id`),
+UNIQUE INDEX `10dxg` (`vstmonth`,`10dxg_code`) USING BTREE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
