@@ -84,6 +84,14 @@
                     $rs[]='';
                     $rs2[]='';
                     $name='';
+                    
+                    $sql="SELECT 10dxg_code FROM opd_report_10dxg GROUP BY 10dxg_code order by 10dxg_id asc";
+                    $conn_DB->imp_sql($sql);
+                    $dx_code = $conn_DB->select();
+                    $num_rows= count($dx_code);
+                    for ($c = 0; $c < $num_rows; $c++) {
+                        @$name_dx10[].=$dx_code[$c]['10dxg_code'] . ',';
+                    }
                     for ($i = -2; $i <= 9; $i++) {
                         
                         $sql="select * from month where m_id='$i'";
@@ -100,6 +108,7 @@
 /////////////////////////////                   /
                         echo "&nbsp;&nbsp;";
                         $ii=1;
+                        /////////////opd patient
                         for ($c = 0; $c <= 1; $c++) {
                             
                         $sql  = "select man from opd_report   
@@ -114,6 +123,15 @@
                         $rs2 = $conn_DB->select();
                        @$countnum[$ii].= isset($rs2[$c]['woman']) ? $rs2[$c]['woman']. ',' :'';
                         $ii+2;
+                        }
+                        ///////////////10dx group
+                        for ($c = 0; $c < $num_rows; $c++) {
+                        @$sql3  = "select if(ISNULL(sum(dx_count)),0,sum(dx_count)) as dx_count from opd_report_10dxg     
+						 where  10dxg_code='".$dx_code[$c]['10dxg_code']."' and vstmonth like '$month_sel%' order by 10dxg_id asc";
+                        
+                        $conn_DB->imp_sql($sql3);
+                        $rs3 = $conn_DB->select();
+                        @$countnum2[$c].= $rs3[0]['dx_count'] . ',';
                         }
                         $name.=isset($month[0]['month_short']) ? "'".$month[0]['month_short']."'" . ',':'';
                         $I++;
@@ -167,9 +185,58 @@ $(function () {
     });
 });
 		</script>
+                                                        <script type="text/javascript">
+$(function () {
+    $('#container2').highcharts({
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'รายงานผู้ป่วย 10 โรค OPD'
+        },
+        subtitle: {
+            text: 'แยกรายเดือน'
+        },
+        xAxis: {
+            categories: [<?= $name?>
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'ราย'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} ราย</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [<?php for ($c = 0; $c < $num_rows; $c++) {?>
+                                    {
+                                            name: '<?= $name_dx10[$c]?>',
+                                            data: [<?= $countnum2[$c]?>]
+                                        },
+                                                <?php }   ?>]
+    });
+});
+		</script>
                 <div class="row">    
                     <div class="col-lg-6 col-xs-12">
                     <div id="container" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                    <div id="container2" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     </div>
                     <br><br>
