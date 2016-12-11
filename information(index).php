@@ -85,7 +85,7 @@
                     $rs2[]='';
                     $name='';
                     
-                    $sql="SELECT 10dxg_code FROM opd_report_10dxg GROUP BY 10dxg_code order by dx_count desc";
+                    $sql="SELECT 10dxg_code FROM opd_report_10dxg GROUP BY 10dxg_code order by dx_count desc limit 5";
                     $conn_DB->imp_sql($sql);
                     $dx_code = $conn_DB->select();
                     $num_rows= count($dx_code);
@@ -127,7 +127,7 @@
                         ///////////////10dx group
                         for ($c = 0; $c < $num_rows; $c++) {
                         @$sql3  = "select if(ISNULL(sum(dx_count)),0,sum(dx_count)) as dx_count from opd_report_10dxg     
-						 where  10dxg_code='".$dx_code[$c]['10dxg_code']."' and vstmonth like '$month_sel%' order by dx_count desc";
+						 where  10dxg_code='".$dx_code[$c]['10dxg_code']."' and vstmonth like '$month_sel%' order by dx_count desc limit 5";
                         
                         $conn_DB->imp_sql($sql3);
                         $rs3 = $conn_DB->select();
@@ -192,7 +192,7 @@ $(function () {
             type: 'line'
         },
         title: {
-            text: 'รายงานผู้ป่วย 10 โรค OPD'
+            text: 'รายงานผู้ป่วย 5 โรค OPD'
         },
         subtitle: {
             text: 'แยกรายเดือน'
