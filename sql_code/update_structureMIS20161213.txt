@@ -1,0 +1,12 @@
+CREATE TABLE `opd_report_5prov` (
+`opd_prov_id`  int(7) NOT NULL AUTO_INCREMENT ,
+`vstmonth`  date NOT NULL ,
+`PROVINCE_CODE`  int(2) NOT NULL ,
+`count_patient`  int(5) NOT NULL ,
+`import_date`  datetime NULL ,
+`update_date`  datetime NULL ,
+`chk`  int(3) NOT NULL ,
+PRIMARY KEY (`opd_prov_id`),
+UNIQUE INDEX `prov5` (`vstmonth`, `PROVINCE_CODE`) USING BTREE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

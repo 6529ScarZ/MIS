@@ -9,7 +9,7 @@ ini_set('max_execution_time', 0);?>
                 setTimeout("self.close()", StayAlive * 1000);
             }
         </script>
-        <!--<body onLoad="KillMe();self.focus();window.opener.location.reload();">--><body>
+        <body onLoad="KillMe();self.focus();window.opener.location.reload();">
             <DIV  align='center'><IMG src='../images/tororo_hero.gif' width='200'></div>
 <?php
 function __autoload($class_name) {
@@ -49,6 +49,18 @@ limit 10
 ";
 $conn_DBHOS->imp_sql($sql2);
 $query2=$conn_DBHOS->select();
+
+$sql3="select SUBSTR(ov.vstdate,1,7) as vstmonth,IF((SUBSTR(ov.aid,1,2)in(42,41,67,39,43)),SUBSTR(ov.aid,1,2),'00') as province,
+COUNT(ov.hn) as count_patient
+from vn_stat ov ,patient pt ,ovst ovst 
+where  ov.vn=ovst.vn and pt.hn=ov.hn and ov.hn=pt.hn 
+ and SUBSTR(ov.vstdate,1,7) LIKE '$year-$month%'
+ and ov.age_y>= 0 
+ and ov.age_y<= 200 
+GROUP BY province ORDER BY count_patient desc;";
+$conn_DBHOS->imp_sql($sql3);
+$query3=$conn_DBHOS->select();
+
 $conn_DBHOS->close_PDO();
 $conn_DBMAIN= new EnDeCode();
 $read="../connection/conn_DB.txt";
@@ -76,16 +88,30 @@ for($i=0;$i<$count_qr2;$i++){
     $chk="chk";
     if(isset($method) and $method=='upd'){
      $data=array($query2[$i]['code3'],$query2[$i]['pdx_count'],$icdname,date("Y-m-d H:m:s"),0);    
-     $where="substr(vstmonth,1,7)= :vstmonth";
+     $where="substr(vstmonth,1,7)= :vstmonth and 10dxg_code= :10dxg_code";
      $field=array("10dxg_code","dx_count","icdname","update_date","chk");
-     $execute=array(':vstmonth' => "$year-$month");
+     $execute=array(':vstmonth' => "$year-$month", ':10dxg_code' => $query2[$i]['code3']);
      $inert_10dxg=$conn_DBMAIN->update($table, $data, $where, $field, $execute);
     }else{
         $vstmonth=$query2[$i]['vstmonth'].'-01';
      $data=array($vstmonth,$query2[$i]['code3'],$query2[$i]['pdx_count'],$icdname,date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
     $inert_10dxg=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
+    $count_qr3=count($query3);
+    for($i=0;$i<$count_qr3;$i++){
+    $table="opd_report_5prov";
+    $chk="chk";
+    if(isset($method) and $method=='upd'){
+     $data=array($query3[$i]['count_patient'],date("Y-m-d H:m:s"),0);    
+     $where="substr(vstmonth,1,7)= :vstmonth and PROVINCE_CODE= :province";
+     $field=array("count_patient","update_date","chk");
+     $execute=array(':vstmonth' => "$year-$month", ':province' => $query3[$i]['province']);
+     $inert_5prov=$conn_DBMAIN->update($table, $data, $where, $field, $execute);
+    }else{
+        $vstmonth=$query3[$i]['vstmonth'].'-01';
+     $data=array($vstmonth,$query3[$i]['province'],$query3[$i]['count_patient'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
+    $inert_5prov=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
 
-if(($inert_opd and $inert_10dxg)==FALSE){
+if(($inert_opd and $inert_10dxg and $inert_5prov)==FALSE){
     echo "<script>alert('การนำเข้าข้อมูลไม่สำเร็จจ้า!')</script>";
 }else{
     echo "<script>alert('การนำเข้าข้อมูลสำเร็จแล้วจ้า!')</script>";

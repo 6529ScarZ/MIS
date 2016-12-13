@@ -1,6 +1,6 @@
 CREATE TABLE `opd_report_10dxg` (
 `10dxg_id`  int(7) NOT NULL AUTO_INCREMENT ,
-`vstmonth`  varchar(7) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+`vstmonth`  date NOT NULL ,
 `10dxg_code`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
 `dx_count`  int(10) NOT NULL ,
 `icdname`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,

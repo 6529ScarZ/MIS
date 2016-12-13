@@ -36,9 +36,9 @@
                         }
                         $date_start = "$Y-10-01";
                         $date_end = "$y-09-30";
-                        echo '<center>'.$date_start = DateThai2($date_start); //-----แปลงวันที่เป็นภาษาไทย
+                        echo '<center>'.DateThai2($date_start); //-----แปลงวันที่เป็นภาษาไทย
                         echo " ถึง ";
-                        echo $date_end = DateThai2($date_end).'</center>'; //-----แปลงวันที่เป็นภาษาไทย
+                        echo DateThai2($date_end).'</center>'; //-----แปลงวันที่เป็นภาษาไทย
                         ?>
           <div class="col-lg-12">
                 <div class="box box-success box-solid">
@@ -126,54 +126,76 @@
                         }
                         ///////////////10dx group
                         for ($c = 0; $c < $num_rows; $c++) {
-                        @$sql3  = "select if(ISNULL(sum(dx_count)),0,sum(dx_count)) as dx_count from opd_report_10dxg     
+                        @$sql3  = "select dx_count as dx_count from opd_report_10dxg     
 						 where  10dxg_code='".$dx_code[$c]['10dxg_code']."' and vstmonth like '$month_sel%' order by dx_count desc limit 5";
                         
                         $conn_DB->imp_sql($sql3);
                         $rs3 = $conn_DB->select();
                         @$countnum2[$c].= $rs3[0]['dx_count'] . ',';
                         }
+                        
+                        
                         $name.=isset($month[0]['month_short']) ? "'".$month[0]['month_short']."'" . ',':'';
                         $I++;
                     }
+                    //////////////5 province
+                        $sql4 =  "SELECT IF(or5.PROVINCE_CODE = 0,'อื่นๆ',prov.PROVINCE_NAME) AS prov_name,SUM(or5.count_patient) AS patient
+FROM opd_report_5prov or5
+LEFT OUTER JOIN province prov ON prov.PROVINCE_CODE=or5.PROVINCE_CODE
+WHERE or5.vstmonth BETWEEN '$date_start' and '$date_end'
+GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
+                        $conn_DB->imp_sql($sql4);
+                        $rs4 = $conn_DB->select();
                     ?>
                     <script src="plugins/Highcharts/js/highcharts.js"></script>
                     <script src="plugins/Highcharts/js/modules/exporting.js"></script>
-                    <script type="text/javascript">
+                    <script src="plugins/Highcharts/js/highcharts-3d.js"></script>
+<style type="text/css">
+#container {
+	height: 400px; 
+	min-width: 310px; 
+	max-width: 800px;
+	margin: 0 auto;
+}
+		</style>
+<script type="text/javascript">
 $(function () {
     $('#container').highcharts({
         chart: {
-            type: 'column'
+            type: 'column',
+            margin: 75,
+            options3d: {
+                enabled: true,
+                alpha: 10,
+                beta: 25,
+                depth: 70
+            }
         },
         title: {
             text: 'รายงานผู้ป่วย OPD แยกชาย/หญิง'
         },
+        tooltip: {
+                                        enabled: true,
+                                        formatter: function () {
+                                            return '<b>' + this.series.name + '</b><br/>' +
+                                                    this.x + ': ' + this.y + ' ราย';
+                                        }
+                                    },
         subtitle: {
             text: 'แยกรายเดือน'
         },
-        xAxis: {
-            categories: [<?= $name?>
-            ],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'ราย'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} ราย</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
         plotOptions: {
             column: {
-                pointPadding: 0.2,
-                borderWidth: 0
+                depth: 25
+            }
+        },
+        xAxis: {
+            categories: [<?= $name?>
+            ]
+        },
+        yAxis: {
+            title: {
+                text: 'ราย'
             }
         },
         series: [<?php for ($c = 0; $c <= 1; $c++) {?>
@@ -185,41 +207,51 @@ $(function () {
     });
 });
 		</script>
-                                                        <script type="text/javascript">
+<style type="text/css">
+#container2 {
+	height: 400px; 
+	min-width: 310px; 
+	max-width: 800px;
+	margin: 0 auto;
+}
+		</style>
+<script type="text/javascript">
 $(function () {
     $('#container2').highcharts({
         chart: {
-            type: 'line'
+            type: 'line',
+            margin: 75,
+            options3d: {
+                enabled: true,
+                alpha: 10,
+                beta: 25,
+                depth: 70
+            }
         },
         title: {
             text: 'รายงานผู้ป่วย 5 โรค OPD'
-        },
+        },tooltip: {
+                                        enabled: true,
+                                        formatter: function () {
+                                            return '<b>' + this.series.name + '</b><br/>' +
+                                                    this.x + ': ' + this.y + ' ราย';
+                                        }
+                                    },
         subtitle: {
             text: 'แยกรายเดือน'
         },
-        xAxis: {
-            categories: [<?= $name?>
-            ],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'ราย'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} ราย</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
         plotOptions: {
             column: {
-                pointPadding: 0.2,
-                borderWidth: 0
+                depth: 25
+            }
+        },
+        xAxis: {
+            categories: [<?= $name?>
+            ]
+        },
+        yAxis: {
+            title: {
+                text: 'ราย'
             }
         },
         series: [<?php for ($c = 0; $c < $num_rows; $c++) {?>
@@ -231,6 +263,55 @@ $(function () {
     });
 });
 		</script>
+<script type="text/javascript">
+$(function () {
+    $('#container3').highcharts({
+        chart: {
+            type: 'pie',
+            options3d: {
+                enabled: true,
+                alpha: 45,
+                beta: 0
+            }
+        },
+        title: {
+            text: 'ผู้ป่วยมารับบริการในปีงบ <?= $years?>'
+        },
+                subtitle: {
+            text: 'แยกรายจังหวัด'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'+ '</b>: <br>' + '{y}' + ' ราย'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'ผู้มารับบริการ',
+            /*data: [<?php $count_patient=count($rs4);
+                for($c=0;$c<$count_patient;$c++) {
+                    $name = $rs4[$c]['prov_name'];
+                    $count = $rs4[$c]['patient'];
+                    $sss.= "['".$name."',".$count."],";
+                    echo $sss;
+                }
+                ?>
+            ]*/
+    data: [<?= $sss?>
+            ]
+        }]
+    });
+});
+		</script>                
                 <div class="row">    
                     <div class="col-lg-6 col-xs-12">
                     <div id="container" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
@@ -238,8 +319,10 @@ $(function () {
                     <div class="col-lg-6 col-xs-12">
                     <div id="container2" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
+                    <div class="col-lg-12 col-xs-12">
+                    <div id="container3" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
-                    <br><br>
+                    </div>
                 </div>
                 </div>
           </div>
