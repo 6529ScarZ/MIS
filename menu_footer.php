@@ -150,6 +150,12 @@
                         <img src="images/database.ico" width="25">&nbsp;&nbsp; ข้อมูลสำรอง</a>
                 </label>
               </div>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                    <a href="#" title="hostname main config">DB Main : <?= $dbconfig["hostname"]?></a><br>
+                    <a href="#" title="hostname HIS config">DB HIS : <?= $dbHosconfig["hostname"]?></a>
+                </label>
+              </div>
                </form>
           </div><!-- /.tab-pane -->
         </div>

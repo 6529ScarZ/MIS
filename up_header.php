@@ -7,7 +7,15 @@ set_time_limit(0);
 $conn_DB= new TablePDO();
 $read="connection/conn_DB.txt";
 $conn_DB->para_read($read);
+$conn_db=$conn_DB->Read_Text();
+$dbconfig["hostname"]= trim($conn_db[0]) ;
 $db=$conn_DB->conn_PDO();
+
+$conn_HosDB= new TablePDO();
+$read_Hos="connection/conn_DBHosxp.txt";
+$conn_HosDB->para_read($read_Hos);
+$conn_Hosdb=$conn_HosDB->Read_Text();
+        $dbHosconfig["hostname"]= trim($conn_Hosdb[0]) ;
 if($db != FALSE){
 //$db=$conn_DB->getDb();
 //===ชื่อกลุ่ม

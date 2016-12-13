@@ -190,14 +190,16 @@
                 <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
                     <img src="images/opd.png" width="20"> <span>OPD</span>
               </a>
+                </li>
+            <li>
                 <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
                     <img src="images/ipd.ico" width="20"> <span>IPD</span>
               </a>
+                </li>
+            <li>
                 <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
                     <img src="images/er.ico" width="20"> <span>ER</span>
               </a>
-                
-                
             </li>
           </ul>
         </section>
