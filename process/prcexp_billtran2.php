@@ -1,4 +1,6 @@
-<?php session_start(); include '../header2.php';
+<?php
+session_save_path("../session/");
+session_start(); include '../header2.php';
 ignore_user_abort(1); // run script in background
 set_time_limit(180);
 ?>

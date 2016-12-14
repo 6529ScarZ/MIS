@@ -1,4 +1,6 @@
-<?php session_start(); 
+<?php
+session_save_path("../session/");
+session_start(); 
 include '../header2.php';include '../plugins/funcDateThai.php';
 ?>
 <div class="row">

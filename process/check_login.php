@@ -1,4 +1,6 @@
-<?php session_start(); 
+<?php
+session_save_path("../session/");
+session_start(); 
 include '../header2.php';?>
 <script language="JavaScript" type="text/javascript"> 
 var StayAlive = 1; // เวลาเป็นวินาทีที่ต้องการให้ WIndows เปิดออก 

@@ -1,4 +1,6 @@
-<?php session_start(); 
+<?php 
+session_save_path("../session/");
+session_start(); 
 include '../header2.php';include '../plugins/funcDateThai.php';
 if(null !== (filter_input(INPUT_GET, 'method'))){
     $method=filter_input(INPUT_GET, 'method');
@@ -197,8 +199,9 @@ if($total>0){
 }
         ?>
     </form>
+    <?php if(isset($_SESSION['id'])){?>
     <form name="form3" class="" role="form" action='../process/prcexp_bill2.php' enctype="multipart/form-data" method='post'>
         <input type="hidden" name="method" value="exp_select">
         <div align="center"><input class="btn btn-success" type="submit" value="ส่งออก"></div> 
-    </form>
+    </form><?php }?>
  <?php } include '../footer2.php';?>

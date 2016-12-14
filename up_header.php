@@ -1,4 +1,6 @@
-<?php session_start(); 
+<?php 
+session_save_path("./session/");
+session_start(); 
 //require_once 'class/TablePDO.php';
 function __autoload($class_name) {
     include 'class/'.strtolower($class_name).'.php';

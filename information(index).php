@@ -148,82 +148,7 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $rs4 = $conn_DB->select();
                     ?>
                     
-		<script type="text/javascript">
-// Data gathered from http://populationpyramid.net/germany/2015/
-$(function () {
-    // Age categories
-    var categories = ['0-4', '5-9', '10-14', '15-19',
-            '20-24', '25-29', '30-34', '35-39', '40-44',
-            '45-49', '50-54', '55-59', '60-64', '65-69',
-            '70-74', '75-79', '80-84', '85-89', '90-94',
-            '95-99', '100 + '];
-    $(document).ready(function () {
-        Highcharts.chart('container4', {
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'Population pyramid for Germany, 2015'
-            },
-            subtitle: {
-                text: 'Source: <a href="http://populationpyramid.net/germany/2015/">Population Pyramids of the World from 1950 to 2100</a>'
-            },
-            xAxis: [{
-                categories: categories,
-                reversed: false,
-                labels: {
-                    step: 1
-                }
-            }, { // mirror axis on right side
-                opposite: true,
-                reversed: false,
-                categories: categories,
-                linkedTo: 0,
-                labels: {
-                    step: 1
-                }
-            }],
-            yAxis: {
-                title: {
-                    text: null
-                },
-                labels: {
-                    formatter: function () {
-                        return Math.abs(this.value) + '%';
-                    }
-                }
-            },
-
-            plotOptions: {
-                series: {
-                    stacking: 'normal'
-                }
-            },
-
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
-                        'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
-                }
-            },
-
-            series: [{
-                name: 'Male',
-                data: [-2.2, -2.2, -2.3, -2.5, -2.7, -3.1, -3.2,
-                    -3.0, -3.2, -4.3, -4.4, -3.6, -3.1, -2.4,
-                    -2.5, -2.3, -1.2, -0.6, -0.2, -0.0, -0.0]
-            }, {
-                name: 'Female',
-                data: [2.1, 2.0, 2.2, 2.4, 2.6, 3.0, 3.1, 2.9,
-                    3.1, 4.1, 4.3, 3.6, 3.4, 2.6, 2.9, 2.9,
-                    1.8, 1.2, 0.6, 0.1, 0.0]
-            }]
-        });
-    });
-
-});
-		</script>
-<style type="text/css">
+		<style type="text/css">
 #container {
 	height: 400px; 
 	min-width: 310px; 
@@ -274,7 +199,19 @@ $(function () {
         series: [<?php for ($c = 0; $c <= 1; $c++) {?>
                                     {
                                             name: '<?= $sex[$c]?>',
-                                            data: [<?= $countnum[$c]?>]
+                                            data: [<?= $countnum[$c]?>],
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '12px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
                                         },
                                                 <?php }   ?>]
     });
@@ -330,7 +267,19 @@ $(function () {
         series: [<?php for ($c = 0; $c < $num_rows; $c++) {?>
                                     {
                                             name: '<?= $name_dx10[$c]?>',
-                                            data: [<?= $countnum2[$c]?>]
+                                            data: [<?= $countnum2[$c]?>],
+            dataLabels: {
+                enabled: true,
+                rotation: 0,
+                color: '#000000',
+                align: 'right',
+                format: '{point.y}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '9px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
                                         },
                                                 <?php }   ?>]
     });
@@ -385,6 +334,7 @@ $(function () {
     });
 });
 		</script> 
+                
                     <script src="plugins/Highcharts/code/highcharts.js"></script>
                     <script src="plugins/Highcharts/code/modules/exporting.js"></script>
                     <script src="plugins/Highcharts/code/highcharts-3d.js"></script>
@@ -395,12 +345,8 @@ $(function () {
                     <div class="col-lg-6 col-xs-12">
                     <div id="container2" style="min-width: 50%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
-                    <div class="col-lg-6 col-xs-12">
+                    <div class="col-lg-12 col-xs-12">
                     <div id="container3" style="min-width: 50%; max-width: 100%; height: 100%; margin: 0 auto"></div>
-                    </div>
-                    <div class="col-lg-6 col-xs-12">
-                    <div id="container4" style="min-width: 50%; max-width: 100%; height: 100%; margin: 0 auto"></div>
-                    </div>
                     </div>
                 </div>
                 </div>
