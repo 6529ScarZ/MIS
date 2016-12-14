@@ -147,9 +147,82 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $conn_DB->imp_sql($sql4);
                         $rs4 = $conn_DB->select();
                     ?>
-                    <script src="plugins/Highcharts/js/highcharts.js"></script>
-                    <script src="plugins/Highcharts/js/modules/exporting.js"></script>
-                    <script src="plugins/Highcharts/js/highcharts-3d.js"></script>
+                    
+		<script type="text/javascript">
+// Data gathered from http://populationpyramid.net/germany/2015/
+$(function () {
+    // Age categories
+    var categories = ['0-4', '5-9', '10-14', '15-19',
+            '20-24', '25-29', '30-34', '35-39', '40-44',
+            '45-49', '50-54', '55-59', '60-64', '65-69',
+            '70-74', '75-79', '80-84', '85-89', '90-94',
+            '95-99', '100 + '];
+    $(document).ready(function () {
+        Highcharts.chart('container4', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Population pyramid for Germany, 2015'
+            },
+            subtitle: {
+                text: 'Source: <a href="http://populationpyramid.net/germany/2015/">Population Pyramids of the World from 1950 to 2100</a>'
+            },
+            xAxis: [{
+                categories: categories,
+                reversed: false,
+                labels: {
+                    step: 1
+                }
+            }, { // mirror axis on right side
+                opposite: true,
+                reversed: false,
+                categories: categories,
+                linkedTo: 0,
+                labels: {
+                    step: 1
+                }
+            }],
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    formatter: function () {
+                        return Math.abs(this.value) + '%';
+                    }
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                        'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                }
+            },
+
+            series: [{
+                name: 'Male',
+                data: [-2.2, -2.2, -2.3, -2.5, -2.7, -3.1, -3.2,
+                    -3.0, -3.2, -4.3, -4.4, -3.6, -3.1, -2.4,
+                    -2.5, -2.3, -1.2, -0.6, -0.2, -0.0, -0.0]
+            }, {
+                name: 'Female',
+                data: [2.1, 2.0, 2.2, 2.4, 2.6, 3.0, 3.1, 2.9,
+                    3.1, 4.1, 4.3, 3.6, 3.4, 2.6, 2.9, 2.9,
+                    1.8, 1.2, 0.6, 0.1, 0.0]
+            }]
+        });
+    });
+
+});
+		</script>
 <style type="text/css">
 #container {
 	height: 400px; 
@@ -223,9 +296,9 @@ $(function () {
             margin: 75,
             options3d: {
                 enabled: true,
-                alpha: 10,
-                beta: 25,
-                depth: 70
+                alpha: 0,
+                beta: 0,
+                depth: 50
             }
         },
         title: {
@@ -311,16 +384,22 @@ $(function () {
         }]
     });
 });
-		</script>                
+		</script> 
+                    <script src="plugins/Highcharts/code/highcharts.js"></script>
+                    <script src="plugins/Highcharts/code/modules/exporting.js"></script>
+                    <script src="plugins/Highcharts/code/highcharts-3d.js"></script>
                 <div class="row">    
                     <div class="col-lg-6 col-xs-12">
-                    <div id="container" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div id="container" style="min-width: 50%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     <div class="col-lg-6 col-xs-12">
-                    <div id="container2" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div id="container2" style="min-width: 50%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
-                    <div class="col-lg-12 col-xs-12">
-                    <div id="container3" style="min-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div class="col-lg-6 col-xs-12">
+                    <div id="container3" style="min-width: 50%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                    <div id="container4" style="min-width: 50%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     </div>
                 </div>

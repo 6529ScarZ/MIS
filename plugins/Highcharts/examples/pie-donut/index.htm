@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Highcharts Example</title>
 
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<style type="text/css">
 ${demo.css}
 		</style>
@@ -32,12 +32,13 @@ $(function () {
                 color: colors[1]
             }
         }, {
-            y: 24.030000000000005,
+            y: 24.03,
             color: colors[2],
             drilldown: {
                 name: 'Chrome versions',
                 categories: ['Chrome v30.0', 'Chrome v31.0', 'Chrome v32.0', 'Chrome v33.0', 'Chrome v34.0',
-                    'Chrome v35.0', 'Chrome v36.0', 'Chrome v37.0', 'Chrome v38.0', 'Chrome v39.0', 'Chrome v40.0', 'Chrome v41.0', 'Chrome v42.0', 'Chrome v43.0'],
+                    'Chrome v35.0', 'Chrome v36.0', 'Chrome v37.0', 'Chrome v38.0', 'Chrome v39.0', 'Chrome v40.0', 'Chrome v41.0', 'Chrome v42.0', 'Chrome v43.0'
+                    ],
                 data: [0.14, 1.24, 0.55, 0.19, 0.14, 0.85, 2.53, 0.38, 0.6, 2.96, 5, 4.32, 3.68, 1.45],
                 color: colors[2]
             }
@@ -46,12 +47,12 @@ $(function () {
             color: colors[3],
             drilldown: {
                 name: 'Safari versions',
-                categories: ['Safari v5.0', 'Safari v5.1', 'Safari v6.1', 'Safari v6.2', 'Safari v7.0', 'Safari v7.1', 'Safari v8.0', ],
+                categories: ['Safari v5.0', 'Safari v5.1', 'Safari v6.1', 'Safari v6.2', 'Safari v7.0', 'Safari v7.1', 'Safari v8.0'],
                 data: [0.3, 0.42, 0.29, 0.17, 0.26, 0.77, 2.56],
                 color: colors[3]
             }
         }, {
-            y: 0.9100000000000001,
+            y: 0.91,
             color: colors[4],
             drilldown: {
                 name: 'Opera versions',
@@ -101,7 +102,7 @@ $(function () {
     }
 
     // Create the chart
-    $('#container').highcharts({
+    Highcharts.chart('container', {
         chart: {
             type: 'pie'
         },
@@ -133,7 +134,7 @@ $(function () {
                 formatter: function () {
                     return this.y > 5 ? this.point.name : null;
                 },
-                color: 'white',
+                color: '#ffffff',
                 distance: -30
             }
         }, {
@@ -144,7 +145,7 @@ $(function () {
             dataLabels: {
                 formatter: function () {
                     // display only if larger than 1
-                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
                 }
             }
         }]
@@ -153,8 +154,8 @@ $(function () {
 		</script>
 	</head>
 	<body>
-<script src="../../js/highcharts.js"></script>
-<script src="../../js/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <div id="container" style="width: 600px; height: 400px; margin: 0 auto"></div>
 
