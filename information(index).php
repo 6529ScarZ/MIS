@@ -150,9 +150,9 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                     
 		<style type="text/css">
 #container {
-	height: 400px; 
-	min-width: 310px; 
-	max-width: 800px;
+	height: 100%; 
+	min-width: 50%; 
+	max-width: 100%;
 	margin: 0 auto;
 }
 		</style>
@@ -208,7 +208,7 @@ $(function () {
                 format: '{point.y}', // one decimal
                 y: 10, // 10 pixels down from the top
                 style: {
-                    fontSize: '12px',
+                    fontSize: '11px',
                     fontFamily: 'Verdana, sans-serif'
                 }
             }
@@ -219,9 +219,9 @@ $(function () {
 		</script>
 <style type="text/css">
 #container2 {
-	height: 400px; 
-	min-width: 310px; 
-	max-width: 800px;
+	height: 100%; 
+	min-width: 100%; 
+	max-width: 100%;
 	margin: 0 auto;
 }
 		</style>
@@ -340,13 +340,13 @@ $(function () {
                     <script src="plugins/Highcharts/code/highcharts-3d.js"></script>
                 <div class="row">    
                     <div class="col-lg-6 col-xs-12">
-                    <div id="container" style="min-width: 100%; max-width: 100%; height: 75%; margin: 0 auto"></div>
+                    <div id="container" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     <div class="col-lg-6 col-xs-12">
-                    <div id="container2" style="min-width: 100%; max-width: 100%; height: 75%; margin: 0 auto"></div>
+                    <div id="container2" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     <div class="col-lg-12 col-xs-12">
-                    <div id="container3" style="min-width: 100%; max-width: 100%; height: 75%; margin: 0 auto"></div>
+                    <div id="container3" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
                 </div>
