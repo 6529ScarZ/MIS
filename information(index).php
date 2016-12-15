@@ -41,6 +41,10 @@
                     $sex = '';                  
                     $sex[].='ชาย,';
                     $sex[].='หญิง,';
+                    $ward = '';                  
+                    $ward[].='ชาย1,';
+                    $ward[].='ชาย2,';
+                    $ward[].='หญิง,';
                     $I = 10;
                     $countnum[]='';
                     $rs[]='';
@@ -69,7 +73,7 @@
                         }
                         /////////////opd patient
                         $ii=1;
-                        for ($c = 0; $c <= 1; $c++) {
+                        for ($c = 0; $c < count($sex); $c++) {
                         $sql  = "select man from opd_report   
 						 where  vstmonth like '$month_sel%' order by opd_id";
                         $conn_DB->imp_sql($sql);
@@ -82,6 +86,28 @@
                         $rs2 = $conn_DB->select();
                        @$countnum[$ii].= isset($rs2[$c]['woman']) ? $rs2[$c]['woman']. ',' :'';
                         $ii+2;
+                        }
+                        //////////////ipd stable
+                        
+                        for ($c = 0; $c < count($ward); $c++) {
+                            $iii=0;
+                        $sql  = "select ROUND(AVG(stable_m1)) avg_stable_m1 from ipd_report_stable   
+						 where  admdate like '$month_sel%' order by ipd_st_id";
+                        $conn_DB->imp_sql($sql);
+                        $rs = $conn_DB->select();
+                       @$countnum3[$iii].= isset($rs[$c]['avg_stable_m1']) ? $rs[$c]['avg_stable_m1']. ',' :'';
+                       $iii++;
+                        $sql2  = "select ROUND(AVG(stable_m2)) avg_stable_m2 from ipd_report_stable   
+						 where  admdate like '$month_sel%' order by ipd_st_id";
+                        $conn_DB->imp_sql($sql2);
+                        $rs2 = $conn_DB->select();
+                       @$countnum3[$iii].= isset($rs2[$c]['avg_stable_m2']) ? $rs2[$c]['avg_stable_m2']. ',' :'';
+                       $iii++;
+                       $sql3  = "select ROUND(AVG(stable_w)) avg_stable_w from ipd_report_stable   
+						 where  admdate like '$month_sel%' order by ipd_st_id";
+                        $conn_DB->imp_sql($sql3);
+                        $rs3 = $conn_DB->select();
+                       @$countnum3[$iii].= isset($rs3[$c]['avg_stable_w']) ? $rs3[$c]['avg_stable_w']. ',' :'';
                         }
                         ///////////////10dx group
                         for ($c = 0; $c < $num_rows; $c++) {
@@ -97,6 +123,7 @@
                         $name.=isset($month[0]['month_short']) ? "'".$month[0]['month_short']."'" . ',':'';
                         $I++;
                     }
+                     
                     //////////////5 province
                         $sql4 =  "SELECT IF(or5.PROVINCE_CODE = 0,'อื่นๆ',prov.PROVINCE_NAME) AS prov_name,SUM(or5.count_patient) AS patient
 FROM opd_report_5prov or5
@@ -120,7 +147,7 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $categories=$name;
                         $name =$sex; 
                         $data =$countnum;
-                        $charts->ColumnLine_3D($container, $type, $title, $subtitle, $unit, $categories, $name, $data);
+                        $charts->ColumnLine_3D($container, $type, $title, $unit, $categories, $name, $data, $subtitle);
                         
                         $charts2=new Charts();
                         $container2='chart2';
@@ -128,17 +155,27 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $title2='รายงานผู้ป่วย 5 โรค OPD';
                         $name2 =$name_dx10; 
                         $data2 =$countnum2;
-                        $charts2->ColumnLine_3D($container2, $type2, $title2, $subtitle, $unit, $categories, $name2, $data2);
+                        $charts2->ColumnLine_3D($container2, $type2, $title2, $unit, $categories, $name2, $data2, $subtitle);
                         
                         $charts3=new Charts();
                         $container3='chart3';
                         $type3='pie';
                         $title3='ผู้ป่วยมารับบริการในปีงบประมาณ';
+                        $subtitle3='แยกรายจังหวัด';
                         $name3 ='ผู้มารับบริการ'; 
                         $data3 =$sss;
-                        $charts3->Pie3D($container3, $type3, $title3, $subtitle, $unit, $name3, $data3);
+                        $charts3->Pie3D($container3, $type3, $title3, $unit, $name3, $data3, $subtitle3);
+                        
+                        $charts4=new Charts();
+                        $container4='chart4';
+                        $type4='column';
+                        $title4='คงพยาบาลในปีงบประมาณ';
+                        $subtitle4='แยกตึก';
+                        $unit4 ='คน (เฉลี่ย/เดือน)';
+                        $name4 =$ward; 
+                        $data4 =$countnum3;
+                        $charts4->Columnstacking3D($container4, $type4, $title4, $unit4, $categories, $name4, $data4, $subtitle4);
                     ?>
-                
                     <script src="plugins/Highcharts/code/highcharts.js"></script>
                     <script src="plugins/Highcharts/code/modules/exporting.js"></script>
                     <script src="plugins/Highcharts/code/highcharts-3d.js"></script>
@@ -191,7 +228,18 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                   </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    #
+<center>รายงาน IPD&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center>
+<div class="row">  
+                    <div class="col-lg-6 col-xs-12">
+                    <div id="<?= $container4?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                    <div id="#" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div>
+                    <div class="col-lg-12 col-xs-12">
+                    <div id="#" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div>
+                </div>
                 </div>
                 </div>
                 <div class="box box-danger box-solid">
@@ -203,7 +251,7 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                   </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    #
+<center>รายงาน ER&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center>
                 </div>
                 </div>
           </div>

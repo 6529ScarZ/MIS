@@ -1,6 +1,6 @@
 <?php
 class Charts {
-    public function ColumnLine_3D($container,$type,$title,$subtitle=null,$unit,$categories,$name,$data) {
+    public function ColumnLine_3D($container,$type,$title,$unit,$categories,$name,$data,$subtitle=null) {
         $this->container=$container;
         $this->type=$type;
         $this->title=$title;
@@ -101,7 +101,8 @@ $(function () {
 });
 		</script>
 <?php    }
-    public function Pie3D($container,$type='pie',$title,$subtitle=null,$unit,$name,$data) {
+
+    public function Pie3D($container,$type='pie',$title,$unit,$name,$data,$subtitle=null) {
         $this->container=$container;
         $this->type=$type;
         $this->title=$title;
@@ -150,5 +151,95 @@ $(function () {
 });
 		</script> 
   <?php  }
+  
+  public function Columnstacking3D($container,$type='column',$title,$unit,$categories,$name,$data,$subtitle=null) {
+        $this->container=$container;
+        $this->type=$type;
+        $this->title=$title;
+        $this->subtitle=$subtitle;
+        $this->unit =$unit;    
+        $this->categories=$categories;
+        $this->name =$name; /////ชื่อข้อมูล
+        $this->data =$data;
+     ?>
+                         <style type="text/css">
+                        #<?=$this->container?> {
+    height: 100%; 
+    min-width: 50%; 
+    max-width: 100%;
+    margin: 0 auto;
+}
+                    </style>
+                    <script type="text/javascript">
+                        $(function () {
+    Highcharts.chart('<?=$this->container?>', {
+        chart: {
+            type: '<?= $this->type?>',
+            options3d: {
+                enabled: true,
+                alpha: 15,
+                beta: 15,
+                viewDistance: 25,
+                depth: 40
+            }
+        },
+
+        title: {
+            text: '<?= $this->title?>'
+        },
+        subtitle: {
+            text: '<?= $this->subtitle?>'
+        },
+
+        xAxis: {
+            categories: [<?= $this->categories?>]
+        },
+
+        yAxis: {
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: '<?= $this->unit?>'
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<b>{point.key}</b><br>',
+            pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'+ ' <?= $this->unit?>'
+        },
+
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                depth: 40
+            }
+        },
+
+        series: [<?php for ($c = 0; $c < count($this->name); $c++) {?>
+                                    {
+                                        
+                                            name: '<?= $this->name[$c]?>',
+                                            data: [<?= $this->data[$c]?>],
+                                            dataLabels: {
+                enabled: true,
+                rotation: 0,
+                color: '#FFFFFF',
+                align: 'center',
+                format: '{point.y}', // one decimal
+                y: 0, // 10 pixels down from the top
+                style: {
+                    fontSize: '10px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            },
+                                            stack: 'group'
+                                        },
+                                                <?php } ?>]
+    });
+});
+
+
+                    </script>
+  <?php }
 }
 ?>

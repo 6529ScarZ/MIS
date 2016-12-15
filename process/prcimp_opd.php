@@ -57,9 +57,29 @@ where  ov.vn=ovst.vn and pt.hn=ov.hn and ov.hn=pt.hn
  and SUBSTR(ov.vstdate,1,7) LIKE '$year-$month%'
  and ov.age_y>= 0 
  and ov.age_y<= 200 
-GROUP BY province ORDER BY count_patient desc;";
+GROUP BY province ORDER BY count_patient desc";
 $conn_DBHOS->imp_sql($sql3);
 $query3=$conn_DBHOS->select();
+
+$sql4="select a.admdate
+,(select count(*) from ipt where regdate=a.admdate and ward='01') 'admit_m1'
+,(select count(*) from ipt where regdate=a.admdate and ward='04') 'admit_m2'
+,(select count(*) from ipt where regdate=a.admdate and ward='02') 'admit_w'
+,(select count(*) from ipt where regdate=a.admdate) 'admit_total'
+,(select count(*) from ipt where dchdate=a.admdate and ward='01') 'dch_m1'
+,(select count(*) from ipt where dchdate=a.admdate and ward='04') 'dch_m2'
+,(select count(*) from ipt where dchdate=a.admdate and ward='02') 'dch_w'
+,(select count(*) from ipt where dchdate=a.admdate) 'dch_total'
+,(select count(*) from ipt where regdate<=a.admdate and ward='01' and (dchdate>a.admdate or dchdate is null)) 'stable_m1'
+,(select count(*) from ipt where regdate<=a.admdate and ward='04' and (dchdate>a.admdate or dchdate is null)) 'stable_m2'
+,(select count(*) from ipt where regdate<=a.admdate and ward='02' and (dchdate>a.admdate or dchdate is null)) 'stable_w'
+,(select count(*) from ipt where regdate<=a.admdate and (dchdate>a.admdate or dchdate is null)) 'stable_total'
+from (select vstdate 'admdate'
+from ovst
+where vstdate like '$year-$month%'
+group by vstdate) a";
+$conn_DBHOS->imp_sql($sql4);
+$query4=$conn_DBHOS->select();
 
 $conn_DBHOS->close_PDO();
 $conn_DBMAIN= new EnDeCode();
@@ -67,6 +87,7 @@ $read="../connection/conn_DB.txt";
 $conn_DBMAIN->para_read($read);
 $conn_DBMAIN->conn_PDO();
 $conv=new convers_encode();
+
 $count_qr1=count($query1);
 for($i=0;$i<$count_qr1;$i++){
     $table="opd_report";
@@ -79,8 +100,8 @@ for($i=0;$i<$count_qr1;$i++){
   $inert_opd=$conn_DBMAIN->update($table, $data, $where, $field, $execute);   
  }else{ 
      $data=array($query1[$i]['vstmonth'],$query1[$i]['man'],$query1[$i]['woman'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
- $inert_opd=$conn_DBMAIN->insert_update($table, $data, $chk);  }  
-}
+ $inert_opd=$conn_DBMAIN->insert_update($table, $data, $chk);  }  }
+
 $count_qr2=count($query2);
 for($i=0;$i<$count_qr2;$i++){
     $icdname=$conv->tis620_to_utf8($query2[$i]['icdname']);
@@ -96,6 +117,7 @@ for($i=0;$i<$count_qr2;$i++){
         $vstmonth=$query2[$i]['vstmonth'].'-01';
      $data=array($vstmonth,$query2[$i]['code3'],$query2[$i]['pdx_count'],$icdname,date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
     $inert_10dxg=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
+    
     $count_qr3=count($query3);
     for($i=0;$i<$count_qr3;$i++){
     $table="opd_report_5prov";
@@ -110,8 +132,26 @@ for($i=0;$i<$count_qr2;$i++){
         $vstmonth=$query3[$i]['vstmonth'].'-01';
      $data=array($vstmonth,$query3[$i]['province'],$query3[$i]['count_patient'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
     $inert_5prov=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
-
-if(($inert_opd and $inert_10dxg and $inert_5prov)==FALSE){
+    
+    $count_qr4=count($query4);
+    for($i=0;$i<$count_qr4;$i++){
+    $table="ipd_report_stable";
+    $chk="chk";
+    if(isset($method) and $method=='upd'){
+     $data=array($query4[$i]['admit_m1'],$query4[$i]['admit_m2'],$query4[$i]['admit_w'],$query4[$i]['admit_total'],$query4[$i]['dch_m1']
+             ,$query4[$i]['dch_m2'],$query4[$i]['dch_w'],$query4[$i]['dch_total'],$query4[$i]['stable_m1'],$query4[$i]['stable_m2'],$query4[$i]['stable_w']
+             ,$query4[$i]['stable_total'],date("Y-m-d H:m:s"),0);    
+     $where="substr(admdate,1,7)= :admdate";
+     $field=array("admit_m1","admit_m2","admit_w","admit_total","dch_m1","dch_m2","dch_w","dch_total","stable_m1","stable_m2","stable_w","stable_total","update_date","chk");
+     $execute=array(':admdate' => "$year-$month");
+     $inert_stable=$conn_DBMAIN->update($table, $data, $where, $field, $execute);
+    }else{
+        $admdate=$query4[$i]['admdate'];
+     $data=array($admdate,$query4[$i]['admit_m1'],$query4[$i]['admit_m2'],$query4[$i]['admit_w'],$query4[$i]['admit_total'],$query4[$i]['dch_m1']
+             ,$query4[$i]['dch_m2'],$query4[$i]['dch_w'],$query4[$i]['dch_total'],$query4[$i]['stable_m1'],$query4[$i]['stable_m2'],$query4[$i]['stable_w']
+             ,$query4[$i]['stable_total'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
+    $inert_stable=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
+if(($inert_opd and $inert_10dxg and $inert_5prov and $inert_stable)==FALSE){
     echo "<script>alert('การนำเข้าข้อมูลไม่สำเร็จจ้า!')</script>";
 }else{
     echo "<script>alert('การนำเข้าข้อมูลสำเร็จแล้วจ้า!')</script>";
