@@ -200,9 +200,26 @@ $(function () {
             min: 0,
             title: {
                 text: '<?= $this->unit?>'
-            }
+            }/*,
+                stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }*/
         },
-
+            legend: {
+            align: 'right',
+            x: -30,
+            verticalAlign: 'top',
+            y: 25,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+            borderColor: '#CCC',
+            borderWidth: 1,
+            shadow: false
+        },
         tooltip: {
             headerFormat: '<b>{point.key}</b><br>',
             pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'+ ' <?= $this->unit?>'
@@ -211,6 +228,10 @@ $(function () {
         plotOptions: {
             column: {
                 stacking: 'normal',
+        dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                },
                 depth: 40
             }
         },
@@ -220,18 +241,6 @@ $(function () {
                                         
                                             name: '<?= $this->name[$c]?>',
                                             data: [<?= $this->data[$c]?>],
-                                            dataLabels: {
-                enabled: true,
-                rotation: 0,
-                color: '#FFFFFF',
-                align: 'center',
-                format: '{point.y}', // one decimal
-                y: 0, // 10 pixels down from the top
-                style: {
-                    fontSize: '10px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            },
                                             stack: 'group'
                                         },
                                                 <?php } ?>]
