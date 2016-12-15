@@ -176,12 +176,28 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $data4 =$countnum3;
                         $charts4->Columnstacking3D($container4, $type4, $title4, $unit4, $categories, $name4, $data4, $subtitle4);
                     ?>
+                    <style type="text/css">
+                        #container {
+    height: 100%; 
+    min-width: 50%; 
+    max-width: 100%;
+    margin: 0 auto;
+}
+                    </style>
                     <script type="text/javascript">
                     $(function () {
     // Create the chart
     Highcharts.chart('container', {
         chart: {
-            type: 'column'
+            type: 'column',
+            options3d: {
+                enabled: true,
+                alpha: 10,
+                beta: 25,
+                depth: 70,
+                viewDistance: 25
+               
+            }
         },
         title: {
             text: 'Browser market shares. January, 2015 to May, 2015'

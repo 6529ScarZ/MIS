@@ -177,10 +177,10 @@ $(function () {
             type: '<?= $this->type?>',
             options3d: {
                 enabled: true,
-                alpha: 15,
-                beta: 15,
-                viewDistance: 25,
-                depth: 40
+                alpha: 10,
+                beta: 25,
+                depth: 70,
+                viewDistance: 25
             }
         },
 
