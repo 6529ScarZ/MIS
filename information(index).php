@@ -2,23 +2,8 @@
              <?php
                         include_once ('plugins/funcDateThai.php');
                         include 'plugins/function_date.php';
-                        ?>	
-                    <div class="col-lg-12 col-xs-12">
-                    <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
-                        <div class="form-group col-lg-9 col-md-9 col-xs-8"> 
-                            <select name='year'  class="form-control">
-                                <option value=''>กรุณาเลือกปีงบประมาณ</option>
-                                <?php
-                                for ($i = 2559; $i <= 2565; $i++) {
-                                    echo "<option value='$i'>$i</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-lg-3 col-md-3 col-xs-4"><button type="submit" class="btn btn-success">ตกลง</button></div> 						
-                    </form>
-                    </div>
-                    <?php $d_start = 01;
+                        
+                        $d_start = 01;
                         $m_start = 01;
                         $d = date("d");
                         if (empty($_POST['year'])) {
@@ -36,22 +21,8 @@
                         }
                         $date_start = "$Y-10-01";
                         $date_end = "$y-09-30";
-                        echo '<center>'.DateThai2($date_start); //-----แปลงวันที่เป็นภาษาไทย
-                        echo " ถึง ";
-                        echo DateThai2($date_end).'</center>'; //-----แปลงวันที่เป็นภาษาไทย
-                        ?>
-          <div class="col-lg-12">
-                <div class="box box-success box-solid">
-                <div class="box-header with-border">
-                  <h3 class="box-title">
-                      <img src="images/opd.png" width="30"> OPD</h3>
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                  </div><!-- /.box-tools -->
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <?php
-                    if (empty($_POST['year'])) {
+                        
+                     if (empty($_POST['year'])) {
                         
                             if($date >= $bdate and $date <= $edate){
                           $year = $Yy;
@@ -64,15 +35,6 @@
                         $year = $_POST['year'] - 543;
                         $years = $year + 543;
                     }
-                    
-              echo "<center>";
-
-
-
-                    echo "รายงาน OPD";
-                    echo "&nbsp;&nbsp;";
-                    echo "ปีงบประมาณ : $years";
-                    echo "</center>";
 
                     $month_start = "$Y-10-01";
                     $month_end = "$y-09-30";
@@ -105,12 +67,9 @@
                         } else {
                             $month_sel  = "$year-$i";
                         }
-/////////////////////////////                   /
-                        echo "&nbsp;&nbsp;";
-                        $ii=1;
                         /////////////opd patient
+                        $ii=1;
                         for ($c = 0; $c <= 1; $c++) {
-                            
                         $sql  = "select man from opd_report   
 						 where  vstmonth like '$month_sel%' order by opd_id";
                         $conn_DB->imp_sql($sql);
@@ -146,212 +105,83 @@ WHERE or5.vstmonth BETWEEN '$date_start' and '$date_end'
 GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $conn_DB->imp_sql($sql4);
                         $rs4 = $conn_DB->select();
-                    ?>
-                    
-		<style type="text/css">
-#container {
-	height: 100%; 
-	min-width: 50%; 
-	max-width: 100%;
-	margin: 0 auto;
-}
-		</style>
-<script type="text/javascript">
-$(function () {
-    $('#container').highcharts({
-        chart: {
-            type: 'column',
-            margin: 75,
-            options3d: {
-                enabled: true,
-                alpha: 10,
-                beta: 25,
-                depth: 70
-            }
-        },
-        title: {
-            text: 'รายงานผู้ป่วย OPD แยกชาย/หญิง'
-        },
-        tooltip: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return '<b>' + this.series.name + '</b><br/>' +
-                                                    this.x + ': ' + this.y + ' ราย';
-                                        }
-                                    },
-        subtitle: {
-            text: 'แยกรายเดือน'
-        },
-        plotOptions: {
-            column: {
-                depth: 25
-            }
-        },
-        xAxis: {
-            categories: [<?= $name?>
-            ]
-        },
-        yAxis: {
-            title: {
-                text: 'ราย'
-            }
-        },
-        series: [<?php for ($c = 0; $c <= 1; $c++) {?>
-                                    {
-                                            name: '<?= $sex[$c]?>',
-                                            data: [<?= $countnum[$c]?>],
-            dataLabels: {
-                enabled: true,
-                rotation: -90,
-                color: '#FFFFFF',
-                align: 'right',
-                format: '{point.y}', // one decimal
-                y: 10, // 10 pixels down from the top
-                style: {
-                    fontSize: '11px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            }
-                                        },
-                                                <?php }   ?>]
-    });
-});
-		</script>
-<style type="text/css">
-#container2 {
-	height: 100%; 
-	min-width: 100%; 
-	max-width: 100%;
-	margin: 0 auto;
-}
-		</style>
-<script type="text/javascript">
-$(function () {
-    $('#container2').highcharts({
-        chart: {
-            type: 'line',
-            margin: 75,
-            options3d: {
-                enabled: true,
-                alpha: 0,
-                beta: 0,
-                depth: 50
-            }
-        },
-        title: {
-            text: 'รายงานผู้ป่วย 5 โรค OPD'
-        },tooltip: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return '<b>' + this.series.name + '</b><br/>' +
-                                                    this.x + ': ' + this.y + ' ราย';
-                                        }
-                                    },
-        subtitle: {
-            text: 'แยกรายเดือน'
-        },
-        plotOptions: {
-            column: {
-                depth: 25
-            }
-        },
-        xAxis: {
-            categories: [<?= $name?>
-            ]
-        },
-        yAxis: {
-            title: {
-                text: 'ราย'
-            }
-        },
-        series: [<?php for ($c = 0; $c < $num_rows; $c++) {?>
-                                    {
-                                            name: '<?= $name_dx10[$c]?>',
-                                            data: [<?= $countnum2[$c]?>],
-            dataLabels: {
-                enabled: true,
-                rotation: 0,
-                color: '#000000',
-                align: 'right',
-                format: '{point.y}', // one decimal
-                y: 10, // 10 pixels down from the top
-                style: {
-                    fontSize: '9px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            }
-                                        },
-                                                <?php }   ?>]
-    });
-});
-		</script>
-<script type="text/javascript">
-$(function () {
-    $('#container3').highcharts({
-        chart: {
-            type: 'pie',
-            options3d: {
-                enabled: true,
-                alpha: 45,
-                beta: 0
-            }
-        },
-        title: {
-            text: 'ผู้ป่วยมารับบริการในปีงบ <?= $years?>'
-        },
-                subtitle: {
-            text: 'แยกรายจังหวัด'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                depth: 35,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.name}'+ '</b>: <br>' + '{y}' + ' ราย'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'ผู้มารับบริการ',
-            /*data: [<?php $count_patient=count($rs4);
+                        $sss='';
+                        $count_patient=count($rs4);
                 for($c=0;$c<$count_patient;$c++) {
-                    $name = $rs4[$c]['prov_name'];
-                    $count = $rs4[$c]['patient'];
-                    $sss.= "['".$name."',".$count."],";
-                    echo $sss;
+                    $sss.= "['".$rs4[$c]['prov_name']."',".$rs4[$c]['patient']."],";
                 }
-                ?>
-            ]*/
-    data: [<?= $sss?>
-            ]
-        }]
-    });
-});
-		</script> 
+                    /////////////////////////    
+                        $charts=new Charts();
+                        $container='chart1';
+                        $type='column';
+                        $title='รายงานผู้ป่วย OPD แยกชาย/หญิง';
+                        $subtitle='แยกรายเดือน';
+                        $unit ='ราย';    
+                        $categories=$name;
+                        $name =$sex; 
+                        $data =$countnum;
+                        $charts->ColumnLine_3D($container, $type, $title, $subtitle, $unit, $categories, $name, $data);
+                        
+                        $charts2=new Charts();
+                        $container2='chart2';
+                        $type2='line';
+                        $title2='รายงานผู้ป่วย 5 โรค OPD';
+                        $name2 =$name_dx10; 
+                        $data2 =$countnum2;
+                        $charts2->ColumnLine_3D($container2, $type2, $title2, $subtitle, $unit, $categories, $name2, $data2);
+                        
+                        $charts3=new Charts();
+                        $container3='chart3';
+                        $type3='pie';
+                        $title3='ผู้ป่วยมารับบริการในปีงบประมาณ';
+                        $name3 ='ผู้มารับบริการ'; 
+                        $data3 =$sss;
+                        $charts3->Pie3D($container3, $type3, $title3, $subtitle, $unit, $name3, $data3);
+                    ?>
                 
                     <script src="plugins/Highcharts/code/highcharts.js"></script>
                     <script src="plugins/Highcharts/code/modules/exporting.js"></script>
                     <script src="plugins/Highcharts/code/highcharts-3d.js"></script>
-                <div class="row">    
+                            <div class="col-lg-12 col-xs-12">
+                    <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
+                        <div class="form-group col-lg-9 col-md-9 col-xs-8"> 
+                            <select name='year'  class="form-control">
+                                <option value=''>กรุณาเลือกปีงบประมาณ</option>
+                                <?php
+                                for ($i = 2559; $i <= 2565; $i++) {
+                                    echo "<option value='$i'>$i</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-3 col-xs-4"><button type="submit" class="btn btn-success">ตกลง</button></div> 						
+                    </form>
+                    </div>
+            <div class="col-lg-12">
+                        <center><?=DateThai2($date_start)?> ถึง <?=DateThai2($date_end)?></center>
+                <div class="box box-success box-solid">
+                <div class="box-header with-border">
+                  <h3 class="box-title">
+                      <img src="images/opd.png" width="30"> OPD</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                  </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+<center>รายงาน OPD&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center>
+                <div class="row">  
                     <div class="col-lg-6 col-xs-12">
-                    <div id="container" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div id="<?= $container?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     <div class="col-lg-6 col-xs-12">
-                    <div id="container2" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div id="<?= $container2?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     <div class="col-lg-12 col-xs-12">
-                    <div id="container3" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div id="<?= $container3?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
                 </div>
           </div>
-            <div class="col-lg-12">
                 <div class="box box-warning box-solid">
                 <div class="box-header with-border">
                   <h3 class="box-title">
@@ -364,8 +194,6 @@ $(function () {
                     #
                 </div>
                 </div>
-          </div>
-            <div class="col-lg-12">
                 <div class="box box-danger box-solid">
                 <div class="box-header with-border">
                   <h3 class="box-title">
