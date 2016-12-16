@@ -160,7 +160,7 @@ $(function () {
 		</script> 
   <?php  }
   
-  public function Columnstacking3D($daimention,$container,$type='column',$title,$unit,$categories,$name,$data,$subtitle=null) {
+  public function Columnstacking3D($daimention,$container,$type='column',$title,$unit,$categories,$name,$data,$stack=null,$subtitle=null) {
         $this->daimention=$daimention;  
         $this->container=$container;
         $this->type=$type;
@@ -170,6 +170,7 @@ $(function () {
         $this->categories=$categories;
         $this->name =$name; /////ชื่อข้อมูล
         $this->data =$data;
+        $this->stack=$stack;
      ?>
                          <style type="text/css">
                         #<?=$this->container?> {
@@ -256,7 +257,7 @@ $(function () {
                                         
                                             name: '<?= $this->name[$c]?>',
                                             data: [<?= $this->data[$c]?>],
-                                            stack: 'group'
+                                            stack: '<?= $this->stack[$c]?>'
                                         },
                                                 <?php } ?>]
     });

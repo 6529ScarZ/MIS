@@ -1,4 +1,4 @@
-  <body class="hold-transition skin-blue-light fixed sidebar-collapse sidebar-mini">
+  <body class="hold-transition skin-blue-light fixed sidebar-mini">
     <div class="wrapper">
 
       <header class="main-header">
@@ -187,19 +187,28 @@
             </li>
             <?php }?>
             <li>
-                <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
-                    <img src="images/opd.png" width="20"> <span>OPD</span>
-              </a>
+                <a href="#"><img src="images/opd.png" width="20"> <span>OPD </span><i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o text-green"></i> report 1</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-green"></i> report 2</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-green"></i> report 3</a></li>
+                  </ul>
                 </li>
             <li>
-                <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
-                    <img src="images/ipd.ico" width="20"> <span>IPD</span>
-              </a>
+                <a href="#"><img src="images/ipd.ico" width="20"> <span>IPD </span><i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o text-orange"></i> report 1</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-orange"></i> report 2</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-orange"></i> report 3</a></li>
+                  </ul>
                 </li>
             <li>
-                <a href="#" onClick="return popup('#.php', popup, 820, 650);" title="ดูวันลาของบุคลากร">
-                    <img src="images/er.ico" width="20"> <span>ER</span>
-              </a>
+                <a href="#"><img src="images/er.ico" width="20"> <span>ER </span><i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> report 1</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> report 2</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> report 3</a></li>
+                  </ul>
             </li>
           </ul>
         </section>
