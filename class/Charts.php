@@ -1,6 +1,7 @@
 <?php
 class Charts {
-    public function ColumnLine_3D($container,$type,$title,$unit,$categories,$name,$data,$subtitle=null) {
+    public function ColumnLine_3D($daimention='3',$container,$type,$title,$unit,$categories,$name,$data,$subtitle=null) {
+        $this->daimention=$daimention;
         $this->container=$container;
         $this->type=$type;
         $this->title=$title;
@@ -23,10 +24,12 @@ $(function () {
     $('#<?= $this->container?>').highcharts({
         chart: {
             type: '<?= $this->type?>',
-            margin: 75,
+            margin: 75
+    <?php if($this->daimention=='3'){?>
+    ,
             options3d: {
                 enabled: true,
-        <?php if($this->type =='column'){?>
+        <?php if($this->type =='column' or $this->type =='bar'){?>
                 alpha: 10,
                 beta: 25,
                 depth: 70
@@ -36,6 +39,7 @@ $(function () {
                 depth: 50
         <?php }?>
             }
+    <?php }?>
         },
         title: {
             text: '<?= $this->title?>'
@@ -102,7 +106,8 @@ $(function () {
 		</script>
 <?php    }
 
-    public function Pie3D($container,$type='pie',$title,$unit,$name,$data,$subtitle=null) {
+    public function Pie3D($daimention,$container,$type='pie',$title,$unit,$name,$data,$subtitle=null) {
+        $this->daimention=$daimention;
         $this->container=$container;
         $this->type=$type;
         $this->title=$title;
@@ -115,12 +120,15 @@ $(function () {
 $(function () {
     $('#<?= $this->container?>').highcharts({
         chart: {
-            type: '<?= $this->type?>',
+            type: '<?= $this->type?>'
+    <?php if($this->daimention=='3'){?>        
+    ,
             options3d: {
                 enabled: true,
                 alpha: 45,
                 beta: 0
             }
+    <?php }?>
         },
         title: {
             text: '<?= $this->title?>'
@@ -152,7 +160,8 @@ $(function () {
 		</script> 
   <?php  }
   
-  public function Columnstacking3D($container,$type='column',$title,$unit,$categories,$name,$data,$subtitle=null) {
+  public function Columnstacking3D($daimention,$container,$type='column',$title,$unit,$categories,$name,$data,$subtitle=null) {
+        $this->daimention=$daimention;  
         $this->container=$container;
         $this->type=$type;
         $this->title=$title;
@@ -174,7 +183,9 @@ $(function () {
                         $(function () {
     Highcharts.chart('<?=$this->container?>', {
         chart: {
-            type: '<?= $this->type?>',
+            type: '<?= $this->type?>'
+    <?php if($this->daimention=='3'){?>        
+    ,
             options3d: {
                 enabled: true,
                 alpha: 10,
@@ -182,6 +193,7 @@ $(function () {
                 depth: 70,
                 viewDistance: 25
             }
+    <?php }?>
         },
 
         title: {
@@ -200,14 +212,17 @@ $(function () {
             min: 0,
             title: {
                 text: '<?= $this->unit?>'
-            }/*,
+            }
+            <?php if($this->daimention=='2'){?>
+             ,
                 stackLabels: {
                 enabled: true,
                 style: {
                     fontWeight: 'bold',
                     color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
                 }
-            }*/
+            }
+            <?php }?>
         },
             legend: {
             align: 'right',

@@ -137,8 +137,9 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                 for($c=0;$c<$count_patient;$c++) {
                     $sss.= "['".$rs4[$c]['prov_name']."',".$rs4[$c]['patient']."],";
                 }
-                    /////////////////////////    
+                    ///////////////////การใช้งาน class Charts   
                         $charts=new Charts();
+                        $daimention='3';
                         $container='chart1';
                         $type='column';
                         $title='รายงานผู้ป่วย OPD แยกชาย/หญิง';
@@ -147,7 +148,7 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $categories=$name;
                         $name =$sex; 
                         $data =$countnum;
-                        $charts->ColumnLine_3D($container, $type, $title, $unit, $categories, $name, $data, $subtitle);
+                        $charts->ColumnLine_3D($daimention,$container, $type, $title, $unit, $categories, $name, $data, $subtitle);
                         
                         $charts2=new Charts();
                         $container2='chart2';
@@ -155,7 +156,7 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $title2='รายงานผู้ป่วย 5 โรค OPD';
                         $name2 =$name_dx10; 
                         $data2 =$countnum2;
-                        $charts2->ColumnLine_3D($container2, $type2, $title2, $unit, $categories, $name2, $data2, $subtitle);
+                        $charts2->ColumnLine_3D($daimention,$container2, $type2, $title2, $unit, $categories, $name2, $data2, $subtitle);
                         
                         $charts3=new Charts();
                         $container3='chart3';
@@ -164,7 +165,7 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $subtitle3='แยกรายจังหวัด';
                         $name3 ='ผู้มารับบริการ'; 
                         $data3 =$sss;
-                        $charts3->Pie3D($container3, $type3, $title3, $unit, $name3, $data3, $subtitle3);
+                        $charts3->Pie3D($daimention,$container3, $type3, $title3, $unit, $name3, $data3, $subtitle3);
                         
                         $charts4=new Charts();
                         $container4='chart4';
@@ -174,7 +175,7 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $unit4 ='คน (เฉลี่ย/เดือน)';
                         $name4 =$ward; 
                         $data4 =$countnum3;
-                        $charts4->Columnstacking3D($container4, $type4, $title4, $unit4, $categories, $name4, $data4, $subtitle4);
+                        $charts4->Columnstacking3D('2',$container4, $type4, $title4, $unit4, $categories, $name4, $data4, $subtitle4);
                     ?>
                     <style type="text/css">
                         #container {
