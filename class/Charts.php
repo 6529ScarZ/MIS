@@ -225,7 +225,7 @@ $(function () {
             }
             <?php }?>
         },
-            legend: {
+          /*  legend: {
             align: 'right',
             x: -30,
             verticalAlign: 'top',
@@ -235,7 +235,7 @@ $(function () {
             borderColor: '#CCC',
             borderWidth: 1,
             shadow: false
-        },
+        },*/
         tooltip: {
             headerFormat: '<b>{point.key}</b><br>',
             pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'+ ' <?= $this->unit?>'

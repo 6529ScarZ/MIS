@@ -81,20 +81,19 @@
                             $month_sel  = "$year-$i";
                         }
                         /////////////opd patient
-                        $ii=1;
                         for ($c = 0; $c < count($sex); $c++) {
+                            $ii=0;
                         $sql  = "select man from opd_report   
 						 where  vstmonth like '$month_sel%' order by opd_id";
                         $conn_DB->imp_sql($sql);
                         $rs = $conn_DB->select();
-                       $countnum[$c].= isset($rs[$c]['man']) ? $rs[$c]['man']. ',' :'';
-                       
+                       $countnum[$ii].= isset($rs[$c]['man']) ? $rs[$c]['man']. ',' :'';
+                       $ii++;
                         $sql2  = "select woman as woman from opd_report   
 						 where  vstmonth like '$month_sel%' order by opd_id";
                         $conn_DB->imp_sql($sql2);
                         $rs2 = $conn_DB->select();
                        @$countnum[$ii].= isset($rs2[$c]['woman']) ? $rs2[$c]['woman']. ',' :'';
-                        $ii+2;
                         }
                         //////////////ipd stable
                         
@@ -159,7 +158,7 @@
                         }
                         ///////////////10dx group
                         for ($c = 0; $c < $num_rows; $c++) {
-                        @$sql3  = "select dx_count as dx_count from opd_report_10dxg     
+                        @$sql3  = "select dx_count from opd_report_10dxg     
 						 where  10dxg_code='".$dx_code[$c]['10dxg_code']."' and vstmonth like '$month_sel%' order by dx_count desc limit 5";
                         
                         $conn_DB->imp_sql($sql3);
@@ -170,7 +169,7 @@
                         
                         $name.=isset($month[0]['month_short']) ? "'".$month[0]['month_short']."'" . ',':'';
                         $I++;
-                    }print_r($countnum2);                    echo '<br>';print_r($countnum4);
+                    }print_r($countnum2);echo '<br>';print_r($countnum);
                     //////////////5 province
                         $sql4 =  "SELECT IF(or5.PROVINCE_CODE = 0,'อื่นๆ',prov.PROVINCE_NAME) AS prov_name,SUM(or5.count_patient) AS patient
 FROM opd_report_5prov or5
@@ -197,13 +196,13 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $data =$countnum;
                         $charts->ColumnLine_3D($daimention,$container, $type, $title, $unit, $categories, $name, $data, $subtitle);
                         
-                        /*$charts2=new Charts();
+                        $charts2=new Charts();
                         $container2='chart2';
                         $type2='line';
                         $title2='รายงานผู้ป่วย 5 โรค OPD';
                         $name2 =$name_dx10; 
                         $data2 =$countnum2;
-                        $charts2->ColumnLine_3D($daimention,$container2, $type2, $title2, $unit, $categories, $name2, $data2, $subtitle);*/
+                        $charts2->ColumnLine_3D($daimention,$container2, $type2, $title2, $unit, $categories, $name2, $data2, $subtitle);
                         
                         $charts3=new Charts();
                         $container3='chart3';
@@ -227,7 +226,7 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $charts5=new Charts();
                         $container5='chart5';
                         $type5='column';
-                        $title5='admit/dischart ในปีงบประมาณ';
+                        $title5='admit/discharge ในปีงบประมาณ';
                         $subtitle5='แยกตึก';
                         $unit5 ='คน (เฉลี่ย/เดือน)';
                         $name5 =$adch; 
@@ -513,9 +512,9 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                     <script src="plugins/Highcharts/code/modules/data.js"></script>
                     <script src="plugins/Highcharts/code/modules/drilldown.js"></script>
                     <script src="plugins/Highcharts/code/highcharts-3d.js"></script>
-                            <div class="col-lg-12 col-xs-12">
-                    <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
-                        <div class="form-group col-lg-9 col-md-9 col-xs-8"> 
+                    <form method="post" action="" enctype="multipart/form-data" class="navbar-form">
+                        <div class="row">
+                        <div class="form-group col-lg-12 col-md-12 col-xs-12" align="right">
                             <select name='year'  class="form-control">
                                 <option value=''>กรุณาเลือกปีงบประมาณ</option>
                                 <?php
@@ -524,10 +523,9 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                                 }
                                 ?>
                             </select>
-                        </div>
-                        <div class="form-group col-lg-3 col-md-3 col-xs-4"><button type="submit" class="btn btn-success">ตกลง</button></div> 						
+                            <button type="submit" class="btn btn-success">ตกลง</button>
+                        </div></div>
                     </form>
-                    </div>
             <div class="col-lg-12">
                         <center><?=DateThai2($date_start)?> ถึง <?=DateThai2($date_end)?></center>
                 <div class="box box-success box-solid">
