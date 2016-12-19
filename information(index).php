@@ -39,12 +39,12 @@
                     $month_start = "$Y-10-01";
                     $month_end = "$y-09-30";
                     $sex = '';                  
-                    $sex[].='ชาย,';
-                    $sex[].='หญิง,';
+                    $sex[].='ชาย';
+                    $sex[].='หญิง';
                     $ward = '';                  
-                    $ward[].='ชาย1,';
-                    $ward[].='ชาย2,';
-                    $ward[].='หญิง,';
+                    $ward[].='ชาย1';
+                    $ward[].='ชาย2';
+                    $ward[].='หญิง';
                     $adch='';
                     $adch[].='admit ชาย1';
                     $adch[].='admit ชาย2';
@@ -52,15 +52,23 @@
                     $adch[].='discharge ชาย1';
                     $adch[].='discharge ชาย2';
                     $adch[].='discharge หญิง';
+                    $adch_sex='';
+                    $adch_sex[].='admit ชาย';
+                    $adch_sex[].='admit หญิง';
+                    $adch_sex[].='discharge ชาย';
+                    $adch_sex[].='discharge หญิง';
                     $stack='';
                     $stack[].='admit';$stack[].='admit';$stack[].='admit';
                     $stack[].='discharge';$stack[].='discharge';$stack[].='discharge';
+                    $stack_sex='';
+                    $stack_sex[].='admit';$stack_sex[].='admit';
+                    $stack_sex[].='discharge';$stack_sex[].='discharge';
                     $I = 10;
                     $countnum[]='';
                     $rs[]='';
                     $rs2[]='';
                     $name='';
-                    $sql="SELECT 10dxg_code FROM opd_report_10dxg GROUP BY 10dxg_code order by dx_count desc limit 5";
+                    $sql="SELECT 10dxg_code FROM opd_report_10dxg where 10dxg_code in('F20','F41','F32','F10','F15') GROUP BY 10dxg_code order by dx_count desc";
                     $conn_DB->imp_sql($sql);
                     $dx_code = $conn_DB->select();
                     $num_rows= count($dx_code);
@@ -117,7 +125,7 @@
                         $rs3 = $conn_DB->select();
                        @$countnum3[$iii].= isset($rs3[$c]['avg_stable_w']) ? $rs3[$c]['avg_stable_w']. ',' :'';
                         }
-                        //////////////admit & discharge
+                        //////////////admit & discharge แยกตึก
                         for ($c = 0; $c < count($adch); $c++) {
                           $iii=0;
                           $sql4  = "select sum(admit_m1) admit_m1 from ipd_report_stable   
@@ -156,6 +164,33 @@
                         $rs = $conn_DB->select();
                        @$countnum4[$iii].= isset($rs[$c]['dch_w']) ? $rs[$c]['dch_w']. ',' :'';
                         }
+                        //////////////admit & discharge แยกเพศ
+                        for ($c = 0; $c < count($adch_sex); $c++) {
+                          $iii=0;
+                          $sql10  = "select sum(admit_m) admit_m from ipd_report_sex   
+						 where  admdate like '$month_sel%' order by ipd_sex_id";
+                        $conn_DB->imp_sql($sql10);
+                        $rs = $conn_DB->select();
+                       @$countnum5[$iii].= isset($rs[$c]['admit_m']) ? $rs[$c]['admit_m']. ',' :'';
+                       $iii++;
+                       $sql11  = "select sum(admit_w) admit_w from ipd_report_sex   
+						 where  admdate like '$month_sel%' order by ipd_sex_id";
+                        $conn_DB->imp_sql($sql11);
+                        $rs = $conn_DB->select();
+                       @$countnum5[$iii].= isset($rs[$c]['admit_w']) ? $rs[$c]['admit_w']. ',' :'';
+                       $iii++;
+                       $sql12  = "select sum(dch_m) dch_m from ipd_report_sex  
+						 where  admdate like '$month_sel%' order by ipd_sex_id";
+                        $conn_DB->imp_sql($sql12);
+                        $rs = $conn_DB->select();
+                       @$countnum5[$iii].= isset($rs[$c]['dch_m']) ? $rs[$c]['dch_m']. ',' :'';
+                       $iii++;
+                       $sql13  = "select sum(dch_w) dch_w from ipd_report_sex   
+						 where  admdate like '$month_sel%' order by ipd_sex_id";
+                        $conn_DB->imp_sql($sql13);
+                        $rs = $conn_DB->select();
+                       @$countnum5[$iii].= isset($rs[$c]['dch_w']) ? $rs[$c]['dch_w']. ',' :'';
+                        }
                         ///////////////10dx group
                         for ($c = 0; $c < $num_rows; $c++) {
                         @$sql3  = "select dx_count from opd_report_10dxg     
@@ -169,7 +204,7 @@
                         
                         $name.=isset($month[0]['month_short']) ? "'".$month[0]['month_short']."'" . ',':'';
                         $I++;
-                    }print_r($countnum2);echo '<br>';print_r($countnum);
+                    }
                     //////////////5 province
                         $sql4 =  "SELECT IF(or5.PROVINCE_CODE = 0,'อื่นๆ',prov.PROVINCE_NAME) AS prov_name,SUM(or5.count_patient) AS patient
 FROM opd_report_5prov or5
@@ -228,11 +263,20 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         $type5='column';
                         $title5='admit/discharge ในปีงบประมาณ';
                         $subtitle5='แยกตึก';
-                        $unit5 ='คน (เฉลี่ย/เดือน)';
+                        $unit5 ='คน';
                         $name5 =$adch; 
                         $data5 =$countnum4;
                         $charts5->Columnstacking3D($daimention,$container5, $type5, $title5, $unit5, $categories, $name5, $data5,$stack, $subtitle5);
                         
+                        $charts6=new Charts();
+                        $container6='chart6';
+                        $type6='column';
+                        $title6='admit/discharge ในปีงบประมาณ';
+                        $subtitle6='แยกเพศ';
+                        $unit6 ='คน';
+                        $name6 =$adch_sex; 
+                        $data6 =$countnum5;
+                        $charts6->Columnstacking3D($daimention,$container6, $type6, $title6, $unit6, $categories, $name6, $data6,$stack_sex, $subtitle6);
                     ?>
                     
                     <style type="text/css">
@@ -540,17 +584,17 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
 <center>รายงาน OPD&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center>
                 <div class="row">  
                     <div class="col-lg-12 col-xs-12">
-                    <div id="<?= $container?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div class="alert alert-success" id="<?= $container?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     <div class="col-lg-12 col-xs-12">
-                    <div id="<?= $container2?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div class="alert alert-success" id="<?= $container2?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     <div class="col-lg-12 col-xs-12">
-                    <div id="<?= $container3?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div class="alert alert-success" id="<?= $container3?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
                 </div>
-          </div>
+                </div>
                 <div class="box box-warning box-solid">
                 <div class="box-header with-border">
                   <h3 class="box-title">
@@ -561,18 +605,15 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                 </div><!-- /.box-header -->
                 <div class="box-body">
 <center>รายงาน IPD&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center>
-<div class="row">  
+                <div class="row">  
                     <div class="col-lg-12 col-xs-12">
-                    <div id="<?= $container4?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div class="alert alert-warning" id="<?= $container4?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     <div class="col-lg-12 col-xs-12">
-                    <div id="<?= $container5?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div class="alert alert-warning" id="<?= $container5?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                     <div class="col-lg-12 col-xs-12">
-                    <div id="container" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
-                    </div>
-                    <div class="col-lg-12 col-xs-12">
-                    <div id="container2" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div class="alert alert-warning" id="<?= $container6?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
                 </div>
@@ -587,6 +628,11 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                 </div><!-- /.box-header -->
                 <div class="box-body">
 <center>รายงาน ER&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center>
+<div class="row">
+                    <div class="col-lg-12 col-xs-12">
+                    <div class="alert alert-danger" id="container" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div>
+</div>
                 </div>
                 </div>
           </div>

@@ -19,3 +19,22 @@ CREATE TABLE `ipd_report_stable` (
 PRIMARY KEY (`ipd_st_id`),
 UNIQUE INDEX `ipd_stable` (`admdate`) USING BTREE 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ipd_report_sex` (
+`ipd_sex_id`  int(7) NOT NULL AUTO_INCREMENT ,
+`admdate`  date NOT NULL ,
+`admit_m`  int(3) NOT NULL ,
+`admit_w`  int(3) NOT NULL ,
+`admit_total`  int(4) NOT NULL ,
+`dch_m`  int(3) NOT NULL ,
+`dch_w`  int(3) NOT NULL ,
+`dch_total`  int(4) NOT NULL ,
+`stable_m`  int(3) NOT NULL ,
+`stable_w`  int(3) NOT NULL ,
+`stable_total`  int(4) NOT NULL ,
+`import_date`  datetime NULL ,
+`update_date`  datetime NULL ,
+`chk`  int(2) NOT NULL ,
+PRIMARY KEY (`ipd_sex_id`),
+UNIQUE INDEX `ipd_sex` (`admdate`) USING BTREE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

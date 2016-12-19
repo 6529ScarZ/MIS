@@ -81,6 +81,24 @@ group by vstdate) a";
 $conn_DBHOS->imp_sql($sql4);
 $query4=$conn_DBHOS->select();
 
+$sql5="select a.admdate
+,(select count(*) from an_stat an where an.regdate=a.admdate and an.sex='1') 'admit_m'
+,(select count(*) from an_stat an where an.regdate=a.admdate and an.sex='2') 'admit_w'
+,(select count(*) from an_stat an where an.regdate=a.admdate) 'admit_total'
+,(select count(*) from an_stat an where an.dchdate=a.admdate and an.sex='1') 'dch_m'
+,(select count(*) from an_stat an where an.dchdate=a.admdate and an.sex='2') 'dch_w'
+,(select count(*) from an_stat an where an.dchdate=a.admdate) 'dch_total'
+,(select count(*) from an_stat an where an.regdate<=a.admdate and an.sex='1' and (an.dchdate>a.admdate or an.dchdate is null)) 'stable_m'
+,(select count(*) from an_stat an where an.regdate<=a.admdate and an.sex='2' and (an.dchdate>a.admdate or an.dchdate is null)) 'stable_w'
+,(select count(*) from an_stat an where an.regdate<=a.admdate and (an.dchdate>a.admdate or an.dchdate is null)) 'stable_total'
+from (select vstdate 'admdate'
+from ovst
+where vstdate like '$year-$month%'
+group by vstdate) a;
+";
+$conn_DBHOS->imp_sql($sql5);
+$query5=$conn_DBHOS->select();
+
 $conn_DBHOS->close_PDO();
 $conn_DBMAIN= new EnDeCode();
 $read="../connection/conn_DB.txt";
@@ -137,21 +155,40 @@ for($i=0;$i<$count_qr2;$i++){
     for($i=0;$i<$count_qr4;$i++){
     $table="ipd_report_stable";
     $chk="chk";
+    $admdate=$query4[$i]['admdate'];
     if(isset($method) and $method=='upd'){
      $data=array($query4[$i]['admit_m1'],$query4[$i]['admit_m2'],$query4[$i]['admit_w'],$query4[$i]['admit_total'],$query4[$i]['dch_m1']
              ,$query4[$i]['dch_m2'],$query4[$i]['dch_w'],$query4[$i]['dch_total'],$query4[$i]['stable_m1'],$query4[$i]['stable_m2'],$query4[$i]['stable_w']
              ,$query4[$i]['stable_total'],date("Y-m-d H:m:s"),0);    
-     $where="substr(admdate,1,7)= :admdate";
+     $where="admdate= :admdate";
      $field=array("admit_m1","admit_m2","admit_w","admit_total","dch_m1","dch_m2","dch_w","dch_total","stable_m1","stable_m2","stable_w","stable_total","update_date","chk");
-     $execute=array(':admdate' => "$year-$month");
+     $execute=array(':admdate' => "$admdate");
      $inert_stable=$conn_DBMAIN->update($table, $data, $where, $field, $execute);
     }else{
-        $admdate=$query4[$i]['admdate'];
      $data=array($admdate,$query4[$i]['admit_m1'],$query4[$i]['admit_m2'],$query4[$i]['admit_w'],$query4[$i]['admit_total'],$query4[$i]['dch_m1']
              ,$query4[$i]['dch_m2'],$query4[$i]['dch_w'],$query4[$i]['dch_total'],$query4[$i]['stable_m1'],$query4[$i]['stable_m2'],$query4[$i]['stable_w']
              ,$query4[$i]['stable_total'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
     $inert_stable=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
-if(($inert_opd and $inert_10dxg and $inert_5prov and $inert_stable)==FALSE){
+    
+    $count_qr5=count($query5);
+    for($i=0;$i<$count_qr5;$i++){
+    $table="ipd_report_sex";
+    $chk="chk";
+     $admdate=$query5[$i]['admdate'];
+    if(isset($method) and $method=='upd'){
+     $data=array($query5[$i]['admit_m'],$query5[$i]['admit_w'],$query5[$i]['admit_total'],$query5[$i]['dch_m']
+             ,$query5[$i]['dch_w'],$query5[$i]['dch_total'],$query5[$i]['stable_m'],$query5[$i]['stable_w']
+             ,$query5[$i]['stable_total'],date("Y-m-d H:m:s"),0);    
+     $where="admdate= :admdate";
+     $field=array("admit_m","admit_w","admit_total","dch_m","dch_w","dch_total","stable_m","stable_w","stable_total","update_date","chk");
+     $execute=array(':admdate' => "$admdate");
+     $inert_sex=$conn_DBMAIN->update($table, $data, $where, $field, $execute);
+    }else{
+     $data=array($admdate,$query5[$i]['admit_m'],$query5[$i]['admit_w'],$query5[$i]['admit_total'],$query5[$i]['dch_m']
+             ,$query5[$i]['dch_w'],$query5[$i]['dch_total'],$query5[$i]['stable_m'],$query5[$i]['stable_w']
+             ,$query5[$i]['stable_total'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
+    $inert_sex=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
+if(($inert_opd and $inert_10dxg and $inert_5prov and $inert_stable and $inert_sex)==FALSE){
     echo "<script>alert('การนำเข้าข้อมูลไม่สำเร็จจ้า!')</script>";
 }else{
     echo "<script>alert('การนำเข้าข้อมูลสำเร็จแล้วจ้า!')</script>";
