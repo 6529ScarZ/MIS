@@ -15,6 +15,14 @@
           "info": true,
           "autoWidth": false
         });
+        $('#example3').DataTable({
+          "paging": false,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true
+        });
         $(".select2").select2();
       });
     </script>

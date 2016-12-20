@@ -53,6 +53,50 @@ class TablePDO extends EnDeCode {
         }
         echo "</tr></tfoot></table></div>";
     }
+//1.1 ตารางแบบธรรมดาไม่แบ่งหน้า
+    public function createPDO_TBNoDivide() {
+        $query = $this->select('');
+        $field = $this->listfield('');
+        $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");
+        echo "<div class='table-responsive'>";
+        echo "<table id='example3' class='table table-bordered table-hover'>";
+        echo "<thead><tr align='center' bgcolor='#898888'>";
+        echo "<th align='center' width='5%'>ลำดับ</th>";
+        foreach ($this->column as $key => $value) {
+            echo "<th align='center'>$value</th>";
+        }
+        echo "</tr></thead><tbody>";
+        $c = 0;
+        $C = 1;
+        $ii = 0;
+        $countqr = count($query);
+        for ($I = 0; $I < $countqr; $I++) {
+            $num_field = $this->count_field();
+            if ($ii >= 5) {
+                $ii = 0;
+            }
+            echo "<tr class='" . $code_color[$ii] . "'>";
+            echo "<td align='center'>" . $C . "</td>";
+            for ($i = 0; $i < ($num_field); $i++) {
+                if ($this->validateDate($query[$c][$field[$i]], 'Y-m-d')) {
+                    echo "<td align='center'>" . DateThai1($query[$c][$field[$i]]) . "</td>";
+                } else {
+                    echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
+                }
+            }
+            $c++;
+            $C++;
+            $ii++;
+            echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "<tfoot><tr align='center' bgcolor='#898888'>";
+        echo "<th align='center' width='5%'>ลำดับ</th>";
+        foreach ($this->column as $key => $value) {
+            echo "<th align='center'>$value</th>";
+        }
+        echo "</tr></tfoot></table></div>";
+    }
 
 //2. ตารางแบบจัดการกับข้อมูลได้
     public function createPDO_TB_mng($process) {
@@ -619,7 +663,7 @@ class TablePDO extends EnDeCode {
                            $field = $this->listfield('');
                            $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");
                            echo "<div class='table-responsive'>";
-                           echo "<table id='example2' class='table table-bordered table-hover'>";
+                           echo "<table id='example3' class='table table-bordered table-hover'>";
                            echo "<thead><tr align='center' bgcolor='#898888'>";
                            echo "<th align='center' width='5%'>ลำดับ</th>";
                            foreach ($this->column as $key => $value) {
@@ -694,7 +738,7 @@ class TablePDO extends EnDeCode {
                            $field = $this->listfield('');
                            $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");
                            echo "<div class='table-responsive'>";
-                           echo "<table id='example2' class='table table-bordered table-hover'>";
+                           echo "<table id='example3' class='table table-bordered table-hover'>";
                            echo "<thead><tr align='center' bgcolor='#898888'>";
                            echo "<th align='center' width='5%'>ลำดับ</th>";
                            foreach ($this->column as $key => $value) {
