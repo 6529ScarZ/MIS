@@ -23,7 +23,14 @@ if (isset($_SESSION['user_mis'])) {
             <?php include 'information(index).php';?>
         </section>
     <?php }
-} else { ?>
+} else { 
+    if (isset($_GET['NLI']) and (NULL !== (filter_input(INPUT_GET, 'page')))) {
+        $page = filter_input(INPUT_GET, 'page');
+        require 'class/render.php';
+        $render_php = new render($page);
+        $render = $render_php->getRenderedPHP();
+        echo $render;
+    } else {?>
 
 
     <!-- Main content -->
@@ -44,7 +51,7 @@ if (isset($_SESSION['user_mis'])) {
         NO LOGIN.           
 
     </section>
-<?php } ?>
+<?php }} ?>
 
 
 <?php 

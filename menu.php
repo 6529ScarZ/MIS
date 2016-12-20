@@ -189,17 +189,17 @@
             <li>
                 <a href="#"><img src="images/opd.png" width="20"> <span>OPD </span><i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="index.php?page=content/report_opd&report=opd_sex"><i class="fa fa-circle-o text-green"></i> ผู้ป่วย OPD แยกเพศ</a></li>
-                    <li><a href="index.php?page=content/report_opd&report=opd_5cx"><i class="fa fa-circle-o text-green"></i> ผู้ป่วย OPD 5โรค</a></li>
-                    <li><a href="index.php?page=content/report_opd&report=opd_5province"><i class="fa fa-circle-o text-green"></i> ผู้ป่วย OPD 5จังหวัด</a></li>
+                    <li><a href="index.php?page=content/report_opd&NLI=NLI&report=opd_sex"><i class="fa fa-circle-o text-green"></i> ผู้ป่วย OPD แยกเพศ</a></li>
+                    <li><a href="index.php?page=content/report_opd&NLI=NLI&report=opd_5cx"><i class="fa fa-circle-o text-green"></i> ผู้ป่วย OPD 5โรค</a></li>
+                    <li><a href="index.php?page=content/report_opd&NLI=NLI&report=opd_5province"><i class="fa fa-circle-o text-green"></i> ผู้ป่วย OPD 5จังหวัด</a></li>
                   </ul>
                 </li>
             <li>
                 <a href="#"><img src="images/ipd.ico" width="20"> <span>IPD </span><i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="index.php?page=content/report_ipd&report=ipd_stable"><i class="fa fa-circle-o text-orange"></i> คงพยาบาล</a></li>
-                    <li><a href="index.php?page=content/report_ipd&report=ipd_adchward"><i class="fa fa-circle-o text-orange"></i> admit/dischrge แยกตึก</a></li>
-                    <li><a href="index.php?page=content/report_ipd&report=ipd_adchsex"><i class="fa fa-circle-o text-orange"></i> admit/dischrge แยกเพศ</a></li>
+                    <li><a href="index.php?page=content/report_ipd&NLI=NLI&report=ipd_stable"><i class="fa fa-circle-o text-orange"></i> คงพยาบาล</a></li>
+                    <li><a href="index.php?page=content/report_ipd&NLI=NLI&report=ipd_adchward"><i class="fa fa-circle-o text-orange"></i> admit/dischrge แยกตึก</a></li>
+                    <li><a href="index.php?page=content/report_ipd&NLI=NLI&report=ipd_adchsex"><i class="fa fa-circle-o text-orange"></i> admit/dischrge แยกเพศ</a></li>
                   </ul>
                 </li>
             <li>

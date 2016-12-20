@@ -44,8 +44,8 @@ $conn_DB->conn_PDO();
                         $years = $year + 543;
                     }
 
-                    $month_start = "$Y-10-01";
-                    $month_end = "$y-09-30";
+                    $month_start = "$Y-10";
+                    $month_end = "$y-09";
                     $ward = '';                  
                     $ward[].='ชาย1';
                     $ward[].='ชาย2';
@@ -253,14 +253,94 @@ $conn_DB->conn_PDO();
                     <?php if($report=='ipd_stable'){?>
                     <div class="col-lg-12 col-xs-12">
                     <div class="alert alert-warning" id="<?= $container4?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <br><a class="btn btn-success" download="report_ipdstable.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'คงพยาบาลยipdปีงบ <?= $years?>');">Export to Excel</a><br>
+                    <table name="datatable" id="datatable" width="100%" border="0">
+                        <tr>
+                            <td><center>รายงานคงพยาบาล IPD&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center></td>
+                        </tr>
+                        <tr>
+                            <td>
+                              <?php //////////table opd patient
+                    $sql="SELECT m.month_name,ROUND(AVG(ipd.stable_m1)) AS m1,ROUND(AVG(ipd.stable_m2)) AS m2,ROUND(AVG(ipd.stable_w)) AS w
+FROM ipd_report_stable ipd
+RIGHT OUTER JOIN `month` m ON m.month_id=SUBSTR(ipd.admdate,6,2)
+where SUBSTR(ipd.admdate,1,7) BETWEEN '$month_start' AND '$month_end'
+GROUP BY m.month_name
+ORDER BY m.m_id";
+                    $conn_DB->imp_sql($sql);
+                    $conn_DB->select();
+                    $column=array("เดือน","ชาย1 (เฉลี่ยคน/เดือน)","ชาย2 (เฉลี่ยคน/เดือน)","หญิง (เฉลี่ยคน/เดือน)");
+                    $conn_DB->imp_columm($column);  
+                    $conn_DB->createPDO_TBNoDivide();
+                    ?>  
+                            </td>
+                        </tr>
+                    </table>
                     </div>
                     <?php }elseif ($report=='ipd_adchward') {?>
                     <div class="col-lg-12 col-xs-12">
                     <div class="alert alert-warning" id="<?= $container5?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <br><a class="btn btn-success" download="report_ipd_adch.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'admit&dischartแยกตึกปีงบ <?= $years?>');">Export to Excel</a><br>
+                    <table name="datatable" id="datatable" width="100%" border="0">
+                        <tr>
+                            <td><center>รายงาน admit&discharge แยกตึก IPD&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center></td>
+                        </tr>
+                        <tr>
+                            <td>
+                              <?php //////////table opd patient
+                    $sql="SELECT m.month_name,SUM(ipd.admit_m1) AS adm1,SUM(ipd.admit_m2) AS adm2,SUM(ipd.admit_w) AS adw
+,SUM(ipd.dch_m1) AS dchm1,SUM(ipd.dch_m2) AS dchm2,SUM(ipd.dch_w) AS dchw
+FROM ipd_report_stable ipd
+RIGHT OUTER JOIN `month` m ON m.month_id=SUBSTR(ipd.admdate,6,2)
+where SUBSTR(ipd.admdate,1,7) BETWEEN '$month_start' AND '$month_end'
+GROUP BY m.month_name
+ORDER BY m.m_id";
+                    $conn_DB->imp_sql($sql);
+                    $conn_DB->select();
+                    $column= array(
+                            "เดือน"=>array(),
+                            "admit"=>array(0=>"ชาย1", 1=>"ชาย2", 2=>"หญิง"),
+                            "discharge"=>array(0=>"ชาย1", 1=>"ชาย2", 2=>"หญิง")
+                            );
+                    $conn_DB->imp_columm($column);  
+                    $conn_DB->createPDO_TB_HeadNoDivide();
+                    ?>  
+                            </td>
+                        </tr>
+                    </table>
                     </div>
                     <?php }elseif ($report=='ipd_adchsex') {?>
                     <div class="col-lg-12 col-xs-12">
                     <div class="alert alert-warning" id="<?= $container6?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <br><a class="btn btn-success" download="report_opdsex.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'ผู้ป่วยopdแยกเพศปีงบ <?= $years?>');">Export to Excel</a><br>
+                    <table name="datatable" id="datatable" width="100%" border="0">
+                        <tr>
+                            <td><center>รายงาน OPD&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center></td>
+                        </tr>
+                        <tr>
+                            <td>
+                              <?php //////////table opd patient
+                    $sql="SELECT m.month_name,SUM(ipd.admit_m) AS adm,SUM(ipd.admit_w) AS adw
+,SUM(ipd.dch_m) AS dchm,SUM(ipd.dch_w) AS dchw
+FROM ipd_report_sex ipd
+RIGHT OUTER JOIN `month` m ON m.month_id=SUBSTR(ipd.admdate,6,2)
+where SUBSTR(ipd.admdate,1,7) BETWEEN '$month_start' AND '$month_end'
+GROUP BY m.month_name
+ORDER BY m.m_id
+";
+                    $conn_DB->imp_sql($sql);
+                    $conn_DB->select();
+                    $column= array(
+                            "เดือน"=>array(),
+                            "admit"=>array(0=>"ชาย", 1=>"หญิง"),
+                            "discharge"=>array(0=>"ชาย", 1=>"หญิง")
+                            );
+                    $conn_DB->imp_columm($column);  
+                    $conn_DB->createPDO_TB_HeadNoDivide();
+                    ?>  
+                            </td>
+                        </tr>
+                    </table>
                     </div>
                     <?php }?>
                 </div>

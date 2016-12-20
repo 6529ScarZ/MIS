@@ -410,6 +410,56 @@ class TablePDO extends EnDeCode {
                                 }
                                 echo "</tbody></table></div>";
                             }
+//6.1 ตารางที่แสดงหัวตารางแบบหลากหลาย ไม่แบ่งหน้า (มีแต่ข้อมูลแสดง)
+                            public function createPDO_TB_HeadNoDivide() {
+                                $query = $this->select('');
+                                $field = $this->listfield('');
+                                $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");
+                                echo "<div class='table-responsive'>";
+                                echo "<table id='example3' class='table table-bordered table-hover'>";
+                                echo "<thead bgcolor='#898888'><tr align='center'>";
+                                echo "<th align='center' width='5%' rowspan='2'>ลำดับ</th>";
+
+                                foreach ($this->column as $key => $value) {
+                                    $colspan = count($value);
+                                    if ($colspan == 0) {
+                                        echo "<th align='center' rowspan='2'>$key</th>";
+                                    } else {
+                                        echo "<th align='center' colspan='$colspan'>$key</th>";
+                                    }
+                                }
+                                echo "</tr><tr>";
+                                foreach ($this->column as $key => $value) {
+                                    foreach ($value as $keys => $values) {
+                                        echo "<th align='center'>$values</th>";
+                                    }
+                                }
+                                echo "</tr></thead><tbody>";
+                                $c = 0;
+                                $C = 1;
+                                $ii = 0;
+                                $countqr = count($query);
+                                for ($I = 0; $I < $countqr; $I++) {
+                                    $num_field = $this->count_field();
+                                    if ($ii >= 5) {
+                                        $ii = 0;
+                                    }
+                                    echo "<tr class='" . $code_color[$ii] . "'>";
+                                    echo "<td align='center'>" . $C . "</td>";
+                                    for ($i = 0; $i < ($num_field); $i++) {
+                                        if ($this->validateDate($query[$c][$field[$i]], 'Y-m-d')) {
+                                            echo "<td align='center'>" . DateThai1($query[$c][$field[$i]]) . "</td>";
+                                        } else {
+                                            echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
+                                        }
+                                    }
+                                    $c++;
+                                    $C++;
+                                    $ii++;
+                                    echo "</tr>";
+                                }
+                                echo "</tbody></table></div>";
+                            }
 
 //7. ตารางที่แสดงรายละเอียดและแก้ไขได้
                             public function createPDO_TB_ED($process) {
