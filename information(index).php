@@ -582,15 +582,17 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                 </div><!-- /.box-header -->
                 <div class="box-body">
 <center>รายงาน OPD&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center>
-                <div class="row">  
+                    <div class="alert alert-success">
+                    <div class="row">
                     <div class="col-lg-12 col-xs-12">
-                    <div class="alert alert-success" id="<?= $container?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div id="<?= $container?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div><div class="col-lg-12">&nbsp;</div>
+                    <div class="col-lg-12 col-xs-12">
+                    <div id="<?= $container2?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div><div class="col-lg-12">&nbsp;</div>
+                    <div class="col-lg-12 col-xs-12">
+                    <div id="<?= $container3?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
-                    <div class="col-lg-12 col-xs-12">
-                    <div class="alert alert-success" id="<?= $container2?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
-                    </div>
-                    <div class="col-lg-12 col-xs-12">
-                    <div class="alert alert-success" id="<?= $container3?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
                 </div>
@@ -605,17 +607,19 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                 </div><!-- /.box-header -->
                 <div class="box-body">
 <center>รายงาน IPD&nbsp;&nbsp;ปีงบประมาณ : <?= $years?></center>
+<div class="alert alert-warning">
                 <div class="row">  
                     <div class="col-lg-12 col-xs-12">
-                    <div class="alert alert-warning" id="<?= $container4?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
-                    </div>
+                    <div id="<?= $container4?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div><div class="col-lg-12">&nbsp;</div>
                     <div class="col-lg-12 col-xs-12">
-                    <div class="alert alert-warning" id="<?= $container5?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
-                    </div>
+                    <div id="<?= $container5?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    </div><div class="col-lg-12">&nbsp;</div>
                     <div class="col-lg-12 col-xs-12">
-                    <div class="alert alert-warning" id="<?= $container6?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
+                    <div id="<?= $container6?>" style="min-width: 100%; max-width: 100%; height: 100%; margin: 0 auto"></div>
                     </div>
                 </div>
+</div>
                 </div>
                 </div>
                 <div class="box box-danger box-solid">

@@ -80,7 +80,9 @@ class TablePDO extends EnDeCode {
             for ($i = 0; $i < ($num_field); $i++) {
                 if ($this->validateDate($query[$c][$field[$i]], 'Y-m-d')) {
                     echo "<td align='center'>" . DateThai1($query[$c][$field[$i]]) . "</td>";
-                } else {
+                } elseif(is_numeric($query[$c][$field[$i]])){
+                    echo "<td align='center'>" . number_format($query[$c][$field[$i]]) . "</td>";
+                }else{
                     echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
                 }
             }
@@ -449,6 +451,8 @@ class TablePDO extends EnDeCode {
                                     for ($i = 0; $i < ($num_field); $i++) {
                                         if ($this->validateDate($query[$c][$field[$i]], 'Y-m-d')) {
                                             echo "<td align='center'>" . DateThai1($query[$c][$field[$i]]) . "</td>";
+                                        }elseif(is_numeric($query[$c][$field[$i]])){
+                                                echo "<td align='center'>" . number_format($query[$c][$field[$i]]) . "</td>";
                                         } else {
                                             echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
                                         }
