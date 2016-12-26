@@ -204,13 +204,13 @@ GROUP BY or5.PROVINCE_CODE ORDER BY patient DESC";
                         <tr>
                             <td>
                               <?php //////////table opd patient
-                    $sql="SELECT m.month_name,opd.man,opd.woman 
+                    $sql="SELECT m.month_name,opd.man,opd.woman ,opd.man+opd.woman as total
                             FROM opd_report opd 
                             RIGHT OUTER JOIN `month` m ON m.month_id=SUBSTR(vstmonth,6,2) 
                             WHERE vstmonth BETWEEN '$month_start' AND '$month_end' ORDER BY m.m_id";
                     $conn_DB->imp_sql($sql);
                     $conn_DB->select();
-                    $column=array("เดือน","ชาย(คน)","หญิง(คน)");
+                    $column=array("เดือน","ชาย (คน)","หญิง (คน)","รวม (คน)");
                     $conn_DB->imp_columm($column);  
                     $conn_DB->createPDO_TBNoDivide();
                     ?>  
@@ -269,7 +269,8 @@ RIGHT OUTER JOIN `month` m ON m.month_id=SUBSTR(month,6,2) ";
 (SELECT opd.count_patient FROM opd_report_5prov opd WHERE opd.PROVINCE_CODE='43' AND opd.vstmonth=month)หนองคาย,
 (SELECT opd.count_patient FROM opd_report_5prov opd WHERE opd.PROVINCE_CODE='39' AND opd.vstmonth=month)หนองบัว,
 (SELECT opd.count_patient FROM opd_report_5prov opd WHERE opd.PROVINCE_CODE='67' AND opd.vstmonth=month)เพชรบูรณ์,
-(SELECT opd.count_patient FROM opd_report_5prov opd WHERE opd.PROVINCE_CODE='0' AND opd.vstmonth=month)อื่นๆ
+(SELECT opd.count_patient FROM opd_report_5prov opd WHERE opd.PROVINCE_CODE='0' AND opd.vstmonth=month)อื่นๆ,
+(SELECT SUM(opd.count_patient) FROM opd_report_5prov opd WHERE opd.vstmonth=month)รวม
 FROM (select vstmonth 'month'
 from opd_report_5prov
 where SUBSTR(vstmonth,1,7) BETWEEN '$month_start' AND '$month_end'
@@ -277,7 +278,7 @@ group by month) a
 RIGHT OUTER JOIN `month` m ON m.month_id=SUBSTR(month,6,2)";
                     $conn_DB->imp_sql($sql);
                     $conn_DB->select();
-                    $column=array("เดือน","เลย (คน)","อุดรธานี (คน)","หนองคาย (คน)","หนองบัว (คน)","เพชรบูรณ์ (คน)","อื่นๆ (คน)");
+                    $column=array("เดือน","เลย (คน)","อุดรธานี (คน)","หนองคาย (คน)","หนองบัว (คน)","เพชรบูรณ์ (คน)","อื่นๆ (คน)","รวม (คน)");
                     $conn_DB->imp_columm($column);  
                     $conn_DB->createPDO_TBNoDivide();
                     ?>  
