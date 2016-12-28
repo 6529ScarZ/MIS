@@ -92,7 +92,7 @@ FROM
   LEFT OUTER JOIN drugitems d on op.icode = d.icode
   left outer join tmt_tpu_code t1 on d.tpu_code_list = t1.tpu_code
   left outer join drugusage d1 on op.drugusage = d1.drugusage
-  LEFT OUTER JOIN ovst_presc_ned opn ON opn.vn=ov.vn
+  LEFT OUTER JOIN ovst_presc_ned opn ON opn.vn=op.vn and opn.icode=op.icode
    WHERE ov.vstdate BETWEEN '$st_date' and '$en_date' and ov.pttype = '23' and isnull (ov.an) and i2.cscd_group IN(3,4,5) 
 ORDER BY ov.vstdate, ov.vsttime
 ";
