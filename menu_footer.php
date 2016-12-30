@@ -154,6 +154,7 @@
                 <label class="control-sidebar-subheading">
                     <a href="#" title="hostname main config">DB Main : <?= $dbconfig["hostname"]?></a><br>
                     <a href="#" title="hostname HIS config">DB HIS : <?= $dbHosconfig["hostname"]?></a>
+                    <a href="#" title="session id">SESSION ID : <?php echo session_id();?></a>
                 </label>
               </div>
                </form>
