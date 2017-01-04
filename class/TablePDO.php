@@ -711,76 +711,83 @@ class TablePDO extends EnDeCode {
         echo "</tr></tfoot></table></div>";
     }
 //////////10. ตารางที่มี check box
-    public function createPDO_TB_Check($check=null) {
+    public function createPDO_TB_Check($check=null,$chk_page=null,$e_page=null) {
         $this->check=$check;
-                           $query = $this->select('');
+        $this->chk_page=$chk_page;
+        $this->e_page=$e_page;
+        ?>
+<style type="text/css">
+.tbl_header{
+    display:block;
+    overflow:auto;  
+    border-bottom:0px solid #CCC;
+}
+
+.tbl_headerFix{
+    height:500px;
+    display:block;
+    overflow:auto;  
+    border-bottom:0px solid #CCC;
+}
+</style>
+<?php                           $query = $this->select('');
                            $field = $this->listfield('');
-                           $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");
-                           echo "<div class='table-responsive'>";
-                           echo "<table id='example3' class='table table-bordered table-hover'>";
-                           echo "<thead><tr align='center' bgcolor='#898888'>";
-                           echo "<th align='center' width='5%'>ลำดับ</th>";
-                           foreach ($this->column as $key => $value) {
+                           $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");?>
+                           <div class='table-responsive'>
+                           <table id='example3' class='tbl_header table table-bordered table-hover' width='100%'>
+                           <thead><tr align='center' bgcolor='#898888'>
+                           <th align='center' width='5%'>ลำดับ</th>
+                        <?php   foreach ($this->column as $key => $value) {
                                echo "<th align='center'>$value</th>";
-                           }
-                           echo "</tr></thead><tbody>";
-                           $c = 0;
+                           }?>
+                           <td width='1%' align='center' bgcolor='#898888'>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                           </tr></thead><tbody class='tbl_headerFix'>
+                        <?php $c = 0;
                            $C = 1;
                            $ii = 0;
                            $countqr = count($query);
-                           for ($I = 0; $I < $countqr; $I++) {
+                           $page=$this->chk_page * $this->e_page;
+                           //for ($I = 0; $I < $countqr; $I++) {
+                           foreach ($query as $key => $value) {
                                $num_field = $this->count_field();
                                if ($ii >= 5) {
                                    $ii = 0;
                                }
+                               $pages=$page+$C;
                                echo "<tr class='" . $code_color[$ii] . "'>";
-                               echo "<td align='center'>" . $C . "</td>";
+                               echo "<td align='center'>" .$pages. "</td>";
                                for ($i = 0; $i < ($num_field); $i++) {
                                    if ($i < ($num_field - 1)) {
-                                       if ($this->validateDate($query[$c][$field[$i]], 'Y-m-d')) {
-                                           echo "<td align='center'>" . DateThai1($query[$c][$field[$i]]) . "</td>";
+                                       if ($this->validateDate($query[$key][$field[$i]], 'Y-m-d')) {
+                                           echo "<td align='center'>" . DateThai1($query[$key][$field[$i]]) . "</td>";
                                        } else {
-                                           
-                                           if($c<=123){
-                                           echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
-                                           echo "<input type='hidden' name='1$field[$i][$c]' value='".$query[$c][$field[$i]]."'>";//ทุกค่าที่selectมาจะสามารถส่งไปได้ผ่าน<input type='hidden'>ยกเว้นที่เป็นวันที่
-                                       }elseif ($c>=124 and $c<=246) {
-                                           echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
-                                           echo "<input type='hidden' name='2$field[$i][$c]' value='".$query[$c][$field[$i]]."'>";
-                                       }elseif ($c>=247 and $c<=370) {
-                                           echo "<td align='center'>" . $query[$c][$field[$i]] . "</td>";
-                                           echo "<input type='hidden' name='3$field[$i][$c]' value='".$query[$c][$field[$i]]."'>";
-                                       }
+                                           echo "<td align='center'>" . $query[$key][$field[$i]] . "</td>";
+                                           echo "<input type='hidden' name='1$field[$i][$key]' value='".$query[$key][$field[$i]]."'>";//ทุกค่าที่selectมาจะสามารถส่งไปได้ผ่าน<input type='hidden'>ยกเว้นที่เป็นวันที่
                                            }
                                    } else {
                                        if ($i = ($num_field - 1)) {
                                            echo "<td align='center'>";
-                                           if($c<=123){
                                            ?>
-                                        <input type="checkbox" name="check_ps[<?=$c?>]" id="check_ps[<?=$c?>]" value="<?=$c?>" <?= $this->check?>>
-                                        <input type="hidden" name="id[<?=$c?>]" id="id[<?=$c?>]" value="<?=$query[$c][$field[$i]]?>">    
-                                           <?php }elseif ($c>=124 and $c<=246) {?>
-                                        <input type="checkbox" name="check_ps2[<?=$c?>]" id="check_ps2[<?=$c?>]" value="<?=$c?>" <?= $this->check?>>
-                                        <input type="hidden" name="id2[<?=$c?>]" id="id2[<?=$c?>]" value="<?=$query[$c][$field[$i]]?>">                                 
-                                            <?php }elseif ($c>=247 and $c<=370) {?>
-                                        <input type="checkbox" name="check_ps3[<?=$c?>]" id="check_ps3[<?=$c?>]" value="<?=$c?>" <?= $this->check?>>
-                                        <input type="hidden" name="id3[<?=$c?>]" id="id3[<?=$c?>]" value="<?=$query[$c][$field[$i]]?>">                                   
-                                            <?php }
+                                        <input type="checkbox" name="check_ps[]" id="check_ps[]" value="<?=$key?>" <?= $this->check?>>
+                                        <input type="hidden" name="id[]" id="id[]" value="<?=$query[$key][$field[$i]]?>">    
+                                            <?php 
                                                echo "</td>";
                                            }
                                        }
                                    }
+                                   echo "<td width='1%' align='center'>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
                                    $c++;
                                    $C++;
                                    $ii++;
                                    echo "</tr>";
-                               }
-                               echo "</tbody>";
-                               echo "<tfoot><tr align='center' bgcolor='#898888'>";
-                               echo "<th align='center' width='5%'>ลำดับ</th>";
-                               foreach ($this->column as $key => $value) {
+                               }?>
+                               </tbody>
+                               <tfoot><tr align='center' bgcolor='#898888'>
+                               <th align='center' width='5%'>ลำดับ</th>
+                            <?php foreach ($this->column as $key => $value) {
                                    echo "<th align='center'>$value</th>";
                                }
+                                echo "<td width='1%' align='center' bgcolor='#898888'>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
                                echo "</tr></tfoot></table></div>";
                            }
 //////////11. ตารางที่มี check box(test)
