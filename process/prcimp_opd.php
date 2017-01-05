@@ -111,13 +111,13 @@ for($i=0;$i<$count_qr1;$i++){
     $table="opd_report";
     $chk="chk";
  if(isset($method) and $method=='upd'){
-     $data=array($query1[$i]['man'],$query1[$i]['woman'],date("Y-m-d H:m:s"),0);
+     $data=array($query1[$i]['man'],$query1[$i]['woman'],date("Y-m-d H:i:s"),0);
      $where="vstmonth= :vstmonth";
      $field=array("man","woman","update_date","chk");
      $execute=array(':vstmonth' => "$year-$month");
   $inert_opd=$conn_DBMAIN->update($table, $data, $where, $field, $execute);   
  }else{ 
-     $data=array($query1[$i]['vstmonth'],$query1[$i]['man'],$query1[$i]['woman'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
+     $data=array($query1[$i]['vstmonth'],$query1[$i]['man'],$query1[$i]['woman'],date("Y-m-d H:i:s"),date("Y-m-d H:i:s"),0);
  $inert_opd=$conn_DBMAIN->insert_update($table, $data, $chk);  }  }
 
 $count_qr2=count($query2);
@@ -126,14 +126,14 @@ for($i=0;$i<$count_qr2;$i++){
     $table="opd_report_10dxg";
     $chk="chk";
     if(isset($method) and $method=='upd'){
-     $data=array($query2[$i]['code3'],$query2[$i]['pdx_count'],$icdname,date("Y-m-d H:m:s"),0);    
+     $data=array($query2[$i]['code3'],$query2[$i]['pdx_count'],$icdname,date("Y-m-d H:i:s"),0);    
      $where="substr(vstmonth,1,7)= :vstmonth and 10dxg_code= :10dxg_code";
      $field=array("10dxg_code","dx_count","icdname","update_date","chk");
      $execute=array(':vstmonth' => "$year-$month", ':10dxg_code' => $query2[$i]['code3']);
      $inert_10dxg=$conn_DBMAIN->update($table, $data, $where, $field, $execute);
     }else{
         $vstmonth=$query2[$i]['vstmonth'].'-01';
-     $data=array($vstmonth,$query2[$i]['code3'],$query2[$i]['pdx_count'],$icdname,date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
+     $data=array($vstmonth,$query2[$i]['code3'],$query2[$i]['pdx_count'],$icdname,date("Y-m-d H:i:s"),date("Y-m-d H:i:s"),0);
     $inert_10dxg=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
     
     $count_qr3=count($query3);
@@ -141,14 +141,14 @@ for($i=0;$i<$count_qr2;$i++){
     $table="opd_report_5prov";
     $chk="chk";
     if(isset($method) and $method=='upd'){
-     $data=array($query3[$i]['count_patient'],date("Y-m-d H:m:s"),0);    
+     $data=array($query3[$i]['count_patient'],date("Y-m-d H:i:s"),0);    
      $where="substr(vstmonth,1,7)= :vstmonth and PROVINCE_CODE= :province";
      $field=array("count_patient","update_date","chk");
      $execute=array(':vstmonth' => "$year-$month", ':province' => $query3[$i]['province']);
      $inert_5prov=$conn_DBMAIN->update($table, $data, $where, $field, $execute);
     }else{
         $vstmonth=$query3[$i]['vstmonth'].'-01';
-     $data=array($vstmonth,$query3[$i]['province'],$query3[$i]['count_patient'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
+     $data=array($vstmonth,$query3[$i]['province'],$query3[$i]['count_patient'],date("Y-m-d H:i:s"),date("Y-m-d H:i:s"),0);
     $inert_5prov=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
     
     $count_qr4=count($query4);
@@ -159,7 +159,7 @@ for($i=0;$i<$count_qr2;$i++){
     if(isset($method) and $method=='upd'){
      $data=array($query4[$i]['admit_m1'],$query4[$i]['admit_m2'],$query4[$i]['admit_w'],$query4[$i]['admit_total'],$query4[$i]['dch_m1']
              ,$query4[$i]['dch_m2'],$query4[$i]['dch_w'],$query4[$i]['dch_total'],$query4[$i]['stable_m1'],$query4[$i]['stable_m2'],$query4[$i]['stable_w']
-             ,$query4[$i]['stable_total'],date("Y-m-d H:m:s"),0);    
+             ,$query4[$i]['stable_total'],date("Y-m-d H:i:s"),0);    
      $where="admdate= :admdate";
      $field=array("admit_m1","admit_m2","admit_w","admit_total","dch_m1","dch_m2","dch_w","dch_total","stable_m1","stable_m2","stable_w","stable_total","update_date","chk");
      $execute=array(':admdate' => "$admdate");
@@ -167,7 +167,7 @@ for($i=0;$i<$count_qr2;$i++){
     }else{
      $data=array($admdate,$query4[$i]['admit_m1'],$query4[$i]['admit_m2'],$query4[$i]['admit_w'],$query4[$i]['admit_total'],$query4[$i]['dch_m1']
              ,$query4[$i]['dch_m2'],$query4[$i]['dch_w'],$query4[$i]['dch_total'],$query4[$i]['stable_m1'],$query4[$i]['stable_m2'],$query4[$i]['stable_w']
-             ,$query4[$i]['stable_total'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
+             ,$query4[$i]['stable_total'],date("Y-m-d H:i:s"),date("Y-m-d H:i:s"),0);
     $inert_stable=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
     
     $count_qr5=count($query5);
@@ -178,7 +178,7 @@ for($i=0;$i<$count_qr2;$i++){
     if(isset($method) and $method=='upd'){
      $data=array($query5[$i]['admit_m'],$query5[$i]['admit_w'],$query5[$i]['admit_total'],$query5[$i]['dch_m']
              ,$query5[$i]['dch_w'],$query5[$i]['dch_total'],$query5[$i]['stable_m'],$query5[$i]['stable_w']
-             ,$query5[$i]['stable_total'],date("Y-m-d H:m:s"),0);    
+             ,$query5[$i]['stable_total'],date("Y-m-d H:i:s"),0);    
      $where="admdate= :admdate";
      $field=array("admit_m","admit_w","admit_total","dch_m","dch_w","dch_total","stable_m","stable_w","stable_total","update_date","chk");
      $execute=array(':admdate' => "$admdate");
@@ -186,7 +186,7 @@ for($i=0;$i<$count_qr2;$i++){
     }else{
      $data=array($admdate,$query5[$i]['admit_m'],$query5[$i]['admit_w'],$query5[$i]['admit_total'],$query5[$i]['dch_m']
              ,$query5[$i]['dch_w'],$query5[$i]['dch_total'],$query5[$i]['stable_m'],$query5[$i]['stable_w']
-             ,$query5[$i]['stable_total'],date("Y-m-d H:m:s"),date("Y-m-d H:m:s"),0);
+             ,$query5[$i]['stable_total'],date("Y-m-d H:i:s"),date("Y-m-d H:i:s"),0);
     $inert_sex=$conn_DBMAIN->insert_update($table, $data, $chk);  }}
 if(($inert_opd and $inert_10dxg and $inert_5prov and $inert_stable and $inert_sex)==FALSE){
     echo "<script>alert('การนำเข้าข้อมูลไม่สำเร็จจ้า!')</script>";

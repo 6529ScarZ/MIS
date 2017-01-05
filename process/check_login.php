@@ -48,7 +48,7 @@ if ($result) {
     $_SESSION['status_mis'] = $result['Status'];
     
 $date = new DateTime(null, new DateTimeZone('Asia/Bangkok'));//กำหนด Time zone
-$date_login = $date->format('Y-m-d H:m:s');
+$date_login = $date->format('Y-m-d H:i:s');
 $time_login = time();
 
                 $table = "user";

@@ -36,7 +36,7 @@ fwrite($objWrite,"<ClaimRec System=\"OP\" PayPlan=\"CS\" Version=\"0.91\">\r\n")
 fwrite($objWrite,"<Header>\r\n");
 fwrite($objWrite,"<HCODE>14644</HCODE>\r\n");
 fwrite($objWrite,"<HNAME>โรงพยาบาล จิตเวชเลยราชนครินทร์</HNAME>\r\n");
-fwrite($objWrite,"<DATETIME>".date("Y-m-d H:m:s")."</DATETIME>\r\n");
+fwrite($objWrite,"<DATETIME>".date("Y-m-d H:i:s")."</DATETIME>\r\n");
 fwrite($objWrite,"<SESSNO>0028</SESSNO>\r\n");
 $num_row=$this->query1->rowCount();
 fwrite($objWrite,"<RECCOUNT>$num_row</RECCOUNT>\r\n");
@@ -84,7 +84,7 @@ try {
 fwrite($objWrite,"<ClaimRec System=\"OP\" PayPlan=\"CS\" Version=\"0.9\"></ClaimRec>\r\n");
 fwrite($objWrite,"<HCODE>14644</HCODE>\r\n");
 fwrite($objWrite,"<HNAME>โรงพยาบาล จิตเวชเลยราชนครินทร์</HNAME>\r\n");
-fwrite($objWrite,"<DATETIME>".date("Y-m-d H:m:s")."</DATETIME>\r\n");
+fwrite($objWrite,"<DATETIME>".date("Y-m-d H:i:s")."</DATETIME>\r\n");
 fwrite($objWrite,"<SESSNO>0028</SESSNO>\r\n");
 $num_row=$this->query1->rowCount();
 fwrite($objWrite,"<RECCOUNT>$num_row</RECCOUNT>\r\n");
