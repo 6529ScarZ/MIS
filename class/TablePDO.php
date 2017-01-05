@@ -725,7 +725,8 @@ class TablePDO extends EnDeCode {
 
 .tbl_headerFix{
     height:500px;
-    display:block;
+    width: auto;
+    display:inline-block;
     overflow:auto;  
     border-bottom:0px solid #CCC;
 }
@@ -734,14 +735,13 @@ class TablePDO extends EnDeCode {
                            $field = $this->listfield('');
                            $code_color = array("0" => "default", "1" => "success", "2" => "warning", "3" => "danger", "4" => "info");?>
                            <div class='table-responsive'>
-                           <table id='example3' class='tbl_header table table-bordered table-hover' width='100%'>
+                           <table id='example3' class='tbl_headerFix table table-bordered table-hover'>
                            <thead><tr align='center' bgcolor='#898888'>
                            <th align='center' width='5%'>ลำดับ</th>
                         <?php   foreach ($this->column as $key => $value) {
                                echo "<th align='center'>$value</th>";
                            }?>
-                           <td width='1%' align='center' bgcolor='#898888'>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                           </tr></thead><tbody class='tbl_headerFix'>
+                           </tr></thead><tbody>
                         <?php $c = 0;
                            $C = 1;
                            $ii = 0;
@@ -755,11 +755,11 @@ class TablePDO extends EnDeCode {
                                }
                                $pages=$page+$C;
                                echo "<tr class='" . $code_color[$ii] . "'>";
-                               echo "<td align='center'>" .$pages. "</td>";
+                               echo "<td align='center' width='5%'>" .$pages. "</td>";
                                for ($i = 0; $i < ($num_field); $i++) {
                                    if ($i < ($num_field - 1)) {
-                                       if ($this->validateDate($query[$key][$field[$i]], 'Y-m-d')) {
-                                           echo "<td align='center'>" . DateThai1($query[$key][$field[$i]]) . "</td>";
+                                       if ($this->validateDate($query[$key][$field[$i]], 'Y-m-d H:i:s')) {
+                                           echo "<td align='center'>" . DateTimeThai($query[$key][$field[$i]]) . "</td>";
                                        } else {
                                            echo "<td align='center'>" . $query[$key][$field[$i]] . "</td>";
                                            echo "<input type='hidden' name='1$field[$i][$key]' value='".$query[$key][$field[$i]]."'>";//ทุกค่าที่selectมาจะสามารถส่งไปได้ผ่าน<input type='hidden'>ยกเว้นที่เป็นวันที่
@@ -775,7 +775,6 @@ class TablePDO extends EnDeCode {
                                            }
                                        }
                                    }
-                                   echo "<td width='1%' align='center'>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
                                    $c++;
                                    $C++;
                                    $ii++;
@@ -787,7 +786,6 @@ class TablePDO extends EnDeCode {
                             <?php foreach ($this->column as $key => $value) {
                                    echo "<th align='center'>$value</th>";
                                }
-                                echo "<td width='1%' align='center' bgcolor='#898888'>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
                                echo "</tr></tfoot></table></div>";
                            }
 //////////11. ตารางที่มี check box(test)

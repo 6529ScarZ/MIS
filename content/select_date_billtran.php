@@ -189,7 +189,7 @@ $before_p=($chk_page*$e_page)+1;
         $conn_DB->select();
 $column=array("HN","invoice_no","DTTran","Amount","check");
 $conn_DB->imp_columm($column);  
-$conn_DB->createPDO_TB_Check2($check,$chk_page,$e_page);
+$conn_DB->createPDO_TB_Check($check,$chk_page,$e_page);
 if($total>0){
 ?>
 <div class="browse_page">

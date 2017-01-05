@@ -166,14 +166,14 @@
                   <a href="#"><i class="fa fa-circle-o text-blue"></i> ส่งออก BILLDISP <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
                 <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=exp_total','','width=400,height=250'); return false;" title="ส่งออกข้อมูล BILLDISP ทั้งหมด"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLDISP(ทั้งหมด)</a></li>
-                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=exp','','width=900,height=700'); return false;" title="ส่งออกข้อมูล BILLDISP เลือกได้ไม่เกิน 124 ราย"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLDISP(เลือก)</a></li>
+                <li><a href="#" onClick="window.open('content/select_date_billimp.php?method=exp','','width=900,height=800'); return false;" title="ส่งออกข้อมูล BILLDISP เลือกได้ไม่เกิน 124 ราย"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLDISP(เลือก)</a></li>
                   </ul>
                   </li>
                   <li>
                   <a href="#"><i class="fa fa-circle-o text-blue"></i> ส่งออก BILLTRAN <i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
                     <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=exp_total','','width=400,height=250'); return false;" title="ส่งออกข้อมูล BILLTRAN ทั้งหมด"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLTRAN(ทั้งหมด)</a></li>
-                    <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=exp','','width=900,height=700'); return false;" title="ส่งออกข้อมูล BILLTRAN เลือกได้ไม่เกิน 124 ราย"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLTRAN(เลือก)</a></li>
+                    <li><a href="#" onClick="window.open('content/select_date_billtran.php?method=exp','','width=900,height=800'); return false;" title="ส่งออกข้อมูล BILLTRAN เลือกได้ไม่เกิน 124 ราย"><i class="fa fa-circle-o text-green"></i> ส่งออก BILLTRAN(เลือก)</a></li>
                   </ul>
                   </li>
                 <li>
