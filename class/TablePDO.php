@@ -820,7 +820,7 @@ class TablePDO extends EnDeCode {
                                echo "<td align='center'>" .$pages. "</td>";
                                for ($i = 0; $i < ($num_field); $i++) {
                                    if ($i < ($num_field - 1)) {
-                                       if ($this->validateDate($query[$key][$field[$i]], 'Y-m-d')) {
+                                       if ($this->validateDate($query[$key][$field[$i]], 'Y-m-d H:i:s')) {
                                            echo "<td align='center'>" . DateThai1($query[$key][$field[$i]]) . "</td>";
                                        } else {
                                            echo "<td align='center'>" . $query[$key][$field[$i]] . "</td>";
