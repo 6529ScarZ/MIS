@@ -9,6 +9,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="bootstrap/css/lightbox.css" type="text/css" media="screen" /> zoom เท่ๆ
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/font-awesome-4.6.3/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -48,6 +49,11 @@
     <script src="plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.js"></script>
     <link rel="stylesheet" href="plugins/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.css" />
     <link rel="stylesheet" href="plugins/jquery-ui-1.11.4.custom/SpecialDateSheet.css" />
+    
+        <!--<script src="bootstrap/js/prototype.js" type="text/javascript"></script>
+	<script src="bootstrap/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+	<script src="bootstrap/js/lightbox.js" type="text/javascript"></script> zoom เท่ๆ-->
+
 <?php  include 'plugins/jquery-ui-1.11.4.custom/DatepickerThai4.php';?>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -92,6 +98,16 @@ function nextbox(e, id) {
         document.getElementById(id).focus();
         return false;
     }
+}
+</script>
+<script>
+var nW,nH,oH,oW;
+function zoomToggle(iWideSmall,iHighSmall,iWideLarge,iHighLarge,whichImage){
+oW=whichImage.style.width;oH=whichImage.style.height;
+if((oW==iWideLarge)||(oH==iHighLarge)){
+nW=iWideSmall;nH=iHighSmall;}else{
+nW=iWideLarge;nH=iHighLarge;}
+whichImage.style.width=nW;whichImage.style.height=nH;
 }
 </script>
   </head>

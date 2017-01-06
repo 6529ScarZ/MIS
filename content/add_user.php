@@ -110,9 +110,25 @@ function fncSubmit()
                                 } else {
                                     $photo = $resultGet['photo'];
                                     $fold = "photo/";
-                                }
-                                echo "<img src='$fold$photo' width='150'><br>";
-                         }    ?>
+                                }?>
+                         <style type="text/css">
+img.resize  {
+width: 150px;
+height: auto;
+border: 0;
+}
+img:hover.resize  {
+width: 300px;
+height: auto;
+border: 0;
+}
+</style>
+<img src='<?= $fold.$photo?>' width='150' alt="animate" class="resize"  >
+<!--<a href="<?= $fold.$photo?>" rel="lightbox" title="my caption"><img src='<?= $fold.$photo?>' width='150'></a> zoom เท่ๆ
+                                <!--<img src='<?= $fold.$photo?>' width='150' alt="animate" class="resize"  > zoom แบบเม้าส์ชี้
+                                <img border="0" src="dove.gif" width="200" height="210" onclick="zoomToggle('200px','210px','300px','320px',this);"> zoom แบบคลิ๊ก-->
+                                <br>
+                        <?php }    ?>
                          
   <div class="form-group">
                             <label for="user_pwd2">รูปภาพ</label><br>

@@ -152,6 +152,12 @@
               </div>
               <div class="form-group">
                 <label class="control-sidebar-subheading">
+                    <a href="#" onClick="return popup('about.php', popup, 500, 600);" title="ทีมพัฒนา">
+                    <img src="images/Paper Mario.ico" width="25">&nbsp;&nbsp; ทีมพัฒนา</a>
+                </label>
+              </div>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
                     <a href="#" title="hostname main config">DB Main : <?= $dbconfig["hostname"]?></a><br>
                     <a href="#" title="hostname HIS config">DB HIS : <?= $dbHosconfig["hostname"]?></a><br>
                     <a href="#" title="session id">SESSION ID : <?php echo session_id();?></a>
