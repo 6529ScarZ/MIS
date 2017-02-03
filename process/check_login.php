@@ -9,32 +9,34 @@ function KillMe()
 setTimeout("self.close()",StayAlive * 1000); 
 } 
 </script>
-  <body class="hold-transition skin-green fixed sidebar-mini" onLoad="KillMe();self.focus();window.opener.location.reload();">
+<body class="hold-transition skin-green fixed sidebar-mini" onLoad="KillMe();self.focus();window.opener.location.reload();">
       <section class="content">
 <?php
- //require '../class/dbPDO_mng.php';
+ //require_once '../class/dbPDO_mng.php';
 function __autoload($class_name) {
-    include '../class/'.strtolower($class_name).'.php';
+    include_once '../class/'.$class_name.'.php';
 }
+
 $user_account = md5(trim(filter_input(INPUT_POST, 'user_account',FILTER_SANITIZE_ENCODED)));
 $user_pwd = md5(trim(filter_input(INPUT_POST, 'user_pwd',FILTER_SANITIZE_ENCODED)));
 // using PDO
-
-echo	 "<p>&nbsp;</p>	"; 
-echo	 "<p>&nbsp;</p>	";
-echo "<div class='bs-example'>
+?>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class='bs-example'>
 	  <div class='progress progress-striped active'>
 	  <div class='progress-bar' style='width: 100%'></div>
-</div>";
-echo "<div class='alert alert-dismissable alert-success'>
+</div>
+<div class='alert alert-dismissable alert-success'>
 	  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
 	  <a class='alert-link' target='_blank' href='#'><center>กำลังดำเนินการ</center></a> 
-</div>";
-$dbh=new DbPDO_mng();
+</div>
+<?php
+$dbh=new dbPDO_mng();
 $read="../connection/conn_DB.txt";
 $dbh->para_read($read);
 $dbh->conn_PDO();
-$db=$dbh->getDb();
+//$dbh->getDb();
 $sql = "select u.user_id as id,concat(u.user_fname,' ',u.user_lname) as fullname,u.user_status as Status 
     from user u
            where u.user_account = :user_account AND u.user_pwd = :user_pwd";

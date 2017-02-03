@@ -29,7 +29,7 @@
             $username=  trim(md5(filter_input(INPUT_POST,'user_account')));
             $pass_word=  trim(md5(filter_input(INPUT_POST,'user_pwd')));
             if (trim($_FILES["image"]["name"] != "")) {
-                $upload = new File_Upload("image", "photo");
+                $upload = new file_upload("image", "photo");
                 $image = $upload->upload();
             } else {
                 $image = '';
@@ -39,9 +39,9 @@
         $check_user=$mydata->insert($table, $data);
         if($check_user=false){
         echo "<span class='glyphicon glyphicon-remove'></span>";
-        echo "<a href='?page=content/add_User&ss_id=".$_POST['name']."' >กลับ</a>";
+        echo "<a href='?page=content/add_user&ss_id=".$_POST['name']."' >กลับ</a>";
     } else {
-        echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=?page=content/add_User'>";
+        echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=?page=content/add_user'>";
         }
         }elseif ($method == 'update_user'){
         if(!empty($_POST['user_pwd'])){
@@ -56,7 +56,7 @@
                 include 'function/delet_file.php';
                 fulldelete($location);
             }
-                $upload = new File_Upload("image", "photo");
+                $upload = new file_upload("image", "photo");
                 $image = $upload->upload();
         $data=array($_POST['fname'],$_POST['lname'],$_POST['user_account'],$username,$pass_word,$_POST['admin'],$image);
         $field=array("user_fname","user_lname","user_name","user_account","user_pwd","user_status","photo");
@@ -80,7 +80,7 @@
                 include 'function/delet_file.php';
                 fulldelete($location);
             }
-                $upload = new File_Upload("image", "photo");
+                $upload = new file_upload("image", "photo");
                 $image = $upload->upload();
         $data=array($_POST['fname'],$_POST['lname'],$_POST['user_account'],$username,$_POST['admin'],$image);
         $field=array("user_fname","user_lname","user_name","user_account","user_status","photo");
@@ -96,9 +96,9 @@
         }
         if($check_user=false){
         echo "<span class='glyphicon glyphicon-remove'></span>";
-        echo "<a href='?page=content/add_User&ss_id=".$_POST['name']."' >กลับ</a>";
+        echo "<a href='?page=content/add_user&ss_id=".$_POST['name']."' >กลับ</a>";
     } else {
-        echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=?page=content/add_User'>";
+        echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=?page=content/add_user'>";
         }
     }
         

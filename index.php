@@ -4,7 +4,7 @@
 if (isset($_SESSION['user_mis'])) {
     if (NULL !== (filter_input(INPUT_GET, 'page'))) {
         $page = filter_input(INPUT_GET, 'page');
-        require 'class/render.php';
+        //require 'class/render.php';
         $render_php = new render($page);
         $render = $render_php->getRenderedPHP();
         echo $render;

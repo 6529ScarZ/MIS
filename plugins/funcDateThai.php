@@ -1,6 +1,7 @@
 <?php
 	function DateThai1($strDate1)
 	{
+                date_default_timezone_set('Asia/Bangkok');
 		$strYear = date("Y",strtotime($strDate1))+543;
 		$strMonth= date("n",strtotime($strDate1));
 		$strDay= date("j",strtotime($strDate1));
@@ -11,8 +12,9 @@
 		$strMonthThai=$strMonthCut[$strMonth];
 		return "$strDay $strMonthThai $strYear ";
 	}
-		function DateThai2($strDate2)
+	function DateThai2($strDate2)
 	{
+                date_default_timezone_set('Asia/Bangkok');
 		$strYear = date("Y",strtotime($strDate2))+543;
 		$strMonth= date("n",strtotime($strDate2));
 		$strDay= date("j",strtotime($strDate2));
@@ -23,8 +25,9 @@
 		$strMonthThai=$strMonthCut[$strMonth];
 		return "$strDay $strMonthThai $strYear ";
 	}
-			function DateThai3($strDate3)
+	function DateThai3($strDate3)
 	{
+                date_default_timezone_set('Asia/Bangkok');
 		$strYear = date("Y",strtotime($strDate3))+543;
 		$strMonth= date("n",strtotime($strDate3));
 		$strDay= date("j",strtotime($strDate3));
@@ -37,6 +40,7 @@
 	}
 	function DateTimeThai($strDate)//แสดงวันที่ไทย เวลา
 	{
+                date_default_timezone_set('Asia/Bangkok');
 		$strYear = date("Y",strtotime($strDate))+543;
 		$strMonth= date("n",strtotime($strDate));
 		$strDay= date("j",strtotime($strDate));
@@ -64,6 +68,7 @@ $thai_month_arr=array(
     "12"=>"ธันวาคม"                 
 );
 function thai_date($time){//แสดงวันไทย วันที่ เวลา ทำงานกับtimestamp
+    date_default_timezone_set('Asia/Bangkok');
     global $thai_day_arr,$thai_month_arr;
     $thai_date_return="วัน".$thai_day_arr[date("w",$time)];
     $thai_date_return.= "ที่ ".date("j",$time);
